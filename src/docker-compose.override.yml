@@ -1,7 +1,8 @@
-version: '3.4'
+version: '3.9'
 
 services:
   coreservice.api:
+    container_name: coreservice.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
@@ -9,7 +10,10 @@ services:
     # volumes:
     #   - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
     #   - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+     - ravi-network
   catalogservice.api:
+    container_name: catalogservice.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
@@ -17,8 +21,11 @@ services:
     # volumes:
     #   - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
     #   - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+     - ravi-network
 
   reportservice.api:
+    container_name: reportservice.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
@@ -26,18 +33,20 @@ services:
     # volumes:
     #   - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
     #   - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+     - ravi-network
 
   portainer:
     container_name: portainer
     restart: always
     ports:
       - "9000:9000"
-      - "8080:8000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
 
   ocelotapigateway:
+    container_name: ocelotapigateway
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
@@ -46,3 +55,5 @@ services:
       - reportservice.api
     ports:
       - "5200:80"
+    networks:
+     - ravi-network

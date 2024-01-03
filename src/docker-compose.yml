@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.9'
 
 services:
   portainer:
@@ -23,7 +23,6 @@ services:
       context: .
       dockerfile: Services/ReportService/ReportService.API/Dockerfile
 
-
   ocelotapigateway:
     image: ${DOCKER_REGISTRY-}ocelotapigateway
     build:
@@ -33,3 +32,7 @@ services:
 volumes:
   portainer_data:
     name: portainer_data
+
+networks:
+  ravi-network:
+    external: true
