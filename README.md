@@ -8,3 +8,8 @@
 - Install & start Docker Desktop:  https://docs.docker.com/engine/install/
 
 ### Running the solution
+
+
+
+### REFERENCES
+https://github.com/yusufEk1n/.Net.Microservices-eShop/

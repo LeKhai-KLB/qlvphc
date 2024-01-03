@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+  portainer:
+    image: portainer/portainer-ce
+
+  coreservice.api:
+    image: ${DOCKER_REGISTRY-}coreserviceapi
+    build:
+      context: .
+      dockerfile: Services/CoreService/CoreService.API/Dockerfile
+
+  catalogservice.api:
+    image: ${DOCKER_REGISTRY-}catalogserviceapi
+    build:
+      context: .
+      dockerfile: Services/CatalogService/CatalogService.API/Dockerfile
+
+
+  reportservice.api:
+    image: ${DOCKER_REGISTRY-}reportserviceapi
+    build:
+      context: .
+      dockerfile: Services/ReportService/ReportService.API/Dockerfile
+
+
+  ocelotapigateway:
+    image: ${DOCKER_REGISTRY-}ocelotapigateway
+    build:
+      context: .
+      dockerfile: ApiGateways/OcelotApiGateway/Dockerfile
+
+volumes:
+  portainer_data:
+    name: portainer_data

@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "CoreService.API": {
+    "CatalogService.API": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
@@ -8,7 +8,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5101"
+      "applicationUrl": "http://localhost:5102"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -31,8 +31,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:20132",
-      "sslPort": 44377
+      "applicationUrl": "http://localhost:13656",
+      "sslPort": 44395
     }
   }
 }
