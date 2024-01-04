@@ -17,6 +17,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +33,7 @@
     <None Remove="Views\Product\" />
     <None Remove="Views\Home\" />
     <None Remove="Views\Shared\" />
+    <None Remove="Data\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
@@ -44,5 +47,6 @@
     <Folder Include="Views\Product\" />
     <Folder Include="Views\Home\" />
     <Folder Include="Views\Shared\" />
+    <Folder Include="Data\" />
   </ItemGroup>
 </Project>

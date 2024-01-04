@@ -1,4 +1,5 @@
-﻿using IdentityService.API.Permission;
+﻿using IdentityService.API.Data;
+using IdentityService.API.Permission;
 using IdentityService.API.Seeds;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
