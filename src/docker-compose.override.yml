@@ -5,36 +5,39 @@ services:
     container_name: coreservice.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80;
     ports:
       - "5101:80"
     # volumes:
     #   - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
     #   - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
     networks:
-     - ravi-network
+     - qlvphc-network
   catalogservice.api:
     container_name: catalogservice.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80;
     ports:
       - "5102:80"
     # volumes:
     #   - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
     #   - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
     networks:
-     - ravi-network
+     - qlvphc-network
 
   reportservice.api:
     container_name: reportservice.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80;
     ports:
       - "5103:80"
     # volumes:
     #   - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
     #   - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
     networks:
-     - ravi-network
+     - qlvphc-network
 
   portainer:
     container_name: portainer
@@ -49,6 +52,7 @@ services:
     container_name: ocelotapigateway
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80;
     depends_on:
       - coreservice.api
       - catalogservice.api
@@ -56,4 +60,4 @@ services:
     ports:
       - "5200:80"
     networks:
-     - ravi-network
+     - qlvphc-network
