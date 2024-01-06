@@ -1,5 +1,4 @@
-﻿using System;
-namespace IdentityService.API.Constants
+﻿namespace IdentityService.API.Constants
 {
     public enum Roles
     {

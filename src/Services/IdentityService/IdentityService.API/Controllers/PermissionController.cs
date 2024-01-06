@@ -1,65 +1,62 @@
-﻿using IdentityService.API.Constants;
-using IdentityService.API.Helpers;
-using IdentityService.API.Models;
+﻿using System.Security.Claims;
+using IdentityService.API.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using static IdentityService.API.Constants.Permissions;
 
 namespace IdentityService.API.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
-    public class PermissionController : Controller
+    [Route("api")]
+    [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "SuperAdmin")]
+    public class PermissionsController : ControllerBase
     {
         private readonly RoleManager<IdentityRole> _roleManager;
-
-        public PermissionController(RoleManager<IdentityRole> roleManager)
+        private readonly UserManager<IdentityUser> _userManager;
+        public PermissionsController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
             _roleManager = roleManager;
+            _userManager = userManager;
         }
 
-        public async Task<ActionResult> Index(string roleId)
+        [HttpPost("AddPermission/{Role}")]
+        [Authorize(Permissions.Users.SuperAdminCreate)]
+        public async Task<IActionResult> AddPermissions(string Role)
         {
-            var model = new PermissionViewModel();
-            var allPermissions = new List<RoleClaimsViewModel>();
-            allPermissions.GetPermissions(typeof(Permissions.Products), roleId);
-            var role = await _roleManager.FindByIdAsync(roleId);
-            model.RoleId = roleId;
-            var claims = await _roleManager.GetClaimsAsync(role);
-            var allClaimValues = allPermissions.Select(a => a.Value).ToList();
-            var roleClaimValues = claims.Select(a => a.Value).ToList();
-            var authorizedClaims = allClaimValues.Intersect(roleClaimValues).ToList();
-
-            foreach (var permission in allPermissions)
+            if (Role != null)
             {
-                if (authorizedClaims.Any(a => a == permission.Value))
+                switch (Role)
                 {
-                    permission.Selected = true;
+                    case "SuperAdmin":
+                        var superAdmin = await _roleManager.FindByNameAsync(Role);
+                        await _roleManager.AddClaimAsync(superAdmin, new Claim(CustomClaimTypes.Permission, Permissions.Users.SuperAdminView));
+                        await _roleManager.AddClaimAsync(superAdmin, new Claim(CustomClaimTypes.Permission, Permissions.Users.SuperAdminCreate));
+                        await _roleManager.AddClaimAsync(superAdmin, new Claim(CustomClaimTypes.Permission, Permissions.Users.View));
+                        await _roleManager.AddClaimAsync(superAdmin, new Claim(CustomClaimTypes.Permission, Permissions.Users.Edit));
+                        await _roleManager.AddClaimAsync(superAdmin, new Claim(CustomClaimTypes.Permission, Permissions.Users.Create));
+                        await _roleManager.AddClaimAsync(superAdmin, new Claim(CustomClaimTypes.Permission, Permissions.Users.Delete));
+                        await _roleManager.AddClaimAsync(superAdmin, new Claim(CustomClaimTypes.Permission, Permissions.Users.viewById));
+                        break;
+                    case "Admin":
+                        var Admin = await _roleManager.FindByNameAsync(Role);
+                        await _roleManager.AddClaimAsync(Admin, new Claim(CustomClaimTypes.Permission, Permissions.Users.View));
+                        await _roleManager.AddClaimAsync(Admin, new Claim(CustomClaimTypes.Permission, Permissions.Users.Create));
+                        await _roleManager.AddClaimAsync(Admin, new Claim(CustomClaimTypes.Permission, Permissions.Users.Edit));
+                        await _roleManager.AddClaimAsync(Admin, new Claim(CustomClaimTypes.Permission, Permissions.Users.viewById));
+                        break;
+                    default:
+                        var Guest = await _roleManager.FindByNameAsync("guest");
+                        await _roleManager.AddClaimAsync(Guest, new Claim(CustomClaimTypes.Permission, Permissions.Users.viewById));
+                        break;
                 }
+
+                var userRole = await _userManager.FindByNameAsync(Role);
+
+                return Ok(userRole);
             }
 
-            model.RoleClaims = allPermissions;
-
-            return View(model);
-        }
-
-        public async Task<IActionResult> Update(PermissionViewModel model)
-        {
-            var role = await _roleManager.FindByIdAsync(model.RoleId);
-            var claims = await _roleManager.GetClaimsAsync(role);
-
-            foreach (var claim in claims)
-            {
-                await _roleManager.RemoveClaimAsync(role, claim);
-            }
-
-            var selectedClaims = model.RoleClaims.Where(a => a.Selected).ToList();
-
-            foreach (var claim in selectedClaims)
-            {
-                await _roleManager.AddPermissionClaim(role, claim.Value);
-            }
-
-            return RedirectToAction("Index", new { roleId = model.RoleId });
+            return BadRequest("Role not defined!");
         }
     }
 }

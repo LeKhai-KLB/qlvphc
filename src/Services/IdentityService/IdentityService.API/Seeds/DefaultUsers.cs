@@ -45,6 +45,7 @@ namespace IdentityService.API.Seeds
                     await userManager.AddToRoleAsync(defaultUser, Roles.Admin.ToString());
                     await userManager.AddToRoleAsync(defaultUser, Roles.SuperAdmin.ToString());
                 }
+
                 await roleManager.SeedClaimsForSuperAdmin();
             }
         }
@@ -52,13 +53,16 @@ namespace IdentityService.API.Seeds
         private async static Task SeedClaimsForSuperAdmin(this RoleManager<IdentityRole> roleManager)
         {
             var adminRole = await roleManager.FindByNameAsync("SuperAdmin");
-            await roleManager.AddPermissionClaim(adminRole, "Products");
+            await roleManager.AddPermissionClaim(adminRole, "Users");
         }
 
         public static async Task AddPermissionClaim(this RoleManager<IdentityRole> roleManager, IdentityRole role, string module)
         {
             var allClaims = await roleManager.GetClaimsAsync(role);
             var allPermissions = Permissions.GeneratePermissionsForModule(module);
+            allPermissions.Add(Permissions.Users.SuperAdminView);
+            allPermissions.Add(Permissions.Users.SuperAdminCreate);
+            allPermissions.Add(Permissions.Users.viewById);
             foreach (var permission in allPermissions)
             {
                 if (!allClaims.Any(a => a.Type == "Permission" && a.Value == permission))

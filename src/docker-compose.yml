@@ -10,7 +10,7 @@ services:
       context: .
       dockerfile: Services/CoreService/CoreService.API/Dockerfile
 
-  identity.api:
+  identityservice.api:
     image: ${DOCKER_REGISTRY-}identityserviceapi
     build:
       context: .
