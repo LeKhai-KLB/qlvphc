@@ -26,6 +26,19 @@ services:
     networks:
      - qlvphc-network
 
+  identityservice.api:
+    container_name: identityservice.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80;
+    ports:
+      - "5104:80"
+    # volumes:
+    #   - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+    #   - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    networks:
+     - qlvphc-network
+
   reportservice.api:
     container_name: reportservice.api
     environment:
@@ -56,6 +69,7 @@ services:
     depends_on:
       - coreservice.api
       - catalogservice.api
+      - identityservice.api
       - reportservice.api
     ports:
       - "5200:80"
