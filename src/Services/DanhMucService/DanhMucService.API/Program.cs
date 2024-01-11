@@ -31,16 +31,17 @@ try
     builder.Host.AddAppConfigurations();
     
     builder.Host.UseSerilog(Serilogger.Configure);
-    builder.Services.AddControllers(
-        opt =>
-        {
-            var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-            opt.Filters.Add(new AuthorizeFilter(policy));
-        })
-        .AddJsonOptions(options =>
-        {
-            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-        });
+    builder.Services.AddControllers();
+    // builder.Services.AddControllers(
+    //     opt =>
+    //     {
+    //         var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+    //         opt.Filters.Add(new AuthorizeFilter(policy));
+    //     })
+    //     .AddJsonOptions(options =>
+    //     {
+    //         options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    //     });
     builder.Services.AddScoped<ISerializeService, SerializeService>();
     builder.Services.AddSingleton<Stopwatch>(new Stopwatch());
 
@@ -50,15 +51,15 @@ try
     {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "QLVPHC", Version = "v1" });
 
-        // Define the security scheme
+        // Define the security scheme`
         // TODO
-        // c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-        // {
-        //     Type = SecuritySchemeType.Http,
-        //     BearerFormat = "JWT",
-        //     In = ParameterLocation.Header,
-        //     Scheme = "bearer"
-        // });
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Type = SecuritySchemeType.Http,
+            BearerFormat = "JWT",
+            In = ParameterLocation.Header,
+            Scheme = "bearer"
+        });
 
         // Define the security requirement
         c.AddSecurityRequirement(new OpenApiSecurityRequirement
