@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DanhMucService.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(DanhMucServiceContext))]
-    [Migration("20240111004314_Init")]
+    [Migration("20240111012020_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -36,7 +36,7 @@ namespace DanhMucService.Infrastructure.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValueSql("false");
+                        .HasDefaultValueSql("0");
 
                     b.Property<string>("MaDinhDanh")
                         .IsRequired()
@@ -81,7 +81,7 @@ namespace DanhMucService.Infrastructure.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValueSql("false");
+                        .HasDefaultValueSql("0");
 
                     b.Property<string>("MaDinhDanh")
                         .IsRequired()
@@ -121,7 +121,7 @@ namespace DanhMucService.Infrastructure.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValueSql("false");
+                        .HasDefaultValueSql("0");
 
                     b.Property<string>("MaDinhDanh")
                         .IsRequired()

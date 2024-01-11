@@ -33,7 +33,7 @@ namespace DanhMucService.Infrastructure.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValueSql("false");
+                        .HasDefaultValueSql("0");
 
                     b.Property<string>("MaDinhDanh")
                         .IsRequired()
@@ -78,7 +78,7 @@ namespace DanhMucService.Infrastructure.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValueSql("false");
+                        .HasDefaultValueSql("0");
 
                     b.Property<string>("MaDinhDanh")
                         .IsRequired()
@@ -118,7 +118,7 @@ namespace DanhMucService.Infrastructure.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValueSql("false");
+                        .HasDefaultValueSql("0");
 
                     b.Property<string>("MaDinhDanh")
                         .IsRequired()

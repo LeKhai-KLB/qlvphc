@@ -16,7 +16,7 @@ namespace DanhMucService.Infrastructure.Persistence.Configurations
 
             builder.Property(e => e.IsDeleted)
                     .HasColumnType("bit")
-                    .HasDefaultValueSql("false");
+                    .HasDefaultValueSql("0");
         }
     }
 }
