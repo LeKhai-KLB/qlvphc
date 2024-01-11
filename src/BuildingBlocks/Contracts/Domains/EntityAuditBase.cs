@@ -4,9 +4,9 @@ namespace Contracts.Domains
 {
     public abstract class EntityAuditBase<T> : EntityBase<T>, IAuditable
     {
-        public int CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public int? LastModifiedBy { get; set; }
-        public DateTime? LastModifiedDate { get; set; }
+        public int NguoiTao { get; set; }
+        public DateTime NgayTao { get; set; }
+        public int? NguoiCapNhatCuoi { get; set; }
+        public DateTime? NgayCapNhatCuoi { get; set; }
     }
 }

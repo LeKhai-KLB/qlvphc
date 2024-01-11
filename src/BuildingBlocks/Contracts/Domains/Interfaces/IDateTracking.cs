@@ -2,9 +2,9 @@
 {
     public interface IDateTracking
     {
-        int CreatedBy { get; set; }
-        DateTime CreatedDate { get; set; }
-        int? LastModifiedBy { get; set; }
-        DateTime? LastModifiedDate { get; set; }
+        int NguoiTao { get; set; }
+        DateTime NgayTao { get; set; }
+        int? NguoiCapNhatCuoi { get; set; }
+        DateTime? NgayCapNhatCuoi { get; set; }
     }
 }

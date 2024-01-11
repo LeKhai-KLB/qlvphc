@@ -4,9 +4,9 @@ namespace Contracts.Common.Events
 {
     public abstract class AuditableEventEntity<T> : EventEntity<T>, IAuditable
     {
-        public DateTime CreatedDate { get; set; }
-        public DateTime? LastModifiedDate { get; set; }
-        public int CreatedBy { get; set; }
-        public int? LastModifiedBy { get; set; }
+        public DateTime NgayTao { get; set; }
+        public DateTime? NgayCapNhatCuoi { get; set; }
+        public int NguoiTao { get; set; }
+        public int? NguoiCapNhatCuoi { get; set; }
     }
 }
