@@ -95,8 +95,8 @@ try
 
     using (var scope = app.Services.CreateScope())
     {
-        var eyeClinicContextSeed = scope.ServiceProvider.GetRequiredService<DanhMucServiceContextSeed>();
-        await eyeClinicContextSeed.InitializeAsync();
+        var qlvphcContextSeed = scope.ServiceProvider.GetRequiredService<DanhMucServiceContextSeed>();
+        await qlvphcContextSeed.InitializeAsync();
     }
     app.UseRouting();
     //app.UseHttpsRedirection();
