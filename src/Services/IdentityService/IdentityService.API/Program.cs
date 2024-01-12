@@ -10,6 +10,7 @@ using SendGrid.Helpers.Mail;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using IdentityService.API.Seeds;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -152,6 +153,15 @@ app.UseHttpsRedirection();
 // Seeding logic
 using (var scope = app.Services.CreateScope())
 {
+    var _context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    if (_context != null)
+    {
+        if (_context.Database.GetPendingMigrations().Any())
+        {
+            _context.Database.Migrate();
+        }
+    }
+
     var services = scope.ServiceProvider;
     var loggerFactory = services.GetRequiredService<ILoggerFactory>();
     var logger = loggerFactory.CreateLogger("app");
