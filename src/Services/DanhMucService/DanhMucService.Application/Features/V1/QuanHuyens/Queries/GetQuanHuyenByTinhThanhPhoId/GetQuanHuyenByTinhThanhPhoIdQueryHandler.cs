@@ -25,7 +25,7 @@ public class GetQuanHuyenByTinhThanhPhoIdQueryHandler : IRequestHandler<GetQuanH
     {
         _logger.Information($"BEGIN: {MethodName}");
 
-        var quanHuyenEntities = await _repository.GetByIdAsync(request.Id);
+        var quanHuyenEntities = await _repository.GetQuanHuyenByTinhThanhPhoId(request.Id);
         var quanHuyenDtos = _mapper.Map<IEnumerable<QuanHuyenDto>>(quanHuyenEntities);
 
         _logger.Information($"END: {MethodName}");

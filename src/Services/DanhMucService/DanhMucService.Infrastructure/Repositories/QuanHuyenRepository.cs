@@ -4,6 +4,7 @@ using DanhMucService.Domain.Entities;
 using DanhMucService.Infrastructure.Persistence;
 using Infrastructure.Common;
 using Infrastructure.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace DanhMucService.Infrastructure.Repositories;
 
@@ -15,9 +16,9 @@ public class QuanHuyenRepository : RepositoryBase<QuanHuyen, int, DanhMucService
     }
 
     
-    public async Task<IEnumerable<QuanHuyen>> GetQuanHuyen()
+    public async Task<IEnumerable<QuanHuyen>> GetQuanHuyenByTinhThanhPhoId(int id)
     {
-        var result = FindAll().OrderBy(x => x.Ten);
+        var result = FindByCondition(x => x.TinhThanhPhoId.Equals(id)).OrderBy(x => x.Ten);
 
         return result;
     }
@@ -35,5 +36,11 @@ public class QuanHuyenRepository : RepositoryBase<QuanHuyen, int, DanhMucService
     public async Task DeleteQuanHuyen(QuanHuyen entity)
     {
         await DeleteAsync(entity);
+    }
+
+    public async Task<bool> CheckExistMaDinhDanhQuanHuyen(string maDinhDanh)
+    {
+        var quanHuyen = await FindByCondition(x => x.MaDinhDanh.Equals(maDinhDanh)).ToListAsync();
+        return quanHuyen != null && quanHuyen.Any();
     }
 }

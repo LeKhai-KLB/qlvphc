@@ -46,9 +46,9 @@ public class TinhThanhPhoRepository : RepositoryBase<TinhThanhPho, int, DanhMucS
         await DeleteAsync(entity);
     }
 
-    public async Task<bool> CheckExistMaDiaDanhTinhThanhPho(string maDiaDanh)
+    public async Task<bool> CheckExistMaDinhDanhTinhThanhPho(string maDinhDanh)
     {
-        var tinhThanhPho = await FindByCondition(x => x.MaDinhDanh.Equals(maDiaDanh)).ToListAsync();
+        var tinhThanhPho = await FindByCondition(x => x.MaDinhDanh.Equals(maDinhDanh)).ToListAsync();
         return tinhThanhPho != null && tinhThanhPho.Any();
     }
 }

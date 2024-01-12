@@ -25,7 +25,7 @@ public class GetXaPhuongByQuanHuyenIdQueryHandler : IRequestHandler<GetXaPhuongB
     {
         _logger.Information($"BEGIN: {MethodName}");
 
-        var xaPhuongEntities = await _repository.GetByIdAsync(request.Id);
+        var xaPhuongEntities = await _repository.GetXaPhuongByQuanHuyenId(request.Id);
         var xaPhuongDtos = _mapper.Map<IEnumerable<XaPhuongDto>>(xaPhuongEntities);
 
         _logger.Information($"END: {MethodName}");

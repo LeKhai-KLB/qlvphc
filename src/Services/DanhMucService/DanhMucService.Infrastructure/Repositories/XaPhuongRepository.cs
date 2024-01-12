@@ -4,6 +4,7 @@ using DanhMucService.Domain.Entities;
 using DanhMucService.Infrastructure.Persistence;
 using Infrastructure.Common;
 using Infrastructure.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace DanhMucService.Infrastructure.Repositories;
 
@@ -15,9 +16,9 @@ public class XaPhuongRepository : RepositoryBase<XaPhuong, int, DanhMucServiceCo
     }
 
     
-    public async Task<IEnumerable<XaPhuong>> GetXaPhuong()
+    public async Task<IEnumerable<XaPhuong>> GetXaPhuongByQuanHuyenId(int id)
     {
-        var result = FindAll().OrderBy(x => x.Ten);
+        var result = FindByCondition(x => x.QuanHuyenId.Equals(id)).OrderBy(x => x.Ten);
 
         return result;
     }
@@ -35,5 +36,11 @@ public class XaPhuongRepository : RepositoryBase<XaPhuong, int, DanhMucServiceCo
     public async Task DeleteXaPhuong(XaPhuong entity)
     {
         await DeleteAsync(entity);
+    }
+
+    public async Task<bool> CheckExistMaDinhDanhXaPhuong(string maDinhDanh)
+    {
+        var xaPhuong = await FindByCondition(x => x.MaDinhDanh.Equals(maDinhDanh)).ToListAsync();
+        return xaPhuong != null && xaPhuong.Any();
     }
 }

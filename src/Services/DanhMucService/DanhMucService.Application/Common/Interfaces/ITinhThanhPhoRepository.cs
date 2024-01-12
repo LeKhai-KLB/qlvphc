@@ -12,6 +12,6 @@ namespace DanhMucService.Application.Common.Interfaces
         Task CreateTinhThanhPho(TinhThanhPho request);
         Task UpdateTinhThanhPho(TinhThanhPho request);
         Task DeleteTinhThanhPho(TinhThanhPho entity);
-        Task<bool> CheckExistMaDiaDanhTinhThanhPho(string maDiaDanh);
+        Task<bool> CheckExistMaDinhDanhTinhThanhPho(string maDinhDanh);
     }
 }

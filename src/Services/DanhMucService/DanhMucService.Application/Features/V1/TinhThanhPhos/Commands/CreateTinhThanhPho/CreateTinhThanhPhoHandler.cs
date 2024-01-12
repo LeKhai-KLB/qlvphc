@@ -28,7 +28,7 @@ public class CreateTinhThanhPhoHandler : IRequestHandler<CreateTinhThanhPhoComma
 
         var tinhThanhPho = _mapper.Map<TinhThanhPho>(request);
 
-        var existMaDinhDanh = await _repository.CheckExistMaDiaDanhTinhThanhPho(request.MaDinhDanh);
+        var existMaDinhDanh = await _repository.CheckExistMaDinhDanhTinhThanhPho(request.MaDinhDanh);
         if (existMaDinhDanh)
         {
             return new ApiErrorResult<TinhThanhPhoDto>("Ma Dinh Danh exists.");
