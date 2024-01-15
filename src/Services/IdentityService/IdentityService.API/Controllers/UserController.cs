@@ -1,7 +1,12 @@
 ﻿using AutoMapper;
-using IdentityService.API.Constants;
-using IdentityService.API.Models.UserModels;
-using IdentityService.API.Services;
+using IdentityService.Application.Common.Interfaces;
+using IdentityService.Application.Features.V1.Users.Commands.CreateUser;
+using IdentityService.Application.Features.V1.Users.Commands.DeleteUser;
+using IdentityService.Application.Features.V1.Users.Commands.UpdateUser;
+using IdentityService.Application.Features.V1.Users.Queries.GetUserbyId;
+using IdentityService.Application.Features.V1.Users.Queries.GetUsers;
+using IdentityService.Domain.Constants;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,15 +17,15 @@ namespace IdentityService.API.Controllers
     [Authorize(AuthenticationSchemes = "Bearer")]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _user;
         private readonly IMapper _mapper;
         private readonly IAuthService _auth;
+        private readonly IMediator _mediator;
 
-        public UserController(IUserService userService, IMapper mapper, IAuthService authService)
+        public UserController(IMediator mediator, IMapper mapper, IAuthService authService)
         {
-            _user = userService;
             _mapper = mapper;
             _auth = authService;
+            _mediator = mediator ?? throw new ArgumentException(nameof(mediator));
         }
 
         // GET: api/Users
@@ -28,9 +33,9 @@ namespace IdentityService.API.Controllers
         [Authorize(Permissions.Users.SuperAdminView)]
         public async Task<IActionResult> GetUsers()
         {
-            var AllUser = await _user.GetUsers();
-
-            return Ok(AllUser);
+            var query = new GetUsersQuery();
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         // GET: api/Users/5
@@ -38,48 +43,30 @@ namespace IdentityService.API.Controllers
         [Authorize(Permissions.Users.viewById)]
         public async Task<IActionResult> GetUserbyId(string id)
         {
-            var userById = await _user.GetUserbyId(id);
-
-            if (userById == null)
-            {
-                return NotFound("User for the $`{id}` not found!");
-            }
-
-            return Ok(userById);
+            var query = new GetUserbyIdQuery(id);
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         // PUT: api/Users/5
         [Authorize(Permissions.Users.Edit)]
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(string id, UpdateUser user)
+        public async Task<IActionResult> PutUser(string id, UpdateUserCommand command)
         {
-            if (user != null)
-            {
-                var updateUser = await _user.GetUserbyId(id);
-                if (updateUser != null)
-                {
-                    var userUpdated = await _user.UpdateUser(id, user);
-
-                    return Ok(userUpdated);
-                }
-            }
-
-            return BadRequest();
+            command.SetId(id);
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
         // POST: api/Users
         [Authorize(Permissions.Users.Create)]
         [HttpPost]
-        public async Task<IActionResult> PostUser([FromBody] RegisterUser user)
+        public async Task<IActionResult> PostUser([FromBody] CreateUserCommand command)
         {
             if (ModelState.IsValid)
             {
-                var result = await _auth.RegisterUser(user);
-
-                if (result.IsSuccess)
-                    return Ok(result);
-
-                return BadRequest(result);
+                var result = await _mediator.Send(command);
+                return Ok(result);
             }
 
             return BadRequest("Some properties are not valid"); // Status code: 400
@@ -90,20 +77,9 @@ namespace IdentityService.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
-            var user = await _user.GetUserbyId(id);
-            if (user == null)
-            {
-                return NotFound("User Not Found");
-            }
-
-            await _user.DeleteUser(id);
-
-            return Content("User Deleted");
-        }
-
-        private bool UserExists(string id)
-        {
-            return _user.IsExist(id);
+            var command = new DeleteUserCommand(id);
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
     }
 }

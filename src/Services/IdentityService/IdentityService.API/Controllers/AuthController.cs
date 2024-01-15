@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using IdentityService.API.Models.AuthModels;
-using IdentityService.API.Services;
+using IdentityService.Application.Common.Interfaces;
+using IdentityService.Application.Common.Models.AuthModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

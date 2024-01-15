@@ -1,5 +1,5 @@
-﻿using IdentityService.API.Constants;
-using IdentityService.API.Models.UserModels;
+﻿using IdentityService.Application.Common.Models.UserModels;
+using IdentityService.Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

@@ -1,9 +1,9 @@
 ﻿using System.Security.Claims;
-using IdentityService.API.Constants;
+using IdentityService.Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using static IdentityService.API.Constants.Permissions;
+using static IdentityService.Domain.Constants.Permissions;
 
 namespace IdentityService.API.Controllers
 {
