@@ -39,6 +39,8 @@ public class CatalogServiceContext : DbContext
     public DbSet<TinhThanhPho> TinhThanhPhos { get; set; }
     public DbSet<QuanHuyen> QuanHuyens { get; set; }
     public DbSet<XaPhuong> XaPhuongs { get; set; }
+    public DbSet<LinhVucXuPhat> LinhVucXuPhats { get; set; }
+    public DbSet<ChiTietLinhVucXuPhat> ChiTietLinhVucXuPhats { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -17,4 +17,46 @@
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Features\V1\LinhVucXuPhats\" />
+    <None Remove="Features\V1\LinhVucXuPhats\Commands\" />
+    <None Remove="Features\V1\LinhVucXuPhats\Queries\" />
+    <None Remove="Features\V1\LinhVucXuPhats\Queries\GetLinhVucXuPhatById\" />
+    <None Remove="Features\V1\LinhVucXuPhats\Commands\CreateLinhVucXuPhat\" />
+    <None Remove="Common\Models\LinhVucXuPhats\" />
+    <None Remove="Features\V1\LinhVucXuPhats\Common\" />
+    <None Remove="Features\V1\LinhVucXuPhats\Commands\UpdateLinhVucXuPhat\" />
+    <None Remove="Features\V1\LinhVucXuPhats\Commands\DeleteLinhVucXuPhat\" />
+    <None Remove="Common\Models\ChiTietLinhVucXuPhats\" />
+    <None Remove="Features\V1\ChiTietLinhVucXuPhats\" />
+    <None Remove="Features\V1\ChiTietLinhVucXuPhats\Commands\" />
+    <None Remove="Features\V1\ChiTietLinhVucXuPhats\Common\" />
+    <None Remove="Features\V1\ChiTietLinhVucXuPhats\Queries\" />
+    <None Remove="Features\V1\ChiTietLinhVucXuPhats\Commands\CreateChiTietLinhVucXuPhat\" />
+    <None Remove="Features\V1\ChiTietLinhVucXuPhats\Commands\UpdateChiTietLinhVucXuPhat\" />
+    <None Remove="Features\V1\ChiTietLinhVucXuPhats\Commands\DeleteChiTietLinhVucXuPhat\" />
+    <None Remove="Features\V1\ChiTietLinhVucXuPhats\Queries\GetChiTietLinhVucXuPhatById\" />
+    <None Remove="Features\V1\ChiTietLinhVucXuPhats\Queries\GetChiTietByLinhVucXuPhatId\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Features\V1\LinhVucXuPhats\" />
+    <Folder Include="Features\V1\LinhVucXuPhats\Commands\" />
+    <Folder Include="Features\V1\LinhVucXuPhats\Queries\" />
+    <Folder Include="Features\V1\LinhVucXuPhats\Queries\GetLinhVucXuPhatById\" />
+    <Folder Include="Features\V1\LinhVucXuPhats\Commands\CreateLinhVucXuPhat\" />
+    <Folder Include="Common\Models\LinhVucXuPhats\" />
+    <Folder Include="Features\V1\LinhVucXuPhats\Common\" />
+    <Folder Include="Features\V1\LinhVucXuPhats\Commands\UpdateLinhVucXuPhat\" />
+    <Folder Include="Features\V1\LinhVucXuPhats\Commands\DeleteLinhVucXuPhat\" />
+    <Folder Include="Common\Models\ChiTietLinhVucXuPhats\" />
+    <Folder Include="Features\V1\ChiTietLinhVucXuPhats\" />
+    <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Commands\" />
+    <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Common\" />
+    <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Queries\" />
+    <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Commands\CreateChiTietLinhVucXuPhat\" />
+    <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Commands\UpdateChiTietLinhVucXuPhat\" />
+    <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Commands\DeleteChiTietLinhVucXuPhat\" />
+    <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Queries\GetChiTietLinhVucXuPhatById\" />
+    <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Queries\GetChiTietByLinhVucXuPhatId\" />
+  </ItemGroup>
 </Project>

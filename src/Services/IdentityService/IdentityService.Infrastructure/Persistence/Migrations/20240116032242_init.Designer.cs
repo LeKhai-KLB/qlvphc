@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace IdentityService.Infrastructure.Permission.Migrations
+namespace IdentityService.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240115094807_init")]
+    [Migration("20240116032242_init")]
     partial class init
     {
         /// <inheritdoc />
