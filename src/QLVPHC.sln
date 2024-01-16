@@ -25,11 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReportService", "ReportServ
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{26C967DC-29C7-487B-9584-CC5B42CEE607}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CatalogService", "CatalogService", "{F92E809A-67C7-494F-A901-9F684E9F2361}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreService.API", "Services\CoreService\CoreService.API\CoreService.API.csproj", "{B936844B-EB20-4E24-9D59-E771A9D7223C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogService.API", "Services\CatalogService\CatalogService.API\CatalogService.API.csproj", "{021BD795-9E9D-49D3-8B78-CFFFD9876357}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportService.API", "Services\ReportService\ReportService.API\ReportService.API.csproj", "{60098E1E-19BE-4481-AE8F-E26B8F673DAA}"
 EndProject
@@ -55,15 +51,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{4E8D41
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "BuildingBlocks\Shared\Shared.csproj", "{5EAD94F9-9683-46AD-9B16-007D877916EF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DanhMucService", "DanhMucService", "{9787E257-863A-4445-87A9-C8A9019BA1C9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CatalogService", "CatalogService", "{9787E257-863A-4445-87A9-C8A9019BA1C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanhMucService.API", "Services\DanhMucService\DanhMucService.API\DanhMucService.API.csproj", "{9CBA93AE-74E3-4856-883B-82F6C362ED45}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.API", "Services\CatalogService\CatalogService.API\CatalogService.API.csproj", "{9CBA93AE-74E3-4856-883B-82F6C362ED45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanhMucService.Application", "Services\DanhMucService\DanhMucService.Application\DanhMucService.Application.csproj", "{0FFED78B-905E-4322-9837-3F2F383A1670}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Application", "Services\CatalogService\CatalogService.Application\CatalogService.Application.csproj", "{0FFED78B-905E-4322-9837-3F2F383A1670}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanhMucService.Domain", "Services\DanhMucService\DanhMucService.Domain\DanhMucService.Domain.csproj", "{5C452C44-7998-4A18-8C42-BA66F03103B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Domain", "Services\CatalogService\CatalogService.Domain\CatalogService.Domain.csproj", "{5C452C44-7998-4A18-8C42-BA66F03103B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanhMucService.Infrastructure", "Services\DanhMucService\DanhMucService.Infrastructure\DanhMucService.Infrastructure.csproj", "{D88D3CF9-4F76-4047-90D0-DE0C7313DF50}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Infrastructure", "Services\CatalogService\CatalogService.Infrastructure\CatalogService.Infrastructure.csproj", "{D88D3CF9-4F76-4047-90D0-DE0C7313DF50}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService.API", "Services\IdentityService\IdentityService.API\IdentityService.API.csproj", "{E489D80F-DE1B-4DB4-AF7E-AF986DFA62E6}"
 EndProject
@@ -83,10 +79,6 @@ Global
 		{B936844B-EB20-4E24-9D59-E771A9D7223C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B936844B-EB20-4E24-9D59-E771A9D7223C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B936844B-EB20-4E24-9D59-E771A9D7223C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{021BD795-9E9D-49D3-8B78-CFFFD9876357}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{021BD795-9E9D-49D3-8B78-CFFFD9876357}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{021BD795-9E9D-49D3-8B78-CFFFD9876357}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{021BD795-9E9D-49D3-8B78-CFFFD9876357}.Release|Any CPU.Build.0 = Release|Any CPU
 		{60098E1E-19BE-4481-AE8F-E26B8F673DAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{60098E1E-19BE-4481-AE8F-E26B8F673DAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60098E1E-19BE-4481-AE8F-E26B8F673DAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -163,9 +155,7 @@ Global
 		{67023BAF-5072-41E0-AE09-AB43F3DDB9D4} = {0F8B360A-8A81-413A-87F9-A0E091293284}
 		{FB6CE787-EB2E-4BE7-892E-30A219FA1363} = {0F8B360A-8A81-413A-87F9-A0E091293284}
 		{26C967DC-29C7-487B-9584-CC5B42CEE607} = {0F8B360A-8A81-413A-87F9-A0E091293284}
-		{F92E809A-67C7-494F-A901-9F684E9F2361} = {0F8B360A-8A81-413A-87F9-A0E091293284}
 		{B936844B-EB20-4E24-9D59-E771A9D7223C} = {67023BAF-5072-41E0-AE09-AB43F3DDB9D4}
-		{021BD795-9E9D-49D3-8B78-CFFFD9876357} = {F92E809A-67C7-494F-A901-9F684E9F2361}
 		{60098E1E-19BE-4481-AE8F-E26B8F673DAA} = {FB6CE787-EB2E-4BE7-892E-30A219FA1363}
 		{F2F0BD24-F202-40CA-85BB-53B7EB94B42A} = {15CB584C-60F0-4045-A61F-56B41EC0A7EE}
 		{1879D15B-02A6-4969-A786-6819628391CF} = {F2F0BD24-F202-40CA-85BB-53B7EB94B42A}
