@@ -5,10 +5,10 @@ using IdentityService.Application.Features.V1.Users.Commands.DeleteUser;
 using IdentityService.Application.Features.V1.Users.Commands.UpdateUser;
 using IdentityService.Application.Features.V1.Users.Queries.GetUserbyId;
 using IdentityService.Application.Features.V1.Users.Queries.GetUsers;
-using IdentityService.Domain.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Common.Constants;
 
 namespace IdentityService.API.Controllers
 {
@@ -40,7 +40,7 @@ namespace IdentityService.API.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        [Authorize(Permissions.Users.viewById)]
+        [Authorize(Permissions.Users.ViewById)]
         public async Task<IActionResult> GetUserbyId(string id)
         {
             var query = new GetUserbyIdQuery(id);

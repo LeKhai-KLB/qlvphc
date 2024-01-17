@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
-using static IdentityService.Domain.Constants.Permissions;
+using static Shared.Common.Constants.Permissions;
 
 namespace IdentityService.Infrastructure.Permission
 {

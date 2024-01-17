@@ -16,9 +16,11 @@ using CatalogService.Application;
 using CatalogService.Infrastructure;
 using CatalogService.Infrastructure.Persistence;
 using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
+.WriteTo.Console()
     .CreateBootstrapLogger();
 
 var builder = WebApplication.CreateBuilder(args);
@@ -100,7 +102,29 @@ try
     }
     app.UseRouting();
     //app.UseHttpsRedirection();
-    app.UseAuthentication();
+
+    //Authentication
+    builder.Services.AddAuthentication(x =>
+    {
+        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(option =>
+    {
+        option.SaveToken = true;
+        option.TokenValidationParameters = new TokenValidationParameters
+        {
+            SaveSigninToken = true,
+            ValidateIssuer = true,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],       // Jwt:Issuer - config value 
+            ValidAudience = builder.Configuration["Jwt:Issuer"],     // Jwt:Issuer - config value 
+            IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])) // Jwt:Key - config value 
+        };
+    });
+
     app.UseAuthorization();
 
     app.UseEndpoints(endpoints =>

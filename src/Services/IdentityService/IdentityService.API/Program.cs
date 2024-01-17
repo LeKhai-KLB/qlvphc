@@ -14,8 +14,8 @@ using IdentityService.Application;
 using IdentityService.Infrastructure.Permission;
 using IdentityService.Application.Common.Interfaces;
 using IdentityService.API.Services;
-using IdentityService.Domain.Constants;
 using IdentityService.API.Seeds;
+using Shared.Common.Constants;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -87,9 +87,9 @@ try
             builder.AddRequirements(new PermissionRequirement(Permissions.Users.Delete));
         });
 
-        options.AddPolicy(Permissions.Users.viewById, builder =>
+        options.AddPolicy(Permissions.Users.ViewById, builder =>
         {
-            builder.AddRequirements(new PermissionRequirement(Permissions.Users.viewById));
+            builder.AddRequirements(new PermissionRequirement(Permissions.Users.ViewById));
         });
 
         options.AddPolicy(Permissions.Users.SuperAdminView, builder =>

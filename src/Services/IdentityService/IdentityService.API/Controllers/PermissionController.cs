@@ -1,9 +1,9 @@
 ﻿using System.Security.Claims;
-using IdentityService.Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using static IdentityService.Domain.Constants.Permissions;
+using Shared.Common.Constants;
+using static Shared.Common.Constants.Permissions;
 
 namespace IdentityService.API.Controllers
 {
@@ -36,18 +36,18 @@ namespace IdentityService.API.Controllers
                         await _roleManager.AddClaimAsync(superAdmin, new Claim(CustomClaimTypes.Permission, Permissions.Users.Edit));
                         await _roleManager.AddClaimAsync(superAdmin, new Claim(CustomClaimTypes.Permission, Permissions.Users.Create));
                         await _roleManager.AddClaimAsync(superAdmin, new Claim(CustomClaimTypes.Permission, Permissions.Users.Delete));
-                        await _roleManager.AddClaimAsync(superAdmin, new Claim(CustomClaimTypes.Permission, Permissions.Users.viewById));
+                        await _roleManager.AddClaimAsync(superAdmin, new Claim(CustomClaimTypes.Permission, Permissions.Users.ViewById));
                         break;
                     case "Admin":
                         var Admin = await _roleManager.FindByNameAsync(Role);
                         await _roleManager.AddClaimAsync(Admin, new Claim(CustomClaimTypes.Permission, Permissions.Users.View));
                         await _roleManager.AddClaimAsync(Admin, new Claim(CustomClaimTypes.Permission, Permissions.Users.Create));
                         await _roleManager.AddClaimAsync(Admin, new Claim(CustomClaimTypes.Permission, Permissions.Users.Edit));
-                        await _roleManager.AddClaimAsync(Admin, new Claim(CustomClaimTypes.Permission, Permissions.Users.viewById));
+                        await _roleManager.AddClaimAsync(Admin, new Claim(CustomClaimTypes.Permission, Permissions.Users.ViewById));
                         break;
                     default:
                         var Guest = await _roleManager.FindByNameAsync("guest");
-                        await _roleManager.AddClaimAsync(Guest, new Claim(CustomClaimTypes.Permission, Permissions.Users.viewById));
+                        await _roleManager.AddClaimAsync(Guest, new Claim(CustomClaimTypes.Permission, Permissions.Users.ViewById));
                         break;
                 }
 

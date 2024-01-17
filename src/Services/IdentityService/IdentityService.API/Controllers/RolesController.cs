@@ -1,9 +1,9 @@
 ﻿using IdentityService.Application.Common.Models.UserModels;
-using IdentityService.Domain.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Shared.Common.Constants;
 
 namespace IdentityService.API.Controllers
 {
@@ -73,7 +73,7 @@ namespace IdentityService.API.Controllers
 
         // /api/userRoles/{id}
         [HttpGet("userRoles/{userId}")]
-        [Authorize(Permissions.Users.viewById)]
+        [Authorize(Permissions.Users.ViewById)]
         public async Task<IActionResult> GetUserRolebyId(string userId)
         {
             var existingUser = await _userManager.FindByIdAsync(userId);

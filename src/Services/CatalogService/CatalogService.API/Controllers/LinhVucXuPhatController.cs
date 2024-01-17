@@ -9,11 +9,14 @@ using CatalogService.Application.Features.V1.LinhVucXuPhats.Commands.DeleteLinhV
 using CatalogService.Application.Features.V1.LinhVucXuPhats.Commands.UpdateLinhVucXuPhat;
 using CatalogService.Application.Features.V1.LinhVucXuPhats.Commands.CreateLinhVucXuPhat;
 using CatalogService.Application.Features.V1.LinhVucXuPhats.Queries.GetLinhVucXuPhatById;
+using Microsoft.AspNetCore.Authorization;
+using Shared.Common.Constants;
 
 namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class LinhVucXuPhatController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -35,6 +38,7 @@ public class LinhVucXuPhatController : ControllerBase
 
     [HttpGet(Name = RouteNames.GetLinhVucXuPhatById)]
     [ProducesResponseType(typeof(IEnumerable<LinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.LinhVucXuPhats.ViewById)]
     public async Task<ActionResult<IEnumerable<LinhVucXuPhatDto>>> GetLinhVucXuPhatById([FromQuery] int id)
     {
         var query = new GetLinhVucXuPhatByIdQuery(id);
@@ -44,6 +48,7 @@ public class LinhVucXuPhatController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateLinhVucXuPhat)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.LinhVucXuPhats.Create)]
     public async Task<ActionResult<ApiResult<LinhVucXuPhatDto>>> CreateLinhVucXuPhat([FromBody] CreateLinhVucXuPhatDto model)
     {
         var command = _mapper.Map<CreateLinhVucXuPhatCommand>(model);
@@ -53,6 +58,7 @@ public class LinhVucXuPhatController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateLinhVucXuPhat)]
     [ProducesResponseType(typeof(ApiResult<LinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.LinhVucXuPhats.Edit)]
     public async Task<ActionResult<ApiResult<LinhVucXuPhatDto>>> UpdateLinhVucXuPhat([Required] int id, [FromBody] UpdateLinhVucXuPhatCommand command)
     {
         command.SetId(id);
@@ -61,6 +67,7 @@ public class LinhVucXuPhatController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteLinhVucXuPhat)]
+    [Authorize(Permissions.LinhVucXuPhats.Delete)]
     public async Task<ActionResult<bool>> DeleteLinhVucXuPhat([Required] int id)
     {
         var command = new DeleteLinhVucXuPhatCommand(id);

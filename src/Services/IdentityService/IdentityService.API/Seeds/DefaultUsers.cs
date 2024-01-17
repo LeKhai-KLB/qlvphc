@@ -1,5 +1,6 @@
 ﻿using IdentityService.Domain.Constants;
 using Microsoft.AspNetCore.Identity;
+using Shared.Common.Constants;
 using System.Security.Claims;
 
 namespace IdentityService.API.Seeds;
@@ -23,6 +24,8 @@ public static class DefaultUsers
                 await userManager.CreateAsync(defaultUser, "123Pa$$word!");
                 await userManager.AddToRoleAsync(defaultUser, Roles.Basic.ToString());
             }
+
+            await roleManager.SeedClaimsForRoles(Roles.Basic.ToString());
         }
     }
 
@@ -46,23 +49,22 @@ public static class DefaultUsers
                 await userManager.AddToRoleAsync(defaultUser, Roles.SuperAdmin.ToString());
             }
 
-            await roleManager.SeedClaimsForSuperAdmin();
+            await roleManager.SeedClaimsForRoles(Roles.SuperAdmin.ToString());
         }
     }
 
-    private async static Task SeedClaimsForSuperAdmin(this RoleManager<IdentityRole> roleManager)
+    private async static Task SeedClaimsForRoles(this RoleManager<IdentityRole> roleManager, string roleName)
     {
-        var adminRole = await roleManager.FindByNameAsync("SuperAdmin");
-        await roleManager.AddPermissionClaim(adminRole, "Users");
+        var role = await roleManager.FindByNameAsync(roleName);
+        await roleManager.AddPermissionClaim(role, nameof(Permissions.Users));
+        await roleManager.AddPermissionClaim(role, nameof(Permissions.LinhVucXuPhats));
     }
 
     public static async Task AddPermissionClaim(this RoleManager<IdentityRole> roleManager, IdentityRole role, string module)
     {
         var allClaims = await roleManager.GetClaimsAsync(role);
-        var allPermissions = Permissions.GeneratePermissionsForModule(module);
-        allPermissions.Add(Permissions.Users.SuperAdminView);
-        allPermissions.Add(Permissions.Users.SuperAdminCreate);
-        allPermissions.Add(Permissions.Users.viewById);
+        var allPermissions = Permissions.GeneratePermissionsForModule(role.Name, module);
+
         foreach (var permission in allPermissions)
         {
             if (!allClaims.Any(a => a.Type == "Permission" && a.Value == permission))
