@@ -9,5 +9,9 @@ public class VanBanLienQuanConfiguration : IEntityTypeConfiguration<VanBanLienQu
     public void Configure(EntityTypeBuilder<VanBanLienQuan> builder)
     {
         builder.ToTable(typeof(VanBanLienQuan).Name);
+
+        builder.Property(e => e.NgayBanHanh)
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("GETDATE()");
     }
 }

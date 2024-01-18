@@ -37,6 +37,33 @@
     <None Remove="Features\V1\ChiTietLinhVucXuPhats\Commands\DeleteChiTietLinhVucXuPhat\" />
     <None Remove="Features\V1\ChiTietLinhVucXuPhats\Queries\GetChiTietLinhVucXuPhatById\" />
     <None Remove="Features\V1\ChiTietLinhVucXuPhats\Queries\GetChiTietByLinhVucXuPhatId\" />
+    <None Remove="Features\V1\LinhVucXuPhats\Queries\GetAllLinhVucXuPhat\" />
+    <None Remove="Common\Models\LoaiVanBans\" />
+    <None Remove="Common\Models\CoQuanBanHanhs\" />
+    <None Remove="Common\Models\VanBanPhapLuats\" />
+    <None Remove="Common\Models\VanBanLienQuans\" />
+    <None Remove="Features\V1\LoaiVanBans\" />
+    <None Remove="Features\V1\CoQuanBanHanhs\" />
+    <None Remove="Features\V1\VanBanPhapLuats\" />
+    <None Remove="Features\V1\VanBanLienQuans\" />
+    <None Remove="Features\V1\LoaiVanBans\Commands\" />
+    <None Remove="Features\V1\LoaiVanBans\Common\" />
+    <None Remove="Features\V1\LoaiVanBans\Queries\" />
+    <None Remove="Features\V1\CoQuanBanHanhs\Commands\" />
+    <None Remove="Features\V1\CoQuanBanHanhs\Common\" />
+    <None Remove="Features\V1\CoQuanBanHanhs\Queries\" />
+    <None Remove="Features\V1\VanBanLienQuans\Commands\" />
+    <None Remove="Features\V1\VanBanLienQuans\Common\" />
+    <None Remove="Features\V1\VanBanLienQuans\Queries\" />
+    <None Remove="Features\V1\VanBanPhapLuats\Commands\" />
+    <None Remove="Features\V1\VanBanPhapLuats\Common\" />
+    <None Remove="Features\V1\VanBanPhapLuats\Queries\" />
+    <None Remove="Features\V1\CoQuanBanHanhs\Queries\GetCoQuanBanHanhById\" />
+    <None Remove="Features\V1\CoQuanBanHanhs\Queries\GetAllCoQuanBanHanh\" />
+    <None Remove="Features\V1\CoQuanBanHanhs\Commands\CreateCoQuanBanHanh\" />
+    <None Remove="Features\V1\CoQuanBanHanhs\Commands\UpdateCoQuanBanHanh\" />
+    <None Remove="Features\V1\CoQuanBanHanhs\Commands\DeleteCoQuanBanHanh\" />
+    <None Remove="Features\V1\LoaiVanBans\Commands\CreateLoaiVanBanCommand\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\V1\LinhVucXuPhats\" />
@@ -58,5 +85,32 @@
     <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Commands\DeleteChiTietLinhVucXuPhat\" />
     <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Queries\GetChiTietLinhVucXuPhatById\" />
     <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Queries\GetChiTietByLinhVucXuPhatId\" />
+    <Folder Include="Features\V1\LinhVucXuPhats\Queries\GetAllLinhVucXuPhat\" />
+    <Folder Include="Common\Models\LoaiVanBans\" />
+    <Folder Include="Common\Models\CoQuanBanHanhs\" />
+    <Folder Include="Common\Models\VanBanPhapLuats\" />
+    <Folder Include="Common\Models\VanBanLienQuans\" />
+    <Folder Include="Features\V1\LoaiVanBans\" />
+    <Folder Include="Features\V1\CoQuanBanHanhs\" />
+    <Folder Include="Features\V1\VanBanPhapLuats\" />
+    <Folder Include="Features\V1\VanBanLienQuans\" />
+    <Folder Include="Features\V1\LoaiVanBans\Commands\" />
+    <Folder Include="Features\V1\LoaiVanBans\Common\" />
+    <Folder Include="Features\V1\LoaiVanBans\Queries\" />
+    <Folder Include="Features\V1\CoQuanBanHanhs\Commands\" />
+    <Folder Include="Features\V1\CoQuanBanHanhs\Common\" />
+    <Folder Include="Features\V1\CoQuanBanHanhs\Queries\" />
+    <Folder Include="Features\V1\VanBanLienQuans\Commands\" />
+    <Folder Include="Features\V1\VanBanLienQuans\Common\" />
+    <Folder Include="Features\V1\VanBanLienQuans\Queries\" />
+    <Folder Include="Features\V1\VanBanPhapLuats\Commands\" />
+    <Folder Include="Features\V1\VanBanPhapLuats\Common\" />
+    <Folder Include="Features\V1\VanBanPhapLuats\Queries\" />
+    <Folder Include="Features\V1\CoQuanBanHanhs\Queries\GetCoQuanBanHanhById\" />
+    <Folder Include="Features\V1\CoQuanBanHanhs\Queries\GetAllCoQuanBanHanh\" />
+    <Folder Include="Features\V1\CoQuanBanHanhs\Commands\CreateCoQuanBanHanh\" />
+    <Folder Include="Features\V1\CoQuanBanHanhs\Commands\UpdateCoQuanBanHanh\" />
+    <Folder Include="Features\V1\CoQuanBanHanhs\Commands\DeleteCoQuanBanHanh\" />
+    <Folder Include="Features\V1\LoaiVanBans\Commands\CreateLoaiVanBanCommand\" />
   </ItemGroup>
 </Project>

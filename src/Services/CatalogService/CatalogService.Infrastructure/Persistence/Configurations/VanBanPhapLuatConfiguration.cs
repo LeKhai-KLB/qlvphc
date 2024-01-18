@@ -9,5 +9,13 @@ public class VanBanPhapLuatConfiguration : IEntityTypeConfiguration<VanBanPhapLu
     public void Configure(EntityTypeBuilder<VanBanPhapLuat> builder)
     {
         builder.ToTable(typeof(VanBanPhapLuat).Name);
+
+        builder.Property(e => e.NgayBanHanh)
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("GETDATE()");
+
+        builder.Property(e => e.NgayHieuLuc)
+                .HasColumnType("datetime")
+                .HasDefaultValueSql("GETDATE()");
     }
 }

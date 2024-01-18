@@ -11,6 +11,7 @@ using CatalogService.Application.Features.V1.LinhVucXuPhats.Commands.CreateLinhV
 using CatalogService.Application.Features.V1.LinhVucXuPhats.Queries.GetLinhVucXuPhatById;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Common.Constants;
+using CatalogService.Application.Features.V1.LinhVucXuPhats.Queries.GetAllLinhVucXuPhat;
 
 namespace CatalogService.API.Controllers;
 
@@ -38,8 +39,18 @@ public class LinhVucXuPhatController : ControllerBase
 
     [HttpGet(Name = RouteNames.GetLinhVucXuPhatById)]
     [ProducesResponseType(typeof(IEnumerable<LinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.LinhVucXuPhats.View)]
+    public async Task<ActionResult<IEnumerable<LinhVucXuPhatDto>>> GetAllLinhVucXuPhat()
+    {
+        var query = new GetAllLinhVucXuPhatQuery();
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
+
+    [HttpGet(Name = RouteNames.GetLinhVucXuPhatById)]
+    [ProducesResponseType(typeof(IEnumerable<LinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
     [Authorize(Permissions.LinhVucXuPhats.ViewById)]
-    public async Task<ActionResult<IEnumerable<LinhVucXuPhatDto>>> GetLinhVucXuPhatById([FromQuery] int id)
+    public async Task<ActionResult<LinhVucXuPhatDto>> GetLinhVucXuPhatById([FromQuery] int id)
     {
         var query = new GetLinhVucXuPhatByIdQuery(id);
         var result = await _mediator.Send(query);

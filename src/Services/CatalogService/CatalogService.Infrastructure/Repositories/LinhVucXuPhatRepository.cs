@@ -14,6 +14,11 @@ public class LinhVucXuPhatRepository : RepositoryBase<LinhVucXuPhat, int, Catalo
 
     }
 
+    public async Task<IEnumerable<LinhVucXuPhat>> GetAllLinhVucXuPhat()
+    {
+        return await FindAll().ToListAsync();
+    }
+
     public async Task<LinhVucXuPhat> GetLinhVucXuPhatById(int id)
     {
         return await GetByIdAsync(id);

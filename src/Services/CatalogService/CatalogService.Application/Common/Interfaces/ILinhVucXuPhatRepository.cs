@@ -5,6 +5,7 @@ namespace CatalogService.Application.Common.Interfaces;
 
 public interface ILinhVucXuPhatRepository : IRepositoryBaseAsync<LinhVucXuPhat, int>
 {
+    Task<IEnumerable<LinhVucXuPhat>> GetAllLinhVucXuPhat();
     Task<LinhVucXuPhat> GetLinhVucXuPhatById(int id);
     Task CreateLinhVucXuPhat(LinhVucXuPhat request);
     Task UpdateLinhVucXuPhat(LinhVucXuPhat request);

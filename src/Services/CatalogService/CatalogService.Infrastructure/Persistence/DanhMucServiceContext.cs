@@ -50,6 +50,12 @@ public class CatalogServiceContext : DbContext
     public DbSet<VanBanPhapLuat> VanBanPhapLuats { get; set; }
     public DbSet<VanBanLienQuan> VanBanLienQuans { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer("name = DefaultConnectionString");
+        base.OnConfiguring(optionsBuilder);
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
