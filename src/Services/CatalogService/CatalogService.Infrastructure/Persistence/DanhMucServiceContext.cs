@@ -30,6 +30,10 @@ public class CatalogServiceContext : DbContext
         domainEntities.ForEach(x => x.ClearDomainEvent());
     }
 
+    public CatalogServiceContext()
+    {
+    }
+
     public CatalogServiceContext(DbContextOptions<CatalogServiceContext> options, ILogger logger, IMediator mediator) : base(options)
     {
         _logger = logger;
@@ -41,6 +45,10 @@ public class CatalogServiceContext : DbContext
     public DbSet<XaPhuong> XaPhuongs { get; set; }
     public DbSet<LinhVucXuPhat> LinhVucXuPhats { get; set; }
     public DbSet<ChiTietLinhVucXuPhat> ChiTietLinhVucXuPhats { get; set; }
+    public DbSet<CoQuanBanHanh> CoQuanBanHanhs { get; set; }
+    public DbSet<LoaiVanBan> LoaiVanBans { get; set; }
+    public DbSet<VanBanPhapLuat> VanBanPhapLuats { get; set; }
+    public DbSet<VanBanLienQuan> VanBanLienQuans { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

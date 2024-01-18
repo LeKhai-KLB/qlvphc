@@ -58,6 +58,7 @@ public static class DefaultUsers
         var role = await roleManager.FindByNameAsync(roleName);
         await roleManager.AddPermissionClaim(role, nameof(Permissions.Users));
         await roleManager.AddPermissionClaim(role, nameof(Permissions.LinhVucXuPhats));
+        await roleManager.AddPermissionClaim(role, nameof(Permissions.ChiTietLinhVucXuPhats));
     }
 
     public static async Task AddPermissionClaim(this RoleManager<IdentityRole> roleManager, IdentityRole role, string module)

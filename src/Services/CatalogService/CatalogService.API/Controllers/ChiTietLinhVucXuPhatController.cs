@@ -10,11 +10,14 @@ using CatalogService.Application.Common.Models.ChiTietLinhVucXuPhats;
 using CatalogService.Application.Features.V1.ChiTietLinhVucXuPhats.Commands.CreateChiTietLinhVucXuPhat;
 using CatalogService.Application.Features.V1.ChiTietLinhVucXuPhats.Queries.GetChiTietLinhVucXuPhatById;
 using CatalogService.Application.Features.V1.ChiTietLinhVucXuPhats.Queries.GetChiTietByLinhVucXuPhatId;
+using Microsoft.AspNetCore.Authorization;
+using Shared.Common.Constants;
 
 namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class ChiTietLinhVucXuPhatController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -37,6 +40,7 @@ public class ChiTietLinhVucXuPhatController : ControllerBase
 
     [HttpGet(Name = RouteNames.GetChiTietByLinhVucXuPhatId)]
     [ProducesResponseType(typeof(IEnumerable<ChiTietLinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.ChiTietLinhVucXuPhats.ViewById)]
     public async Task<ActionResult<IEnumerable<ChiTietLinhVucXuPhatDto>>> GetChiTietByLinhVucXuPhatId([FromQuery] int id)
     {
         var query = new GetChiTietByLinhVucXuPhatIdQuery(id);
@@ -46,6 +50,7 @@ public class ChiTietLinhVucXuPhatController : ControllerBase
 
     [HttpGet(Name = RouteNames.GetChiTietLinhVucXuPhatById)]
     [ProducesResponseType(typeof(ChiTietLinhVucXuPhatDto), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.ChiTietLinhVucXuPhats.ViewById)]
     public async Task<ActionResult<ChiTietLinhVucXuPhatDto>> GetChiTietLinhVucXuPhatById([FromQuery] int id)
     {
         var query = new GetChiTietLinhVucXuPhatByIdQuery(id);
@@ -55,6 +60,7 @@ public class ChiTietLinhVucXuPhatController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateChiTietLinhVucXuPhat)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.ChiTietLinhVucXuPhats.Create)]
     public async Task<ActionResult<ApiResult<ChiTietLinhVucXuPhatDto>>> CreateChiTietLinhVucXuPhat([FromBody] CreateChiTietLinhVucXuPhatDto model)
     {
         var command = _mapper.Map<CreateChiTietLinhVucXuPhatCommand>(model);
@@ -64,6 +70,7 @@ public class ChiTietLinhVucXuPhatController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateChiTietLinhVucXuPhat)]
     [ProducesResponseType(typeof(ApiResult<ChiTietLinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.ChiTietLinhVucXuPhats.Edit)]
     public async Task<ActionResult<ApiResult<ChiTietLinhVucXuPhatDto>>> UpdateChiTietLinhVucXuPhat([Required] int id, [FromBody] UpdateChiTietLinhVucXuPhatCommand command)
     {
         command.SetId(id);
@@ -72,6 +79,7 @@ public class ChiTietLinhVucXuPhatController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteChiTietLinhVucXuPhat)]
+    [Authorize(Permissions.ChiTietLinhVucXuPhats.Delete)]
     public async Task<ActionResult<bool>> DeleteChiTietLinhVucXuPhat([Required] int id)
     {
         var command = new DeleteChiTietLinhVucXuPhatCommand(id);
