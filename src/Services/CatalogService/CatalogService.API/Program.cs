@@ -104,26 +104,26 @@ try
     //app.UseHttpsRedirection();
 
     //Authentication
-    builder.Services.AddAuthentication(x =>
-    {
-        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddJwtBearer(option =>
-    {
-        option.SaveToken = true;
-        option.TokenValidationParameters = new TokenValidationParameters
-        {
-            SaveSigninToken = true,
-            ValidateIssuer = true,
-            ValidateAudience = false,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],       // Jwt:Issuer - config value 
-            ValidAudience = builder.Configuration["Jwt:Issuer"],     // Jwt:Issuer - config value 
-            IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])) // Jwt:Key - config value 
-        };
-    });
+    //builder.Services.AddAuthentication(x =>
+    //{
+    //    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    //    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    //})
+    //.AddJwtBearer(option =>
+    //{
+    //    option.SaveToken = true;
+    //    option.TokenValidationParameters = new TokenValidationParameters
+    //    {
+    //        SaveSigninToken = true,
+    //        ValidateIssuer = true,
+    //        ValidateAudience = false,
+    //        ValidateLifetime = true,
+    //        ValidateIssuerSigningKey = true,
+    //        ValidIssuer = builder.Configuration["Jwt:Issuer"],       // Jwt:Issuer - config value 
+    //        ValidAudience = builder.Configuration["Jwt:Issuer"],     // Jwt:Issuer - config value 
+    //        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])) // Jwt:Key - config value 
+    //    };
+    //});
 
     app.UseAuthorization();
 

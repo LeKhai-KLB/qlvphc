@@ -31,21 +31,22 @@ public class LinhVucXuPhatController : ControllerBase
 
     private static class RouteNames
     {
+        public const string GetAllLinhVucXuPhat = nameof(GetAllLinhVucXuPhat);
         public const string GetLinhVucXuPhatById = nameof(GetLinhVucXuPhatById);
         public const string CreateLinhVucXuPhat = nameof(CreateLinhVucXuPhat);
         public const string UpdateLinhVucXuPhat = nameof(UpdateLinhVucXuPhat);
         public const string DeleteLinhVucXuPhat = nameof(DeleteLinhVucXuPhat);
     }
 
-    [HttpGet(Name = RouteNames.GetLinhVucXuPhatById)]
-    [ProducesResponseType(typeof(IEnumerable<LinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.LinhVucXuPhats.View)]
-    public async Task<ActionResult<IEnumerable<LinhVucXuPhatDto>>> GetAllLinhVucXuPhat()
-    {
-        var query = new GetAllLinhVucXuPhatQuery();
-        var result = await _mediator.Send(query);
-        return Ok(result);
-    }
+    //[HttpGet(Name = RouteNames.GetAllLinhVucXuPhat)]
+    //[ProducesResponseType(typeof(IEnumerable<LinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
+    //[Authorize(Permissions.LinhVucXuPhats.View)]
+    //public async Task<ActionResult<IEnumerable<LinhVucXuPhatDto>>> GetAllLinhVucXuPhat()
+    //{
+    //    var query = new GetAllLinhVucXuPhatQuery();
+    //    var result = await _mediator.Send(query);
+    //    return Ok(result);
+    //}
 
     [HttpGet(Name = RouteNames.GetLinhVucXuPhatById)]
     [ProducesResponseType(typeof(IEnumerable<LinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
