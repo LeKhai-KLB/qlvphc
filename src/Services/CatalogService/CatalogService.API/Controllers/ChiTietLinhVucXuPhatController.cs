@@ -38,17 +38,19 @@ public class ChiTietLinhVucXuPhatController : ControllerBase
         public const string DeleteChiTietLinhVucXuPhat = nameof(DeleteChiTietLinhVucXuPhat);
     }
 
-    //[HttpGet(Name = RouteNames.GetByLinhVucXuPhatId)]
-    //[ProducesResponseType(typeof(IEnumerable<ChiTietLinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.ChiTietLinhVucXuPhats.ViewById)]
-    //public async Task<ActionResult<IEnumerable<ChiTietLinhVucXuPhatDto>>> GetByLinhVucXuPhatId([FromQuery] int id)
-    //{
-    //    var query = new GetChiTietByLinhVucXuPhatIdQuery(id);
-    //    var result = await _mediator.Send(query);
-    //    return Ok(result);
-    //}
+    [HttpGet]
+    [Route(RouteNames.GetByLinhVucXuPhatId)]
+    [ProducesResponseType(typeof(IEnumerable<ChiTietLinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.ChiTietLinhVucXuPhats.ViewById)]
+    public async Task<ActionResult<IEnumerable<ChiTietLinhVucXuPhatDto>>> GetByLinhVucXuPhatId([FromQuery] int linhVucXuPhatId)
+    {
+        var query = new GetChiTietByLinhVucXuPhatIdQuery(linhVucXuPhatId);
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
 
-    [HttpGet(Name = RouteNames.GetChiTietLinhVucXuPhatById)]
+    [HttpGet]
+    [Route(RouteNames.GetChiTietLinhVucXuPhatById)]
     [ProducesResponseType(typeof(ChiTietLinhVucXuPhatDto), (int)HttpStatusCode.OK)]
     [Authorize(Permissions.ChiTietLinhVucXuPhats.ViewById)]
     public async Task<ActionResult<ChiTietLinhVucXuPhatDto>> GetChiTietLinhVucXuPhatById([FromQuery] int id)

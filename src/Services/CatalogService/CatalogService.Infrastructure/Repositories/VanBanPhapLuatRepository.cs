@@ -1,5 +1,4 @@
-﻿
-using CatalogService.Application.Common.Interfaces;
+﻿using CatalogService.Application.Common.Interfaces;
 using CatalogService.Domain.Entities;
 using CatalogService.Infrastructure.Persistence;
 using Contracts.Common.Interfaces;

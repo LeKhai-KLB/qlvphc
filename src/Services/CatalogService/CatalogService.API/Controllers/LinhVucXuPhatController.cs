@@ -38,18 +38,20 @@ public class LinhVucXuPhatController : ControllerBase
         public const string DeleteLinhVucXuPhat = nameof(DeleteLinhVucXuPhat);
     }
 
-    //[HttpGet(Name = RouteNames.GetAllLinhVucXuPhat)]
-    //[ProducesResponseType(typeof(IEnumerable<LinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.LinhVucXuPhats.View)]
-    //public async Task<ActionResult<IEnumerable<LinhVucXuPhatDto>>> GetAllLinhVucXuPhat()
-    //{
-    //    var query = new GetAllLinhVucXuPhatQuery();
-    //    var result = await _mediator.Send(query);
-    //    return Ok(result);
-    //}
-
-    [HttpGet(Name = RouteNames.GetLinhVucXuPhatById)]
+    [HttpGet]
+    [Route(RouteNames.GetAllLinhVucXuPhat)]
     [ProducesResponseType(typeof(IEnumerable<LinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.LinhVucXuPhats.View)]
+    public async Task<ActionResult<IEnumerable<LinhVucXuPhatDto>>> GetAllLinhVucXuPhat()
+    {
+        var query = new GetAllLinhVucXuPhatQuery();
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
+
+    [HttpGet]
+    [Route(RouteNames.GetLinhVucXuPhatById)]
+    [ProducesResponseType(typeof(LinhVucXuPhatDto), (int)HttpStatusCode.OK)]
     [Authorize(Permissions.LinhVucXuPhats.ViewById)]
     public async Task<ActionResult<LinhVucXuPhatDto>> GetLinhVucXuPhatById([FromQuery] int id)
     {

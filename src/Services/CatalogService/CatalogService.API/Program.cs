@@ -2,16 +2,10 @@ using Common.Logging;
 using Contracts.Common.Interfaces;
 using CatalogService.API.Extensions;
 using Infrastructure.Common;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using System;
 using System.Diagnostics;
-using System.Text.Json.Serialization;
 using CatalogService.Application;
 using CatalogService.Infrastructure;
 using CatalogService.Infrastructure.Persistence;
@@ -79,6 +73,29 @@ try
             }
         });
     });
+
+    //Authentication
+    builder.Services.AddAuthentication(x =>
+    {
+        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(option =>
+    {
+        option.SaveToken = true;
+        option.TokenValidationParameters = new TokenValidationParameters
+        {
+            SaveSigninToken = true,
+            ValidateIssuer = true,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],       // Jwt:Issuer - config value 
+            ValidAudience = builder.Configuration["Jwt:Issuer"],     // Jwt:Issuer - config value 
+            IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])) // Jwt:Key - config value 
+        };
+    });
+
     builder.Services.AddApplicationServices();
     builder.Services.AddConfigurationSettings(builder.Configuration);
     builder.Services.ConfigureCors(builder.Configuration);
@@ -102,28 +119,6 @@ try
     }
     app.UseRouting();
     //app.UseHttpsRedirection();
-
-    //Authentication
-    //builder.Services.AddAuthentication(x =>
-    //{
-    //    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    //    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    //})
-    //.AddJwtBearer(option =>
-    //{
-    //    option.SaveToken = true;
-    //    option.TokenValidationParameters = new TokenValidationParameters
-    //    {
-    //        SaveSigninToken = true,
-    //        ValidateIssuer = true,
-    //        ValidateAudience = false,
-    //        ValidateLifetime = true,
-    //        ValidateIssuerSigningKey = true,
-    //        ValidIssuer = builder.Configuration["Jwt:Issuer"],       // Jwt:Issuer - config value 
-    //        ValidAudience = builder.Configuration["Jwt:Issuer"],     // Jwt:Issuer - config value 
-    //        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])) // Jwt:Key - config value 
-    //    };
-    //});
 
     app.UseAuthorization();
 
