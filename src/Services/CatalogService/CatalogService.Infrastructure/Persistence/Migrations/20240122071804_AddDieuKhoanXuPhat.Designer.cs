@@ -4,6 +4,7 @@ using CatalogService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CatalogService.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(CatalogServiceContext))]
-    partial class CatalogServiceContextModelSnapshot : ModelSnapshot
+    [Migration("20240122071804_AddDieuKhoanXuPhat")]
+    partial class AddDieuKhoanXuPhat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,11 +155,11 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("DanChungNghiDinh")
                         .IsRequired()
-                        .HasColumnType("nvarchar(512)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HanhVi_QuyetDinh")
                         .IsRequired()
-                        .HasColumnType("nvarchar(512)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("HetHieuLuc")
                         .ValueGeneratedOnAdd()
@@ -176,7 +179,7 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("NghiDinh")
                         .IsRequired()
-                        .HasColumnType("nvarchar(512)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("NguoiCapNhatCuoi")
                         .HasColumnType("int");
@@ -186,11 +189,11 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("NhomLinhVuc")
                         .IsRequired()
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TenLinhVuc")
                         .IsRequired()
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
