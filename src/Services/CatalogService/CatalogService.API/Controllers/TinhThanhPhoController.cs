@@ -49,7 +49,7 @@ namespace CatalogService.API.Controllers
 
         [HttpGet(Name = RouteNames.GetAllTinhThanhPhos)]
         [ProducesResponseType(typeof(IEnumerable<TinhThanhPhoDto>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<TinhThanhPhoDto>>> GetAppointmentsByTerm([FromQuery] string? term)
+        public async Task<ActionResult<IEnumerable<TinhThanhPhoDto>>> GetTinhThanhPhosByTerm([FromQuery] string? term)
         {
             var query = new GetTinhThanhPhosByTermQuery(term);
             var result = await _mediator.Send(query);

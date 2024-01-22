@@ -13,7 +13,7 @@ public class UpdateLinhVucXuPhatCommandHandler : IRequestHandler<UpdateLinhVucXu
     private readonly IMapper _mapper;
     private readonly ILinhVucXuPhatRepository _repository;
     private readonly ILogger _logger;
-    private const string MethodName = "UpdateQuanHuyenHandler";
+    private const string MethodName = "UpdateLinhVucXuPhatHandler";
 
     public UpdateLinhVucXuPhatCommandHandler(IMapper mapper, ILinhVucXuPhatRepository repository, ILogger logger)
     {

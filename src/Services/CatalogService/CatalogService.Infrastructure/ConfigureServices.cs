@@ -42,6 +42,7 @@ public static class ConfigureServices
         services.AddScoped<ICoQuanBanHanhRepository, CoQuanBanHanhRepository>();
         services.AddScoped<IVanBanLienQuanRepository, VanBanLienQuanRepository>();
         services.AddScoped<IVanBanPhapLuatRepository, VanBanPhapLuatRepository>();
+        services.AddScoped<IDieuKhoanXuPhatRepository, DieuKhoanXuPhatRepository>();
         services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
         return services;
     }
