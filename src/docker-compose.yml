@@ -4,6 +4,11 @@ services:
   portainer:
     image: portainer/portainer-ce
 
+  mssql-server:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    volumes:
+      - mssql-data:/var/opt/mssql
+
   coreservice.api:
     image: ${DOCKER_REGISTRY-}coreserviceapi
     build:
@@ -123,6 +128,7 @@ volumes:
   portainer_data:
     name: portainer_data
   grafana-storage:
+  mssql-data:
 
 networks:
   qlvphc-network:
