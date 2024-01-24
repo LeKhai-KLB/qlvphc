@@ -1,24 +1,29 @@
 ﻿using CatalogService.Application.Common.Interfaces;
+using CatalogService.Application.Parameters.VanBanLienQuans;
 using CatalogService.Domain.Entities;
 using CatalogService.Infrastructure.Persistence;
 using Contracts.Common.Interfaces;
 using Infrastructure.Common;
+using Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Shared.SeedWord;
 
 namespace CatalogService.Infrastructure.Repositories;
 
 public class VanBanLienQuanRepository : RepositoryBase<VanBanLienQuan, int, CatalogServiceContext>, IVanBanLienQuanRepository
 {
+    private readonly DbSet<VanBanLienQuan> _vanBanLienQuan;
+
     public VanBanLienQuanRepository(CatalogServiceContext context, IUnitOfWork<CatalogServiceContext> unitOfWork) : base(context, unitOfWork)
     {
-
+        _vanBanLienQuan = context.Set<VanBanLienQuan>();
     }
 
-    public async Task<IEnumerable<VanBanLienQuan>> GetVanBanLienQuanByVanBanPhapLuatId(int id)
+    public async Task<PageList<VanBanLienQuan>> GetPagedByVanBanPhapLuatId(VanBanLienQuanParameter parameter)
     {
-        var result = FindByCondition(x => x.VanBanPhapLuatId.Equals(id)).OrderBy(x => x.Ten);
+        var result = _vanBanLienQuan.Filter(parameter).OrderBy(x => x.Ten);
 
-        return result;
+        return await PageList<VanBanLienQuan>.ToPageList(result, parameter.PageNumber, parameter.PageSize);
     }
 
     public async Task<VanBanLienQuan> GetVanBanLienQuanById(int id)

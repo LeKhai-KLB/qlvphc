@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Common.Constants;
 using Shared.SeedWord;
-using CatalogService.Application.Features.V1.VanBanLienQuans.Queries.GetVanBanLienQuanByVanBanPhapLuatId;
+using CatalogService.Application.Features.V1.VanBanLienQuans.Queries.GetPagedByVanBanPhapLuatId;
+using CatalogService.Application.Parameters.VanBanLienQuans;
 
 namespace CatalogService.API.Controllers;
 
@@ -31,20 +32,18 @@ public class VanBanLienQuanController : ControllerBase
 
     private static class RouteNames
     {
-        public const string GetByVanBanPhapLuatId = nameof(GetByVanBanPhapLuatId);
+        public const string GetPagedByVanBanPhapLuatId = nameof(GetPagedByVanBanPhapLuatId);
         public const string GetVanBanLienQuanById = nameof(GetVanBanLienQuanById);
         public const string CreateVanBanLienQuan = nameof(CreateVanBanLienQuan);
         public const string UpdateVanBanLienQuan = nameof(UpdateVanBanLienQuan);
         public const string DeleteVanBanLienQuan = nameof(DeleteVanBanLienQuan);
     }
 
-    [HttpGet]
-    [Route(RouteNames.GetByVanBanPhapLuatId)]
-    [ProducesResponseType(typeof(IEnumerable<VanBanLienQuanDto>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.VanBanLienQuans.View)]
-    public async Task<ActionResult<IEnumerable<VanBanLienQuanDto>>> GetByVanBanPhapLuatId([FromQuery] int vanBanPhapLuatId)
+    [HttpPost("paging", Name = RouteNames.GetPagedByVanBanPhapLuatId)]
+    [ProducesResponseType(typeof(PagedResponse<IEnumerable<VanBanLienQuanDto>>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<PagedResponse<IEnumerable<VanBanLienQuanDto>>>> GetPagedByVanBanPhapLuatId([FromBody] VanBanLienQuanParameter request)
     {
-        var query = new GetVanBanLienQuanByVanBanPhapLuatIdQuery(vanBanPhapLuatId);
+        var query = new GetPagedByVanBanPhapLuatIdQuery(request);
         var result = await _mediator.Send(query);
         return Ok(result);
     }

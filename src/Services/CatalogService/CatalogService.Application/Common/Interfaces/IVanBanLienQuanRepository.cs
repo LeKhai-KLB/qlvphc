@@ -1,11 +1,13 @@
-﻿using CatalogService.Domain.Entities;
+﻿using CatalogService.Application.Parameters.VanBanLienQuans;
+using CatalogService.Domain.Entities;
 using Contracts.Common.Interfaces;
+using Shared.SeedWord;
 
 namespace CatalogService.Application.Common.Interfaces;
 
 public interface IVanBanLienQuanRepository : IRepositoryBaseAsync<VanBanLienQuan, int>
 {
-    Task<IEnumerable<VanBanLienQuan>> GetVanBanLienQuanByVanBanPhapLuatId(int id);
+    Task<PageList<VanBanLienQuan>> GetPagedByVanBanPhapLuatId(VanBanLienQuanParameter parameter);
     Task<VanBanLienQuan> GetVanBanLienQuanById(int id);
     Task CreateVanBanLienQuan(VanBanLienQuan request);
     Task UpdateVanBanLienQuan(VanBanLienQuan request);

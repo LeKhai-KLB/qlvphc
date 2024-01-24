@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Common.Constants;
 using Shared.SeedWord;
+using CatalogService.Application.Parameters.LoaiVanBans;
+using CatalogService.Application.Features.V1.LoaiVanBans.Queries.GetPagedLoaiVanBanAsync;
 
 namespace CatalogService.API.Controllers;
 
@@ -31,11 +33,21 @@ public class LoaiVanBanController : ControllerBase
 
     private static class RouteNames
     {
+        public const string GetPagedLoaiVanBan = nameof(GetPagedLoaiVanBan);
         public const string GetAllLoaiVanBan = nameof(GetAllLoaiVanBan);
         public const string GetLoaiVanBanById = nameof(GetLoaiVanBanById);
         public const string CreateLoaiVanBan = nameof(CreateLoaiVanBan);
         public const string UpdateLoaiVanBan = nameof(UpdateLoaiVanBan);
         public const string DeleteLoaiVanBan = nameof(DeleteLoaiVanBan);
+    }
+
+    [HttpPost("paging", Name = RouteNames.GetPagedLoaiVanBan)]
+    [ProducesResponseType(typeof(PagedResponse<IEnumerable<LoaiVanBanDto>>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<PagedResponse<IEnumerable<LoaiVanBanDto>>>> GetPagedLoaiVanBan([FromBody] LoaiVanBanParameter request)
+    {
+        var query = new GetPagedLoaiVanBanQuery(request);
+        var result = await _mediator.Send(query);
+        return Ok(result);
     }
 
     [HttpGet]

@@ -9,9 +9,10 @@ using CatalogService.Application.Features.V1.ChiTietLinhVucXuPhats.Commands.Upda
 using CatalogService.Application.Common.Models.ChiTietLinhVucXuPhats;
 using CatalogService.Application.Features.V1.ChiTietLinhVucXuPhats.Commands.CreateChiTietLinhVucXuPhat;
 using CatalogService.Application.Features.V1.ChiTietLinhVucXuPhats.Queries.GetChiTietLinhVucXuPhatById;
-using CatalogService.Application.Features.V1.ChiTietLinhVucXuPhats.Queries.GetChiTietByLinhVucXuPhatId;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Common.Constants;
+using CatalogService.Application.Parameters.ChiTietLinhVucXuPhats;
+using CatalogService.Application.Features.V1.ChiTietLinhVucXuPhats.Queries.GetPagedByLinhVucXuPhatId;
 
 namespace CatalogService.API.Controllers;
 
@@ -31,20 +32,18 @@ public class ChiTietLinhVucXuPhatController : ControllerBase
 
     private static class RouteNames
     {
-        public const string GetByLinhVucXuPhatId = nameof(GetByLinhVucXuPhatId);
+        public const string GetPagedByLinhVucXuPhatId = nameof(GetPagedByLinhVucXuPhatId);
         public const string GetChiTietLinhVucXuPhatById = nameof(GetChiTietLinhVucXuPhatById);
         public const string CreateChiTietLinhVucXuPhat = nameof(CreateChiTietLinhVucXuPhat);
         public const string UpdateChiTietLinhVucXuPhat = nameof(UpdateChiTietLinhVucXuPhat);
         public const string DeleteChiTietLinhVucXuPhat = nameof(DeleteChiTietLinhVucXuPhat);
     }
 
-    [HttpGet]
-    [Route(RouteNames.GetByLinhVucXuPhatId)]
-    [ProducesResponseType(typeof(IEnumerable<ChiTietLinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.ChiTietLinhVucXuPhats.ViewById)]
-    public async Task<ActionResult<IEnumerable<ChiTietLinhVucXuPhatDto>>> GetByLinhVucXuPhatId([FromQuery] int linhVucXuPhatId)
+    [HttpPost("paging", Name = RouteNames.GetPagedByLinhVucXuPhatId)]
+    [ProducesResponseType(typeof(PagedResponse<IEnumerable<ChiTietLinhVucXuPhatDto>>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<PagedResponse<IEnumerable<ChiTietLinhVucXuPhatDto>>>> GetPagedByLinhVucXuPhatId([FromBody] ChiTietLinhVucXuPhatParameter request)
     {
-        var query = new GetChiTietByLinhVucXuPhatIdQuery(linhVucXuPhatId);
+        var query = new GetPagedByLinhVucXuPhatIdQuery(request);
         var result = await _mediator.Send(query);
         return Ok(result);
     }

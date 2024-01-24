@@ -103,6 +103,22 @@ public static class Permissions
         public const string ViewById = $"{CustomClaimTypes.Permission}s.VanBanPhapLuats.ViewById";
     }
 
+    public static class VanBanGiaiQuyets
+    {
+        //Only For SuperAdmins
+        public const string SuperAdminView = $"{CustomClaimTypes.Permission}s.VanBanGiaiQuyets.SuperAdminView";
+        public const string SuperAdminCreate = $"{CustomClaimTypes.Permission}s.VanBanGiaiQuyets.SuperAdminCreate";
+
+        //All
+        public const string View = $"{CustomClaimTypes.Permission}s.VanBanGiaiQuyets.View";
+        public const string Create = $"{CustomClaimTypes.Permission}s.VanBanGiaiQuyets.Create";
+        public const string Edit = $"{CustomClaimTypes.Permission}s.VanBanGiaiQuyets.Edit";
+        public const string Delete = $"{CustomClaimTypes.Permission}s.VanBanGiaiQuyets.Delete";
+
+        //Guest or Basic
+        public const string ViewById = $"{CustomClaimTypes.Permission}s.VanBanGiaiQuyets.ViewById";
+    }
+
     public static class VanBanLienQuans
     {
         //Only For SuperAdmins

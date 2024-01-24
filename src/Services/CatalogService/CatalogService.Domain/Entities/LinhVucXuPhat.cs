@@ -7,8 +7,8 @@ public class LinhVucXuPhat : EntityAuditBase<int>
 {
     [Column(TypeName = "nvarchar(255)")]
     public string TenLinhVuc { get; set; }
-    [Column(TypeName = "nvarchar(255)")]
 
+    [Column(TypeName = "nvarchar(255)")]
     public string NhomLinhVuc { get; set; }
 
     [Column(TypeName = "nvarchar(512)")]

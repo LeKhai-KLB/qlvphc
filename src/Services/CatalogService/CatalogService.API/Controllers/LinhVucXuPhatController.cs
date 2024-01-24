@@ -12,6 +12,8 @@ using CatalogService.Application.Features.V1.LinhVucXuPhats.Queries.GetLinhVucXu
 using Microsoft.AspNetCore.Authorization;
 using Shared.Common.Constants;
 using CatalogService.Application.Features.V1.LinhVucXuPhats.Queries.GetAllLinhVucXuPhat;
+using CatalogService.Application.Parameters.LinhVucXuPhats;
+using CatalogService.Application.Features.V1.LinhVucXuPhats.Queries.GetPagedLinhVucXuPhatAsync;
 
 namespace CatalogService.API.Controllers;
 
@@ -31,11 +33,21 @@ public class LinhVucXuPhatController : ControllerBase
 
     private static class RouteNames
     {
+        public const string GetPagedLinhVucXuPhat = nameof(GetPagedLinhVucXuPhat);
         public const string GetAllLinhVucXuPhat = nameof(GetAllLinhVucXuPhat);
         public const string GetLinhVucXuPhatById = nameof(GetLinhVucXuPhatById);
         public const string CreateLinhVucXuPhat = nameof(CreateLinhVucXuPhat);
         public const string UpdateLinhVucXuPhat = nameof(UpdateLinhVucXuPhat);
         public const string DeleteLinhVucXuPhat = nameof(DeleteLinhVucXuPhat);
+    }
+
+    [HttpPost("paging", Name = RouteNames.GetPagedLinhVucXuPhat)]
+    [ProducesResponseType(typeof(PagedResponse<IEnumerable<LinhVucXuPhatDto>>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<PagedResponse<IEnumerable<LinhVucXuPhatDto>>>> GetPagedLinhVucXuPhat([FromBody] LinhVucXuPhatParameter request)
+    {
+        var query = new GetPagedLinhVucXuPhatQuery(request);
+        var result = await _mediator.Send(query);
+        return Ok(result);
     }
 
     [HttpGet]

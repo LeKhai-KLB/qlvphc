@@ -12,6 +12,8 @@ using CatalogService.Application.Features.V1.CoQuanBanHanhs.Queries.GetCoQuanBan
 using CatalogService.Application.Features.V1.CoQuanBanHanhs.Commands.CreateCoQuanBanHanh;
 using CatalogService.Application.Features.V1.CoQuanBanHanhs.Commands.UpdateCoQuanBanHanh;
 using CatalogService.Application.Features.V1.CoQuanBanHanhs.Commands.DeleteCoQuanBanHanh;
+using CatalogService.Application.Features.V1.CoQuanBanHanhs.Queries.GetPagedCoQuanBanHanhAsync;
+using CatalogService.Application.Parameters.CoQuanBanHanhs;
 
 namespace CatalogService.API.Controllers;
 
@@ -31,11 +33,21 @@ public class CoQuanBanHanhController : ControllerBase
 
     private static class RouteNames
     {
+        public const string GetPagedCoQuanBanHanh = nameof(GetPagedCoQuanBanHanh);
         public const string GetAllCoQuanBanHanh = nameof(GetAllCoQuanBanHanh);
         public const string GetCoQuanBanHanhById = nameof(GetCoQuanBanHanhById);
         public const string CreateCoQuanBanHanh = nameof(CreateCoQuanBanHanh);
         public const string UpdateCoQuanBanHanh = nameof(UpdateCoQuanBanHanh);
         public const string DeleteCoQuanBanHanh = nameof(DeleteCoQuanBanHanh);
+    }
+
+    [HttpPost("paging", Name = RouteNames.GetPagedCoQuanBanHanh)]
+    [ProducesResponseType(typeof(PagedResponse<IEnumerable<CoQuanBanHanhDto>>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<PagedResponse<IEnumerable<CoQuanBanHanhDto>>>> GetPagedLinhVucXuPhat([FromBody] CoQuanBanHanhParameter request)
+    {
+        var query = new GetPagedCoQuanBanHanhQuery(request);
+        var result = await _mediator.Send(query);
+        return Ok(result);
     }
 
     [HttpGet]

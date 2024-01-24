@@ -32,11 +32,11 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("Diem")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(4000)");
 
                     b.Property<string>("DieuKhoan")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(4000)");
 
                     b.Property<int>("LinhVucXuPhatId")
                         .HasColumnType("int");
@@ -82,11 +82,11 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("NhomCoQuan")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("TenCoQuan")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
@@ -219,7 +219,7 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("Ten")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
@@ -311,6 +311,43 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.ToTable("TinhThanhPho", (string)null);
                 });
 
+            modelBuilder.Entity("CatalogService.Domain.Entities.VanBanGiaiQuyet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("MaGiayTo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<DateTime?>("NgayCapNhatCuoi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("NguoiCapNhatCuoi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NguoiTao")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TenGiayTo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("TheoNghiDinh")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VanBanGiaiQuyet", (string)null);
+                });
+
             modelBuilder.Entity("CatalogService.Domain.Entities.VanBanLienQuan", b =>
                 {
                     b.Property<int>("Id")
@@ -338,7 +375,7 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("Ten")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("VanBanPhapLuatId")
                         .HasColumnType("int");
@@ -363,7 +400,7 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("DuongDanUrl")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("LoaiVanBanId")
                         .HasColumnType("int");
@@ -392,14 +429,14 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("SoHieu")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<int>("TrangThai")
                         .HasColumnType("int");
 
                     b.Property<string>("TrichYeuNoiDung")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(4000)");
 
                     b.HasKey("Id");
 

@@ -36,7 +36,6 @@
     <None Remove="Features\V1\ChiTietLinhVucXuPhats\Commands\UpdateChiTietLinhVucXuPhat\" />
     <None Remove="Features\V1\ChiTietLinhVucXuPhats\Commands\DeleteChiTietLinhVucXuPhat\" />
     <None Remove="Features\V1\ChiTietLinhVucXuPhats\Queries\GetChiTietLinhVucXuPhatById\" />
-    <None Remove="Features\V1\ChiTietLinhVucXuPhats\Queries\GetChiTietByLinhVucXuPhatId\" />
     <None Remove="Features\V1\LinhVucXuPhats\Queries\GetAllLinhVucXuPhat\" />
     <None Remove="Common\Models\LoaiVanBans\" />
     <None Remove="Common\Models\CoQuanBanHanhs\" />
@@ -77,7 +76,30 @@
     <None Remove="Features\V1\VanBanLienQuans\Commands\UpdateVanBanLienQuan\" />
     <None Remove="Features\V1\VanBanLienQuans\Commands\DeleteVanBanLienQuan\" />
     <None Remove="Features\V1\VanBanLienQuans\Queries\GetVanBanLienQuanById\" />
-    <None Remove="Features\V1\VanBanLienQuans\Queries\GetVanBanLienQuanByVanBanPhapLuatId\" />
+    <None Remove="Parameters\VanBanGiaiQuyets\" />
+    <None Remove="Parameters\VanBanPhapLuats\" />
+    <None Remove="Parameters\VanBanLienQuans\" />
+    <None Remove="Parameters\LoaiVanBans\" />
+    <None Remove="Parameters\LinhVucXuPhats\" />
+    <None Remove="Parameters\CoQuanBanHanhs\" />
+    <None Remove="Parameters\ChiTietLinhVucXuPhats\" />
+    <None Remove="Features\V1\VanBanPhapLuats\Queries\GetPagedVanBanPhapLuatAsync\" />
+    <None Remove="Features\V1\VanBanLienQuans\Queries\GetPagedByVanBanPhapLuatId\" />
+    <None Remove="Features\V1\LoaiVanBans\Queries\GetPagedLoaiVanBanAsync\" />
+    <None Remove="Features\V1\LinhVucXuPhats\Queries\GetPagedLinhVucXuPhatAsync\" />
+    <None Remove="Features\V1\CoQuanBanHanhs\Queries\GetPagedCoQuanBanHanhAsync\" />
+    <None Remove="Features\V1\ChiTietLinhVucXuPhats\Queries\GetPagedByLinhVucXuPhatId\" />
+    <None Remove="Common\Models\VanBanGiaiQuyets\" />
+    <None Remove="Features\V1\VanBanGiaiQuyets\" />
+    <None Remove="Features\V1\VanBanGiaiQuyets\Commands\" />
+    <None Remove="Features\V1\VanBanGiaiQuyets\Common\" />
+    <None Remove="Features\V1\VanBanGiaiQuyets\Queries\" />
+    <None Remove="Features\V1\VanBanGiaiQuyets\Commands\CreateVanBanGiaiQuyet\" />
+    <None Remove="Features\V1\VanBanGiaiQuyets\Commands\UpdateVanBanGiaiQuyet\" />
+    <None Remove="Features\V1\VanBanGiaiQuyets\Commands\DeleteVanBanGiaiQuyet\" />
+    <None Remove="Features\V1\VanBanGiaiQuyets\Queries\GetAllVanBanGiaiQuyet\" />
+    <None Remove="Features\V1\VanBanGiaiQuyets\Queries\GetPagedVanBanGiaiQuyetAsync\" />
+    <None Remove="Features\V1\VanBanGiaiQuyets\Queries\GetVanBanGiaiQuyetById\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\V1\LinhVucXuPhats\" />
@@ -98,7 +120,6 @@
     <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Commands\UpdateChiTietLinhVucXuPhat\" />
     <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Commands\DeleteChiTietLinhVucXuPhat\" />
     <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Queries\GetChiTietLinhVucXuPhatById\" />
-    <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Queries\GetChiTietByLinhVucXuPhatId\" />
     <Folder Include="Features\V1\LinhVucXuPhats\Queries\GetAllLinhVucXuPhat\" />
     <Folder Include="Common\Models\LoaiVanBans\" />
     <Folder Include="Common\Models\CoQuanBanHanhs\" />
@@ -139,6 +160,29 @@
     <Folder Include="Features\V1\VanBanLienQuans\Commands\UpdateVanBanLienQuan\" />
     <Folder Include="Features\V1\VanBanLienQuans\Commands\DeleteVanBanLienQuan\" />
     <Folder Include="Features\V1\VanBanLienQuans\Queries\GetVanBanLienQuanById\" />
-    <Folder Include="Features\V1\VanBanLienQuans\Queries\GetVanBanLienQuanByVanBanPhapLuatId\" />
+    <Folder Include="Parameters\VanBanGiaiQuyets\" />
+    <Folder Include="Parameters\VanBanPhapLuats\" />
+    <Folder Include="Parameters\VanBanLienQuans\" />
+    <Folder Include="Parameters\LoaiVanBans\" />
+    <Folder Include="Parameters\LinhVucXuPhats\" />
+    <Folder Include="Parameters\CoQuanBanHanhs\" />
+    <Folder Include="Parameters\ChiTietLinhVucXuPhats\" />
+    <Folder Include="Features\V1\VanBanPhapLuats\Queries\GetPagedVanBanPhapLuatAsync\" />
+    <Folder Include="Features\V1\VanBanLienQuans\Queries\GetPagedByVanBanPhapLuatId\" />
+    <Folder Include="Features\V1\LoaiVanBans\Queries\GetPagedLoaiVanBanAsync\" />
+    <Folder Include="Features\V1\LinhVucXuPhats\Queries\GetPagedLinhVucXuPhatAsync\" />
+    <Folder Include="Features\V1\CoQuanBanHanhs\Queries\GetPagedCoQuanBanHanhAsync\" />
+    <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Queries\GetPagedByLinhVucXuPhatId\" />
+    <Folder Include="Common\Models\VanBanGiaiQuyets\" />
+    <Folder Include="Features\V1\VanBanGiaiQuyets\" />
+    <Folder Include="Features\V1\VanBanGiaiQuyets\Commands\" />
+    <Folder Include="Features\V1\VanBanGiaiQuyets\Common\" />
+    <Folder Include="Features\V1\VanBanGiaiQuyets\Queries\" />
+    <Folder Include="Features\V1\VanBanGiaiQuyets\Commands\CreateVanBanGiaiQuyet\" />
+    <Folder Include="Features\V1\VanBanGiaiQuyets\Commands\UpdateVanBanGiaiQuyet\" />
+    <Folder Include="Features\V1\VanBanGiaiQuyets\Commands\DeleteVanBanGiaiQuyet\" />
+    <Folder Include="Features\V1\VanBanGiaiQuyets\Queries\GetAllVanBanGiaiQuyet\" />
+    <Folder Include="Features\V1\VanBanGiaiQuyets\Queries\GetPagedVanBanGiaiQuyetAsync\" />
+    <Folder Include="Features\V1\VanBanGiaiQuyets\Queries\GetVanBanGiaiQuyetById\" />
   </ItemGroup>
 </Project>

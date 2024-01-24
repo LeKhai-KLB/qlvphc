@@ -1,24 +1,29 @@
 ﻿using CatalogService.Application.Common.Interfaces;
+using CatalogService.Application.Parameters.ChiTietLinhVucXuPhats;
 using CatalogService.Domain.Entities;
 using CatalogService.Infrastructure.Persistence;
 using Contracts.Common.Interfaces;
 using Infrastructure.Common;
+using Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Shared.SeedWord;
 
 namespace CatalogService.Infrastructure.Repositories;
 
 public class ChiTietLinhVucXuPhatRepository : RepositoryBase<ChiTietLinhVucXuPhat, int, CatalogServiceContext>, IChiTietLinhVucXuPhatRepository
 {
+    private readonly DbSet<ChiTietLinhVucXuPhat> _chiTietLinhVucXuPhat;
+
     public ChiTietLinhVucXuPhatRepository(CatalogServiceContext context, IUnitOfWork<CatalogServiceContext> unitOfWork) : base(context, unitOfWork)
     {
-
+        _chiTietLinhVucXuPhat = context.Set<ChiTietLinhVucXuPhat>();
     }
 
-    public async Task<IEnumerable<ChiTietLinhVucXuPhat>> GetChiTietByLinhVucXuPhatId(int id)
+    public async Task<PageList<ChiTietLinhVucXuPhat>> GetPagedByLinhVucXuPhatId(ChiTietLinhVucXuPhatParameter parameter)
     {
-        var result = FindByCondition(x => x.LinhVucXuPhatId.Equals(id)).OrderBy(x => x.DieuKhoan);
+        var result = _chiTietLinhVucXuPhat.Filter(parameter).OrderBy(x => x.DieuKhoan);
 
-        return result;
+        return await PageList<ChiTietLinhVucXuPhat>.ToPageList(result, parameter.PageNumber, parameter.PageSize);
     }
 
     public async Task<ChiTietLinhVucXuPhat> GetChiTietLinhVucXuPhatById(int id)

@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Common.Constants;
 using Shared.SeedWord;
+using CatalogService.Application.Parameters.VanBanPhapLuats;
+using CatalogService.Application.Features.V1.VanBanPhapLuats.Queries.GetPagedVanBanPhapLuatAsync;
 
 namespace CatalogService.API.Controllers;
 
@@ -31,11 +33,21 @@ public class VanBanPhapLuatController : ControllerBase
 
     private static class RouteNames
     {
+        public const string GetPagedVanBanPhapLuat = nameof(GetPagedVanBanPhapLuat);
         public const string GetAllVanBanPhapLuat = nameof(GetAllVanBanPhapLuat);
         public const string GetVanBanPhapLuatById = nameof(GetVanBanPhapLuatById);
         public const string CreateVanBanPhapLuat = nameof(CreateVanBanPhapLuat);
         public const string UpdateVanBanPhapLuat = nameof(UpdateVanBanPhapLuat);
         public const string DeleteVanBanPhapLuat = nameof(DeleteVanBanPhapLuat);
+    }
+
+    [HttpPost("paging", Name = RouteNames.GetPagedVanBanPhapLuat)]
+    [ProducesResponseType(typeof(PagedResponse<IEnumerable<VanBanPhapLuatDto>>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<PagedResponse<IEnumerable<VanBanPhapLuatDto>>>> GetPagedVanBanPhapLuat([FromBody] VanBanPhapLuatParameter request)
+    {
+        var query = new GetPagedVanBanPhapLuatQuery(request);
+        var result = await _mediator.Send(query);
+        return Ok(result);
     }
 
     [HttpGet]
