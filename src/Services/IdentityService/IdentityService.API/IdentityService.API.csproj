@@ -47,9 +47,11 @@
   <ItemGroup>
     <None Remove="Services\" />
     <None Remove="Seeds\" />
+    <None Remove="Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
     <Folder Include="Seeds\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 </Project>

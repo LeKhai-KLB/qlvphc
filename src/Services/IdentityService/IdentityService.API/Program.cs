@@ -16,6 +16,7 @@ using IdentityService.Application.Common.Interfaces;
 using IdentityService.API.Services;
 using IdentityService.API.Seeds;
 using Shared.Common.Constants;
+using IdentityService.API.Extensions;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -55,7 +56,8 @@ try
 
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
-
+    builder.Services.ConfigureCors(builder.Configuration);
+    builder.Services.ConfigureHealthChecks(builder.Configuration);
 
     builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
     builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
