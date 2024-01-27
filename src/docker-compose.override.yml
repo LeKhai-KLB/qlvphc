@@ -4,12 +4,12 @@ services:
   mssql-server:
     container_name: mssql-server
     environment:
-      - SA_PASSWORD=YourStrong@Passw0rd
-      - ACCEPT_EULA=Y
+      SA_PASSWORD: "YourStrong@Passw0rd"
+      ACCEPT_EULA: "Y"
     ports:
       - "5434:1433"
     networks:
-     - qlvphc-network
+      - qlvphc-network
 
   # coreservice.api:
   #   container_name: coreservice.api
@@ -29,20 +29,21 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80;
+      - ConnectionStrings:DefaultConnectionString=Server=mssql-server;Database=qlvphc.catalog;User=sa;Password=YourStrong@Passw0rd;MultipleActiveResultSets=true;TrustServerCertificate=true
     ports:
       - "5102:80"
     # volumes:
     #   - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
     #   - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
     networks:
-     - qlvphc-network
+      - qlvphc-network
 
   identityservice.api:
     container_name: identityservice.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80;
-      # - ConnectionString=Server=mssql-server;Database=QLVPHC;User=sa;Password=Abc@@123;MultipleActiveResultSets=true;TrustServerCertificate=true
+      - ConnectionStrings:DefaultConnection=Server=mssql-server;Database=qlvphc.identity;User=sa;Password=YourStrong@Passw0rd;MultipleActiveResultSets=true;TrustServerCertificate=true
 
     ports:
       - "5104:80"
@@ -52,7 +53,7 @@ services:
     depends_on:
       - mssql-server
     networks:
-     - qlvphc-network
+      - qlvphc-network
 
   # reportservice.api:
   #   container_name: reportservice.api
