@@ -100,6 +100,9 @@
     <None Remove="Features\V1\VanBanGiaiQuyets\Queries\GetAllVanBanGiaiQuyet\" />
     <None Remove="Features\V1\VanBanGiaiQuyets\Queries\GetPagedVanBanGiaiQuyetAsync\" />
     <None Remove="Features\V1\VanBanGiaiQuyets\Queries\GetVanBanGiaiQuyetById\" />
+    <None Remove="Common\Models\DanhMucDinhDanhs\" />
+    <None Remove="Parameters\DanhMucDinhDanhs\" />
+    <None Remove="Features\V1\DanhMucDinhDanhs\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\V1\LinhVucXuPhats\" />
@@ -184,5 +187,8 @@
     <Folder Include="Features\V1\VanBanGiaiQuyets\Queries\GetAllVanBanGiaiQuyet\" />
     <Folder Include="Features\V1\VanBanGiaiQuyets\Queries\GetPagedVanBanGiaiQuyetAsync\" />
     <Folder Include="Features\V1\VanBanGiaiQuyets\Queries\GetVanBanGiaiQuyetById\" />
+    <Folder Include="Common\Models\DanhMucDinhDanhs\" />
+    <Folder Include="Parameters\DanhMucDinhDanhs\" />
+    <Folder Include="Features\V1\DanhMucDinhDanhs\" />
   </ItemGroup>
 </Project>

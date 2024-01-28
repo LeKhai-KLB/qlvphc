@@ -282,3 +282,5 @@ src/**/app.yaml
 src/**/inf.yaml
 
 **/.DS_Store
+src/Services/.DS_Store
+src/Services/.DS_Store
