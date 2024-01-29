@@ -1,7 +1,7 @@
 ﻿using IdentityService.Application.Common.Interfaces;
 using IdentityService.Application.Common.Models;
 using IdentityService.Application.Common.Models.AuthModels;
-using IdentityService.Application.Common.Models.UserModels;
+using IdentityService.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.IdentityModel.Tokens;
@@ -14,12 +14,12 @@ namespace IdentityService.API.Services
     public class AuthService : IAuthService
     {
         private readonly IConfiguration _config;
-        private UserManager<IdentityUser> _userManager;
+        private UserManager<User> _userManager;
         private RoleManager<IdentityRole> _roleManager;
         private IMailService _mailService;
 
         public AuthService(IConfiguration config,
-                            UserManager<IdentityUser> userManager,
+                            UserManager<User> userManager,
                             IMailService mailService,
                             RoleManager<IdentityRole> roleManager)
         {
@@ -176,7 +176,7 @@ namespace IdentityService.API.Services
         }
 
         //Token Genereator
-        private async Task<string> GenerateToken(IdentityUser user)
+        private async Task<string> GenerateToken(User user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
