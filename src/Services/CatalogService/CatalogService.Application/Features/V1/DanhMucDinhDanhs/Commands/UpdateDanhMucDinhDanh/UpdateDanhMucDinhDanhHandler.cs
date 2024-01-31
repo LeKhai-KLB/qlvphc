@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using CatalogService.Application.Common.Exceptions;
 using CatalogService.Application.Common.Interfaces;
 using CatalogService.Application.Common.Models.DanhMucDinhDanhs;
-using CatalogService.Domain.Entities;
 using MediatR;
 using Serilog;
 using Shared.SeedWord;
@@ -26,17 +26,34 @@ namespace CatalogService.Application.Features.V1.DanhMucDinhDanhs.Commands.Updat
         {
             _logger.Information($"BEGIN: {MethodName}");
 
-            var danhMucDinhDanh = _mapper.Map<DanhMucDinhDanh>(request);
-            var existMaDinhDanh = await _repository.CheckExistMaDinhDanhDanhMucDinhDanh(request.MaDinhDanh);
-            if (existMaDinhDanh)
+            var updateDanhMucDinhDanh = await _repository.GetByIdAsync(request.Id);
+            if (updateDanhMucDinhDanh == null)
             {
-                return new ApiErrorResult<DanhMucDinhDanhDto>("Ma Dinh Danh exists.");
+                throw new NotFoundException("Quan Huyen not found");
             }
-            await _repository.UpdateDanhMucDinhDanh(danhMucDinhDanh);
+
+            if (updateDanhMucDinhDanh.MaDinhDanh != request.MaDinhDanh)
+            {
+                var existMaDinhDanh = await _repository.CheckExistMaDinhDanhDanhMucDinhDanh(request.MaDinhDanh);
+                if (existMaDinhDanh)
+                {
+                    return new ApiErrorResult<DanhMucDinhDanhDto>("Ma Danh Muc Dinh Danh exists.");
+                }
+            }
+
+            updateDanhMucDinhDanh.MaDinhDanh = request.MaDinhDanh;
+            updateDanhMucDinhDanh.Ten = request.Ten;
+            updateDanhMucDinhDanh.DiaChi = request.DiaChi;
+            updateDanhMucDinhDanh.Email = request.Email;
+            updateDanhMucDinhDanh.DienThoai = request.DienThoai;
+            updateDanhMucDinhDanh.Website = request.Website;
+            updateDanhMucDinhDanh.MaDinhDanhTCVN = request.MaDinhDanhTCVN;
+
+            await _repository.UpdateDanhMucDinhDanh(updateDanhMucDinhDanh);
 
             _logger.Information($"END: {MethodName}");
 
-            return new ApiSuccessResult<DanhMucDinhDanhDto>(_mapper.Map<DanhMucDinhDanhDto>(danhMucDinhDanh));
+            return new ApiSuccessResult<DanhMucDinhDanhDto>(_mapper.Map<DanhMucDinhDanhDto>(updateDanhMucDinhDanh));
         }
     }
 }

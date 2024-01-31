@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CatalogService.Application.Common.Exceptions;
 using CatalogService.Application.Common.Interfaces;
 using CatalogService.Application.Common.Models.TinhThanhPhos;
 using CatalogService.Domain.Entities;
@@ -26,17 +27,29 @@ namespace CatalogService.Application.Features.V1.TinhThanhPhos.Commands.UpdateTi
         {
             _logger.Information($"BEGIN: {MethodName}");
 
-            var tinhThanhPho = _mapper.Map<TinhThanhPho>(request);
-            var existMaDinhDanh = await _repository.CheckExistMaDinhDanhTinhThanhPho(request.MaDinhDanh);
-            if (existMaDinhDanh)
+            var updateTinhThanhPho = await _repository.GetByIdAsync(request.Id);
+            if (updateTinhThanhPho == null)
             {
-                return new ApiErrorResult<TinhThanhPhoDto>("Ma Dinh Danh exists.");
+                throw new NotFoundException("Tinh Thanh Pho not found");
             }
-            await _repository.UpdateTinhThanhPho(tinhThanhPho);
+
+            if (updateTinhThanhPho.MaDinhDanh != request.MaDinhDanh)
+            {
+                var existMaDinhDanh = await _repository.CheckExistMaDinhDanhTinhThanhPho(request.MaDinhDanh);
+                if (existMaDinhDanh)
+                {
+                    return new ApiErrorResult<TinhThanhPhoDto>("Ma Dinh Danh exists.");
+                }
+            }
+
+            updateTinhThanhPho.MaDinhDanh = request.MaDinhDanh;
+            updateTinhThanhPho.Ten = request.Ten;
+
+            await _repository.UpdateTinhThanhPho(updateTinhThanhPho);
 
             _logger.Information($"END: {MethodName}");
 
-            return new ApiSuccessResult<TinhThanhPhoDto>(_mapper.Map<TinhThanhPhoDto>(tinhThanhPho));
+            return new ApiSuccessResult<TinhThanhPhoDto>(_mapper.Map<TinhThanhPhoDto>(updateTinhThanhPho));
         }
     }
 }
