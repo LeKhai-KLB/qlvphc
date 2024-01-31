@@ -34,12 +34,12 @@ namespace IdentityService.API.Services
         {
             var user = await _userManager.FindByNameAsync(model.UserName);
 
-            if (user.UserName != model.UserName)
+            if (user == null || user.UserName != model.UserName)
             {
                 return new ResponseManager
                 {
-                    Message = "There is no user with that Username! ",
-                    IsSuccess = false,
+                    Message = "Tên đăng nhập không chính xác!",
+                    IsSuccess = false
                 };
             }
             else
@@ -48,8 +48,8 @@ namespace IdentityService.API.Services
                 if (!result)
                     return new ResponseManager
                     {
-                        Message = "Invalid password",
-                        IsSuccess = false,
+                        Message = "Mật khẩu không chính xác!",
+                        IsSuccess = false
                     };
 
 
@@ -60,7 +60,8 @@ namespace IdentityService.API.Services
                 return new ResponseManager
                 {
                     Message = Token,
-                    IsSuccess = true,
+                    Data = user.Id,
+                    IsSuccess = true
                 };
             }
         }
