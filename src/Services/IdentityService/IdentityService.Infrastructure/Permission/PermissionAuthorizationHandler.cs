@@ -1,4 +1,5 @@
 ﻿using IdentityService.Application.Common.Models;
+using IdentityService.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -8,11 +9,11 @@ namespace IdentityService.Infrastructure.Permission
 {
     public class PermissionAuthorizationHandler : AuthorizationHandler<PermissionRequirement>
     {
-        UserManager<IdentityUser> _userManager;
+        UserManager<User> _userManager;
         RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _config;
 
-        public PermissionAuthorizationHandler(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public PermissionAuthorizationHandler(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _roleManager = roleManager;

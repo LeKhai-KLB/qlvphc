@@ -1,7 +1,7 @@
 ﻿using IdentityService.Application.Common.Interfaces;
 using IdentityService.Application.Common.Models;
 using IdentityService.Application.Common.Models.AuthModels;
-using IdentityService.Application.Common.Models.UserModels;
+using IdentityService.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.IdentityModel.Tokens;
@@ -14,12 +14,12 @@ namespace IdentityService.API.Services
     public class AuthService : IAuthService
     {
         private readonly IConfiguration _config;
-        private UserManager<IdentityUser> _userManager;
+        private UserManager<User> _userManager;
         private RoleManager<IdentityRole> _roleManager;
         private IMailService _mailService;
 
         public AuthService(IConfiguration config,
-                            UserManager<IdentityUser> userManager,
+                            UserManager<User> userManager,
                             IMailService mailService,
                             RoleManager<IdentityRole> roleManager)
         {
@@ -34,12 +34,12 @@ namespace IdentityService.API.Services
         {
             var user = await _userManager.FindByNameAsync(model.UserName);
 
-            if (user.UserName != model.UserName)
+            if (user == null || user.UserName != model.UserName)
             {
                 return new ResponseManager
                 {
-                    Message = "There is no user with that Username! ",
-                    IsSuccess = false,
+                    Message = "Tên đăng nhập không chính xác!",
+                    IsSuccess = false
                 };
             }
             else
@@ -48,8 +48,8 @@ namespace IdentityService.API.Services
                 if (!result)
                     return new ResponseManager
                     {
-                        Message = "Invalid password",
-                        IsSuccess = false,
+                        Message = "Mật khẩu không chính xác!",
+                        IsSuccess = false
                     };
 
 
@@ -60,7 +60,8 @@ namespace IdentityService.API.Services
                 return new ResponseManager
                 {
                     Message = Token,
-                    IsSuccess = true,
+                    Data = user.Id,
+                    IsSuccess = true
                 };
             }
         }
@@ -176,7 +177,7 @@ namespace IdentityService.API.Services
         }
 
         //Token Genereator
-        private async Task<string> GenerateToken(IdentityUser user)
+        private async Task<string> GenerateToken(User user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);

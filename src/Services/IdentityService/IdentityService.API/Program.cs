@@ -16,6 +16,8 @@ using IdentityService.Application.Common.Interfaces;
 using IdentityService.API.Services;
 using IdentityService.API.Seeds;
 using Shared.Common.Constants;
+using IdentityService.API.Extensions;
+using IdentityService.Domain.Entities;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -35,7 +37,7 @@ try
     builder.Services.AddApplicationServices();
 
     //Registering Identity 
-    builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+    builder.Services.AddIdentity<User, IdentityRole>(options =>
     {
         options.Password.RequireDigit = true;
         options.Password.RequireLowercase = true;
@@ -55,7 +57,8 @@ try
 
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
-
+    builder.Services.ConfigureCors(builder.Configuration);
+    builder.Services.ConfigureHealthChecks(builder.Configuration);
 
     builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
     builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
@@ -182,7 +185,7 @@ try
         var services = scope.ServiceProvider;
         try
         {
-            var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+            var userManager = services.GetRequiredService<UserManager<User>>();
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
             await DefaultRoles.SeedAsync(userManager, roleManager);

@@ -51,9 +51,13 @@ namespace IdentityService.API.Controllers
         // PUT: api/Users/5
         [Authorize(Permissions.Users.Edit)]
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(string id, UpdateUserCommand command)
+        public async Task<IActionResult> PutUser(string id, [FromBody] UpdateUserCommand command)
         {
-            command.SetId(id);
+            if (id != command.Id)
+            {
+                return BadRequest("Mismatch between route parameter 'id' and 'Id' in the command.");
+            }
+
             var result = await _mediator.Send(command);
             return Ok(result);
         }

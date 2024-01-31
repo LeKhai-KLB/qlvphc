@@ -1,4 +1,5 @@
 ﻿using IdentityService.Domain.Constants;
+using IdentityService.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Shared.Common.Constants;
 using System.Security.Claims;
@@ -7,9 +8,9 @@ namespace IdentityService.API.Seeds;
 
 public static class DefaultUsers
 {
-    public static async Task SeedBasicUserAsync(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+    public static async Task SeedBasicUserAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
     {
-        var defaultUser = new IdentityUser
+        var defaultUser = new User
         {
             UserName = "basicuser",
             Email = "basicuser",
@@ -29,9 +30,9 @@ public static class DefaultUsers
         }
     }
 
-    public static async Task SeedSuperAdminAsync(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+    public static async Task SeedSuperAdminAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
     {
-        var defaultUser = new IdentityUser
+        var defaultUser = new User
         {
             UserName = "superadmin",
             Email = "superadmin",

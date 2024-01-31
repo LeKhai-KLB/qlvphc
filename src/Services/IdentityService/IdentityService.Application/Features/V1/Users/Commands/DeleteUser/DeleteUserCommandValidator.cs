@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using IdentityService.Domain.Entities;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Serilog;
 
@@ -7,10 +8,10 @@ namespace IdentityService.Application.Features.V1.Users.Commands.DeleteUser;
 public class DeleteUserCommandValidator : IRequestHandler<DeleteUserCommand, bool>
 {
     private readonly ILogger _logger;
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<User> _userManager;
     private const string MethodName = "DeleteUserCommandValidator";
 
-    public DeleteUserCommandValidator(UserManager<IdentityUser> userManager, ILogger logger)
+    public DeleteUserCommandValidator(UserManager<User> userManager, ILogger logger)
     {
         _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
