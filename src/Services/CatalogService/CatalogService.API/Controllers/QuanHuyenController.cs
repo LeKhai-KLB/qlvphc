@@ -6,6 +6,8 @@ using CatalogService.Application.Features.V1.QuanHuyens.Commands.CreateQuanHuyen
 using CatalogService.Application.Features.V1.QuanHuyens.Commands.DeleteQuanHuyen;
 using CatalogService.Application.Features.V1.QuanHuyens.Commands.UpdateQuanHuyen;
 using CatalogService.Application.Features.V1.QuanHuyens.Queries.GetQuanHuyenByTinhThanhPhoId;
+using CatalogService.Application.Features.V1.QuanHuyens.Queries.GetQuanHuyens;
+using CatalogService.Application.Parameters.QuanHuyens;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shared.SeedWord;
@@ -33,6 +35,15 @@ namespace CatalogService.API.Controllers
             public const string UpdateQuanHuyen = nameof(UpdateQuanHuyen);
             public const string DeleteQuanHuyen = nameof(DeleteQuanHuyen);
             public const string GetQuanHuyenById = nameof(GetQuanHuyenById);
+        }
+
+        [HttpPost("paging", Name = RouteNames.GetQuanHuyens)]
+        [ProducesResponseType(typeof(PagedResponse<IEnumerable<QuanHuyenDto>>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<PagedResponse<IEnumerable<QuanHuyenDto>>>> GetTinhThanhPhos([FromBody] QuanHuyenParameter request)
+        {
+            var query = new GetQuanHuyensQuery(request);
+            var result = await _mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpGet(Name = RouteNames.GetQuanHuyenByTinhThanhPho)]

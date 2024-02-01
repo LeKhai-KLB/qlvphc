@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CatalogService.Application.Common.Mappings;
+using CatalogService.Application.Common.Models.TinhThanhPhos;
 using CatalogService.Domain.Entities;
 
 
@@ -10,6 +11,8 @@ namespace CatalogService.Application.Common.Models.QuanHuyens
         public int Id { get; set; }
         public string MaDinhDanh { get; set; }
         public string Ten { get; set; }
+
+        public TinhThanhPhoDto TinhThanhPho { get; set; }
         
         public void Mapping(Profile profile)
         {

@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using CatalogService.Application.Common.Mappings;
+using CatalogService.Application.Features.V1.QuanHuyens.Queries.GetQuanHuyens;
+using CatalogService.Application.Parameters.QuanHuyens;
 using CatalogService.Domain.Entities;
 
 namespace CatalogService.Application.Features.V1.QuanHuyens.Common
@@ -14,6 +16,7 @@ namespace CatalogService.Application.Features.V1.QuanHuyens.Common
         public void Mapping(Profile profile)
         {
             profile.CreateMap<CreateOrUpdateCommand, QuanHuyen>();
+            profile.CreateMap<GetQuanHuyensQuery, QuanHuyenParameter>();
         }
     }
 }
