@@ -65,25 +65,33 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, ApiRe
             {
                 var result = await _userManager.CreateAsync(identityUser, request.Password);
 
-                //Setting Roles
-                if (request.Role != null)
+                if (result.Succeeded)
                 {
-                    var roleCheck = await _roleManager.RoleExistsAsync(request.Role);
-                    if (roleCheck != true)
+                    //Setting Roles
+                    if (request.Role != null)
                     {
-                        await _userManager.AddToRoleAsync(identityUser, Convert.ToString("Guest"));
+                        var roleCheck = await _roleManager.RoleExistsAsync(request.Role);
+                        if (roleCheck != true)
+                        {
+                            await _userManager.AddToRoleAsync(identityUser, Convert.ToString("Guest"));
+                        }
+                        else
+                        {
+                            await _userManager.AddToRoleAsync(identityUser, Convert.ToString(request.Role));
+                        }
                     }
                     else
                     {
-                        await _userManager.AddToRoleAsync(identityUser, Convert.ToString(request.Role));
+                        await _userManager.AddToRoleAsync(identityUser, Convert.ToString("Guest"));
                     }
+
+                    return new ApiSuccessResult<User>(identityUser);
                 }
                 else
                 {
-                    await _userManager.AddToRoleAsync(identityUser, Convert.ToString("Guest"));
+                    _logger.Error("Error when creating user.");
+                    return new ApiErrorResult<User>($"Error when creating user: { string.Join(" | ", result.Errors.Select(x => x.Description)) }");
                 }
-
-                return new ApiSuccessResult<User>(identityUser);
             }
             catch (DBConcurrencyException ex)
             {

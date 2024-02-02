@@ -12,18 +12,22 @@ using CatalogService.Infrastructure.Persistence;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Infrastructure.Extensions;
+using static Shared.Common.Constants.Permissions;
+using Microsoft.IdentityModel.Logging;
 
 Log.Logger = new LoggerConfiguration()
 .WriteTo.Console()
-    .CreateBootstrapLogger();
+.CreateBootstrapLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 Log.Information($"Start {builder.Environment.ApplicationName} Api up");
 
 // Add services to the container.
-
 try
 {
+    IdentityModelEventSource.ShowPII = true;
+
     builder.Host.AddAppConfigurations();
     
     builder.Host.UseSerilog(Serilogger.Configure);
@@ -91,9 +95,22 @@ try
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],       // Jwt:Issuer - config value 
-            ValidAudience = builder.Configuration["Jwt:Issuer"],     // Jwt:Issuer - config value 
+            ValidAudience = builder.Configuration["Jwt:Audience"],     // Jwt:Issuer - config value 
             IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])) // Jwt:Key - config value 
         };
+    });
+
+    //Authorization
+    builder.Services.AddAuthorization(options =>
+    {
+        options.AddPermissionPolicies<Users>();
+        options.AddPermissionPolicies<LinhVucXuPhats>();
+        options.AddPermissionPolicies<ChiTietLinhVucXuPhats>();
+        options.AddPermissionPolicies<CoQuanBanHanhs>();
+        options.AddPermissionPolicies<LoaiVanBans>();
+        options.AddPermissionPolicies<VanBanGiaiQuyets>();
+        options.AddPermissionPolicies<VanBanPhapLuats>();
+        options.AddPermissionPolicies<VanBanLienQuans>();
     });
 
     builder.Services.AddApplicationServices();

@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using IdentityService.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,8 +14,8 @@ namespace IdentityService.API.Controllers
     public class PermissionsController : ControllerBase
     {
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserManager<IdentityUser> _userManager;
-        public PermissionsController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        private readonly UserManager<User> _userManager;
+        public PermissionsController(RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
