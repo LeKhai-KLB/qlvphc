@@ -7,7 +7,7 @@ public static class Permissions
         public const string Permission = "Permission";
     }
 
-    public static class Users
+    public class Users
     {
         //Only For SuperAdmins
         public const string SuperAdminView = $"{CustomClaimTypes.Permission}s.Users.SuperAdminView";
@@ -23,7 +23,7 @@ public static class Permissions
         public const string ViewById = $"{CustomClaimTypes.Permission}s.Users.ViewById";
     }
 
-    public static class LinhVucXuPhats
+    public class LinhVucXuPhats
     {
         //Only For SuperAdmins
         public const string SuperAdminView = $"{CustomClaimTypes.Permission}s.LinhVucXuPhats.SuperAdminView";
@@ -39,7 +39,7 @@ public static class Permissions
         public const string ViewById = $"{CustomClaimTypes.Permission}s.LinhVucXuPhats.ViewById";
     }
 
-    public static class ChiTietLinhVucXuPhats
+    public class ChiTietLinhVucXuPhats
     {
         //Only For SuperAdmins
         public const string SuperAdminView = $"{CustomClaimTypes.Permission}s.ChiTietLinhVucXuPhats.SuperAdminView";
@@ -55,7 +55,7 @@ public static class Permissions
         public const string ViewById = $"{CustomClaimTypes.Permission}s.ChiTietLinhVucXuPhats.ViewById";
     }
 
-    public static class CoQuanBanHanhs
+    public class CoQuanBanHanhs
     {
         //Only For SuperAdmins
         public const string SuperAdminView = $"{CustomClaimTypes.Permission}s.CoQuanBanHanhs.SuperAdminView";
@@ -71,7 +71,7 @@ public static class Permissions
         public const string ViewById = $"{CustomClaimTypes.Permission}s.CoQuanBanHanhs.ViewById";
     }
 
-    public static class LoaiVanBans
+    public class LoaiVanBans
     {
         //Only For SuperAdmins
         public const string SuperAdminView = $"{CustomClaimTypes.Permission}s.LoaiVanBans.SuperAdminView";
@@ -87,7 +87,7 @@ public static class Permissions
         public const string ViewById = $"{CustomClaimTypes.Permission}s.LoaiVanBans.ViewById";
     }
 
-    public static class VanBanPhapLuats
+    public class VanBanPhapLuats
     {
         //Only For SuperAdmins
         public const string SuperAdminView = $"{CustomClaimTypes.Permission}s.VanBanPhapLuats.SuperAdminView";
@@ -103,7 +103,7 @@ public static class Permissions
         public const string ViewById = $"{CustomClaimTypes.Permission}s.VanBanPhapLuats.ViewById";
     }
 
-    public static class VanBanGiaiQuyets
+    public class VanBanGiaiQuyets
     {
         //Only For SuperAdmins
         public const string SuperAdminView = $"{CustomClaimTypes.Permission}s.VanBanGiaiQuyets.SuperAdminView";
@@ -119,7 +119,7 @@ public static class Permissions
         public const string ViewById = $"{CustomClaimTypes.Permission}s.VanBanGiaiQuyets.ViewById";
     }
 
-    public static class VanBanLienQuans
+    public class VanBanLienQuans
     {
         //Only For SuperAdmins
         public const string SuperAdminView = $"{CustomClaimTypes.Permission}s.VanBanLienQuans.SuperAdminView";

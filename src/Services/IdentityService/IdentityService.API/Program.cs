@@ -11,13 +11,14 @@ using Common.Logging;
 using System.Diagnostics;
 using IdentityService.Infrastructure;
 using IdentityService.Application;
-using IdentityService.Infrastructure.Permission;
 using IdentityService.Application.Common.Interfaces;
 using IdentityService.API.Services;
 using IdentityService.API.Seeds;
-using Shared.Common.Constants;
 using IdentityService.API.Extensions;
+using static Shared.Common.Constants.Permissions;
+using IdentityService.Infrastructure.Permission;
 using IdentityService.Domain.Entities;
+using Infrastructure.Extensions;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -70,40 +71,14 @@ try
     //Authorization
     builder.Services.AddAuthorization(options =>
     {
-        options.AddPolicy(Permissions.Users.View, builder =>
-        {
-            builder.AddRequirements(new PermissionRequirement(Permissions.Users.View));
-        });
-
-        options.AddPolicy(Permissions.Users.Create, builder =>
-        {
-            builder.AddRequirements(new PermissionRequirement(Permissions.Users.Create));
-        });
-
-        options.AddPolicy(Permissions.Users.Edit, builder =>
-        {
-            builder.AddRequirements(new PermissionRequirement(Permissions.Users.Edit));
-        });
-
-        options.AddPolicy(Permissions.Users.Delete, builder =>
-        {
-            builder.AddRequirements(new PermissionRequirement(Permissions.Users.Delete));
-        });
-
-        options.AddPolicy(Permissions.Users.ViewById, builder =>
-        {
-            builder.AddRequirements(new PermissionRequirement(Permissions.Users.ViewById));
-        });
-
-        options.AddPolicy(Permissions.Users.SuperAdminView, builder =>
-        {
-            builder.AddRequirements(new PermissionRequirement(Permissions.Users.SuperAdminView));
-        });
-
-        options.AddPolicy(Permissions.Users.SuperAdminCreate, builder =>
-        {
-            builder.AddRequirements(new PermissionRequirement(Permissions.Users.SuperAdminCreate));
-        });
+        options.AddPermissionPolicies<Users>();
+        options.AddPermissionPolicies<LinhVucXuPhats>();
+        options.AddPermissionPolicies<ChiTietLinhVucXuPhats>();
+        options.AddPermissionPolicies<CoQuanBanHanhs>();
+        options.AddPermissionPolicies<LoaiVanBans>();
+        options.AddPermissionPolicies<VanBanGiaiQuyets>();
+        options.AddPermissionPolicies<VanBanPhapLuats>();
+        options.AddPermissionPolicies<VanBanLienQuans>();
     });
 
     //Swagger
@@ -155,7 +130,7 @@ try
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             ValidIssuer = _config["Jwt:Issuer"],       // Jwt:Issuer - config value 
-            ValidAudience = _config["Jwt:Issuer"],     // Jwt:Issuer - config value 
+            ValidAudience = _config["Jwt:Audience"],     // Jwt:Issuer - config value 
             IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_config["Jwt:Key"])) // Jwt:Key - config value 
         };
     });
