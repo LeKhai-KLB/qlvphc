@@ -25,7 +25,7 @@ public class GetAllVanBanGiaiQuyetQueryHandler : IRequestHandler<GetAllVanBanGia
     {
         _logger.Information($"BEGIN: {MethodName}");
 
-        var vbgqEntities = await _repository.GetAllVanBanGiaiQuyet();
+        var vbgqEntities = await _repository.GetVanBanGiaiQuyetByTerm(request.Term);
         var vbgqDto = _mapper.Map<IEnumerable<VanBanGiaiQuyetDto>>(vbgqEntities);
 
         _logger.Information($"END: {MethodName}");

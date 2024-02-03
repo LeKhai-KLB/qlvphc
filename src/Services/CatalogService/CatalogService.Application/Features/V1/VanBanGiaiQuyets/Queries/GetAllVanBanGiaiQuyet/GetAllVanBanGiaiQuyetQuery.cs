@@ -6,7 +6,9 @@ namespace CatalogService.Application.Features.V1.VanBanGiaiQuyets.Queries.GetAll
 
 public class GetAllVanBanGiaiQuyetQuery : IRequest<ApiResult<IEnumerable<VanBanGiaiQuyetDto>>>
 {
-    public GetAllVanBanGiaiQuyetQuery()
+    public string? Term { get; set; }
+    public GetAllVanBanGiaiQuyetQuery(string? term)
     {
+        Term = term;
     }
 }

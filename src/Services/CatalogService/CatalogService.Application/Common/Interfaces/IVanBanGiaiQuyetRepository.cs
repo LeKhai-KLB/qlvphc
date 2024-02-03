@@ -7,7 +7,7 @@ namespace CatalogService.Application.Common.Interfaces;
 
 public interface IVanBanGiaiQuyetRepository : IRepositoryBaseAsync<VanBanGiaiQuyet, int>
 {
-    Task<IEnumerable<VanBanGiaiQuyet>> GetAllVanBanGiaiQuyet();
+    Task<IEnumerable<VanBanGiaiQuyet>> GetVanBanGiaiQuyetByTerm(string? term);
     Task<PageList<VanBanGiaiQuyet>> GetPagedVanBanGiaiQuyetAsync(VanBanGiaiQuyetParameter parameter);
     Task<VanBanGiaiQuyet> GetVanBanGiaiQuyetById(int id);
     Task CreateVanBanGiaiQuyet(VanBanGiaiQuyet request);

@@ -13,6 +13,8 @@ namespace CatalogService.Application.Features.V1.DanhMucDinhDanhs.Queries.GetDan
         public string? OrderBy { get; set; }
         public string? Name { get; set; }
         public bool? IsDeleted { get; set; }
+
+        public string? SearchTerm { get; set; }
         public GetDanhMucDinhDanhsQuery(DanhMucDinhDanhParameter request)
         {
             PageNumber = request.PageNumber;
@@ -20,6 +22,7 @@ namespace CatalogService.Application.Features.V1.DanhMucDinhDanhs.Queries.GetDan
             OrderBy = request.OrderBy;
             Name = request.Name;
             IsDeleted = request.IsDeleted;
+            SearchTerm = request.SearchTerm;
         }
     }
 }

@@ -48,9 +48,9 @@ namespace CatalogService.API.Controllers
 
         [HttpGet(Name = RouteNames.GetQuanHuyenByTinhThanhPho)]
         [ProducesResponseType(typeof(IEnumerable<QuanHuyenDto>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<QuanHuyenDto>>> GetQuanHuyensByTerm([FromQuery] int id)
+        public async Task<ActionResult<IEnumerable<QuanHuyenDto>>> GetQuanHuyensByTerm([FromQuery] int tinhThanhPhoId)
         {
-            var query = new GetQuanHuyenByTinhThanhPhoIdQuery(id);
+            var query = new GetQuanHuyenByTinhThanhPhoIdQuery(tinhThanhPhoId);
             var result = await _mediator.Send(query);
             return Ok(result);
         }

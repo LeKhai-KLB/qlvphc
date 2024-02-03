@@ -20,10 +20,15 @@ public class DanhMucDinhDanhRepository : RepositoryBase<DanhMucDinhDanh, int, Ca
 
     public async Task<PageList<DanhMucDinhDanh>> GetPagedDanhMucDinhDanhAsync(DanhMucDinhDanhParameter parameter)
     {
-        var result = _DanhMucDinhDanh.Filter(parameter)
-            .OrderBy(x => x.Ten);
+        var query = _DanhMucDinhDanh.Filter(parameter)
+            .OrderBy(parameter.OrderBy);
+        
+        if (!string.IsNullOrEmpty(parameter.SearchTerm))
+        {
+            query = query.Where(x => x.MaDinhDanh.Contains(parameter.SearchTerm) || x.Ten.Contains(parameter.SearchTerm) || x.MaDinhDanhTCVN.Contains(parameter.SearchTerm));
+        }
 
-        return await PageList<DanhMucDinhDanh>.ToPageList(result, parameter.PageNumber, parameter.PageSize);
+        return await PageList<DanhMucDinhDanh>.ToPageList(query, parameter.PageNumber, parameter.PageSize);
     }
     
     public async Task<IEnumerable<DanhMucDinhDanh>> GetDanhMucDinhDanhsByTerm(string? term)

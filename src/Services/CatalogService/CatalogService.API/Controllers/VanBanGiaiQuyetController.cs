@@ -18,7 +18,7 @@ namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(AuthenticationSchemes = "Bearer")]
+//[Authorize(AuthenticationSchemes = "Bearer")]
 public class VanBanGiaiQuyetController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -49,16 +49,16 @@ public class VanBanGiaiQuyetController : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet]
-    [Route(RouteNames.GetAllVanBanGiaiQuyet)]
-    [ProducesResponseType(typeof(IEnumerable<VanBanGiaiQuyetDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.VanBanGiaiQuyets.View)]
-    public async Task<ActionResult<IEnumerable<VanBanGiaiQuyetDto>>> GetAllVanBanGiaiQuyet()
-    {
-        var query = new GetAllVanBanGiaiQuyetQuery();
-        var result = await _mediator.Send(query);
-        return Ok(result);
-    }
+    // [HttpGet]
+    // [Route(RouteNames.GetAllVanBanGiaiQuyet)]
+    // [ProducesResponseType(typeof(IEnumerable<VanBanGiaiQuyetDto>), (int)HttpStatusCode.OK)]
+    // //[Authorize(Permissions.VanBanGiaiQuyets.View)]
+    // public async Task<ActionResult<IEnumerable<VanBanGiaiQuyetDto>>> GetAllVanBanGiaiQuyet([FromQuery] string? term)
+    // {
+    //     var query = new GetAllVanBanGiaiQuyetQuery(term);
+    //     var result = await _mediator.Send(query);
+    //     return Ok(result);
+    // }
 
     [HttpGet]
     [Route(RouteNames.GetVanBanGiaiQuyetById)]

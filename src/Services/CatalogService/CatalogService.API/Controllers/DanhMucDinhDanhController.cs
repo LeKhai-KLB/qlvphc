@@ -47,14 +47,14 @@ namespace CatalogService.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet(Name = RouteNames.GetAllDanhMucDinhDanhs)]
-        [ProducesResponseType(typeof(IEnumerable<DanhMucDinhDanhDto>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<DanhMucDinhDanhDto>>> GetDanhMucDinhDanhsByTerm([FromQuery] string? term)
-        {
-            var query = new GetDanhMucDinhDanhsByTermQuery(term);
-            var result = await _mediator.Send(query);
-            return Ok(result);
-        }
+        // [HttpGet(Name = RouteNames.GetAllDanhMucDinhDanhs)]
+        // [ProducesResponseType(typeof(IEnumerable<DanhMucDinhDanhDto>), (int)HttpStatusCode.OK)]
+        // public async Task<ActionResult<IEnumerable<DanhMucDinhDanhDto>>> GetDanhMucDinhDanhsByTerm([FromQuery] string? term)
+        // {
+        //     var query = new GetDanhMucDinhDanhsByTermQuery(term);
+        //     var result = await _mediator.Send(query);
+        //     return Ok(result);
+        // }
 
         [HttpGet("{id:int}", Name = RouteNames.GetDanhMucDinhDanhById)]
         [ProducesResponseType(typeof(DanhMucDinhDanhDto), (int)HttpStatusCode.OK)]

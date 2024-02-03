@@ -21,14 +21,20 @@ public class VanBanGiaiQuyetRepository : RepositoryBase<VanBanGiaiQuyet, int, Ca
 
     public async Task<PageList<VanBanGiaiQuyet>> GetPagedVanBanGiaiQuyetAsync(VanBanGiaiQuyetParameter parameter)
     {
-        var result = _vanBanGiaiQuyet.Filter(parameter).OrderBy(x => x.TenGiayTo);
+        var query = _vanBanGiaiQuyet.Filter(parameter)
+            .OrderBy(parameter.OrderBy);
 
-        return await PageList<VanBanGiaiQuyet>.ToPageList(result, parameter.PageNumber, parameter.PageSize);
+        if (!string.IsNullOrEmpty(parameter.SearchTerm))
+        {
+            query = query.Where(x => x.MaGiayTo.Contains(parameter.SearchTerm) || x.TheoNghiDinh.Contains(parameter.SearchTerm) || x.TenGiayTo.Contains(parameter.SearchTerm));
+        }
+
+        return await PageList<VanBanGiaiQuyet>.ToPageList(query, parameter.PageNumber, parameter.PageSize);
     }
 
-    public async Task<IEnumerable<VanBanGiaiQuyet>> GetAllVanBanGiaiQuyet()
+    public async Task<IEnumerable<VanBanGiaiQuyet>> GetVanBanGiaiQuyetByTerm(string? term)
     {
-        return await FindAll().ToListAsync();
+        return await FindByCondition(x => string.IsNullOrEmpty(term) || x.MaGiayTo.Contains(term) || x.TenGiayTo.Contains(term) || x.TheoNghiDinh.Contains(term)).ToListAsync();
     }
 
     public async Task<VanBanGiaiQuyet> GetVanBanGiaiQuyetById(int id)

@@ -19,6 +19,8 @@ public class GetPagedVanBanGiaiQuyetQuery : IRequest<PagedResponse<IEnumerable<V
 
     public string? OrderBy { get; set; }
 
+    public string? SearchTerm { get; set; }
+
     public GetPagedVanBanGiaiQuyetQuery(VanBanGiaiQuyetParameter request)
     {
         PageNumber = request.PageNumber;
@@ -27,5 +29,6 @@ public class GetPagedVanBanGiaiQuyetQuery : IRequest<PagedResponse<IEnumerable<V
         MaGiayTo = request.MaGiayTo;
         TheoNghiDinh = request.TheoNghiDinh;
         TenGiayTo = request.TenGiayTo;
+        SearchTerm = request.SearchTerm;
     }
 }

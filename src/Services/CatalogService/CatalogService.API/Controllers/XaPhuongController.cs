@@ -37,9 +37,9 @@ namespace CatalogService.API.Controllers
 
         [HttpGet(Name = RouteNames.GetXaPhuongByQuanHuyen)]
         [ProducesResponseType(typeof(IEnumerable<XaPhuongDto>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<XaPhuongDto>>> GetXaPhuongsByTerm([FromQuery] int id)
+        public async Task<ActionResult<IEnumerable<XaPhuongDto>>> GetXaPhuongsByTerm([FromQuery] int quanHuyenId)
         {
-            var query = new GetXaPhuongByQuanHuyenIdQuery(id);
+            var query = new GetXaPhuongByQuanHuyenIdQuery(quanHuyenId);
             var result = await _mediator.Send(query);
             return Ok(result);
         }
