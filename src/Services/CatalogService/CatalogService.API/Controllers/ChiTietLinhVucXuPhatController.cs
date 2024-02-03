@@ -41,6 +41,7 @@ public class ChiTietLinhVucXuPhatController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedByLinhVucXuPhatId)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<ChiTietLinhVucXuPhatDto>>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.ChiTietLinhVucXuPhats.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<ChiTietLinhVucXuPhatDto>>>> GetPagedByLinhVucXuPhatId([FromBody] ChiTietLinhVucXuPhatParameter request)
     {
         var query = new GetPagedByLinhVucXuPhatIdQuery(request);

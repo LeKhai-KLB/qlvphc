@@ -43,6 +43,7 @@ public class LinhVucXuPhatController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedLinhVucXuPhat)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<LinhVucXuPhatDto>>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.LinhVucXuPhats.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<LinhVucXuPhatDto>>>> GetPagedLinhVucXuPhat([FromBody] LinhVucXuPhatParameter request)
     {
         var query = new GetPagedLinhVucXuPhatQuery(request);

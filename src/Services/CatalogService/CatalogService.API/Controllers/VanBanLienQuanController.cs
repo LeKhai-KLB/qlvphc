@@ -41,6 +41,7 @@ public class VanBanLienQuanController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedByVanBanPhapLuatId)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<VanBanLienQuanDto>>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.VanBanLienQuans.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<VanBanLienQuanDto>>>> GetPagedByVanBanPhapLuatId([FromBody] VanBanLienQuanParameter request)
     {
         var query = new GetPagedByVanBanPhapLuatIdQuery(request);

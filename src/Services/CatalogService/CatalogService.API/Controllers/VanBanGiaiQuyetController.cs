@@ -13,12 +13,13 @@ using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.SeedWord;
+using Shared.Common.Constants;
 
 namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-//[Authorize(AuthenticationSchemes = "Bearer")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class VanBanGiaiQuyetController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -42,6 +43,7 @@ public class VanBanGiaiQuyetController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedVanBanGiaiQuyet)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<VanBanGiaiQuyetDto>>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.VanBanGiaiQuyets.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<VanBanGiaiQuyetDto>>>> GetPagedVanBanGiaiQuyet([FromBody] VanBanGiaiQuyetParameter request)
     {
         var query = new GetPagedVanBanGiaiQuyetQuery(request);
@@ -63,7 +65,7 @@ public class VanBanGiaiQuyetController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetVanBanGiaiQuyetById)]
     [ProducesResponseType(typeof(VanBanGiaiQuyetDto), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.VanBanGiaiQuyets.ViewById)]
+    [Authorize(Permissions.VanBanGiaiQuyets.ViewById)]
     public async Task<ActionResult<VanBanGiaiQuyetDto>> GetVanBanGiaiQuyetById([FromQuery] int id)
     {
         var query = new GetVanBanGiaiQuyetByIdQuery(id);
@@ -73,7 +75,7 @@ public class VanBanGiaiQuyetController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateVanBanGiaiQuyet)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.VanBanGiaiQuyets.Create)]
+    [Authorize(Permissions.VanBanGiaiQuyets.Create)]
     public async Task<ActionResult<ApiResult<VanBanGiaiQuyetDto>>> CreateVanBanGiaiQuyet([FromBody] CreateVanBanGiaiQuyetDto model)
     {
         var command = _mapper.Map<CreateVanBanGiaiQuyetCommand>(model);
@@ -83,7 +85,7 @@ public class VanBanGiaiQuyetController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateVanBanGiaiQuyet)]
     [ProducesResponseType(typeof(ApiResult<VanBanGiaiQuyetDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.VanBanGiaiQuyets.Edit)]
+    [Authorize(Permissions.VanBanGiaiQuyets.Edit)]
     public async Task<ActionResult<ApiResult<VanBanGiaiQuyetDto>>> UpdateVanBanGiaiQuyet([Required] int id, [FromBody] UpdateVanBanGiaiQuyetCommand command)
     {
         command.SetId(id);
@@ -92,7 +94,7 @@ public class VanBanGiaiQuyetController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteVanBanGiaiQuyet)]
-    //[Authorize(Permissions.VanBanGiaiQuyets.Delete)]
+    [Authorize(Permissions.VanBanGiaiQuyets.Delete)]
     public async Task<ActionResult<bool>> DeleteVanBanGiaiQuyet([Required] int id)
     {
         var command = new DeleteVanBanGiaiQuyetCommand(id);

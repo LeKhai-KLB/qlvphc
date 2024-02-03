@@ -25,6 +25,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\IdentityService.Domain\IdentityService.Domain.csproj" />
     <ProjectReference Include="..\IdentityService.Application\IdentityService.Application.csproj" />
   </ItemGroup>

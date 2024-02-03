@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using static Shared.Common.Constants.Permissions;
 
 namespace IdentityService.API.Services
 {
@@ -179,30 +180,43 @@ namespace IdentityService.API.Services
         //Token Genereator
         private async Task<string> GenerateToken(User user)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:key"]));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var roles = await _userManager.GetRolesAsync(user);
+            var roles = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
 
             var userRoles = roles.Select(r => new Claim(ClaimTypes.Role, r)).ToArray();
 
             var userClaims = await _userManager.GetClaimsAsync(user).ConfigureAwait(false);
 
-            var roleClaims = await _userManager.GetClaimsAsync(user).ConfigureAwait(false);
+            var roleClaims = new List<Claim>();
 
+            foreach (var roleName in userRoles)
+            {
+                var role = await _roleManager.FindByNameAsync(roleName.Value);
+
+                if (role != null)
+                {
+                    var tempClaims = await _roleManager.GetClaimsAsync(role);
+                    roleClaims.AddRange(tempClaims);
+                }
+            }
+
+            // Include role and permission claims in the token
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Name, user.UserName)
-
+                new Claim(ClaimTypes.Name, user.UserName),
             }.Union(userClaims).Union(roleClaims).Union(userRoles);
 
-            var tokenClaims = new JwtSecurityToken(_config["Jwt:Issuer"],
+            var tokenClaims = new JwtSecurityToken(
+                _config["Jwt:Issuer"],
                 _config["Jwt:Audience"],
                 claims,
                 expires: DateTime.Now.AddDays(1),
-                signingCredentials: credentials);
+                signingCredentials: credentials
+            );
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenClaims);
             return tokenString;

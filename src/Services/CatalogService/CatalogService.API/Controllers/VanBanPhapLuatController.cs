@@ -43,6 +43,7 @@ public class VanBanPhapLuatController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedVanBanPhapLuat)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<VanBanPhapLuatDto>>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.VanBanPhapLuats.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<VanBanPhapLuatDto>>>> GetPagedVanBanPhapLuat([FromBody] VanBanPhapLuatParameter request)
     {
         var query = new GetPagedVanBanPhapLuatQuery(request);

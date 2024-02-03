@@ -1,5 +1,6 @@
 ﻿using IdentityService.Application.Common.Models;
 using IdentityService.Domain.Entities;
+using Infrastructure.Permission;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;

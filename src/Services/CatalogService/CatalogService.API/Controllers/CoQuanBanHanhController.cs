@@ -14,7 +14,7 @@ using CatalogService.Application.Features.V1.CoQuanBanHanhs.Commands.UpdateCoQua
 using CatalogService.Application.Features.V1.CoQuanBanHanhs.Commands.DeleteCoQuanBanHanh;
 using CatalogService.Application.Features.V1.CoQuanBanHanhs.Queries.GetPagedCoQuanBanHanhAsync;
 using CatalogService.Application.Parameters.CoQuanBanHanhs;
-
+using Microsoft.AspNetCore.Authentication;
 namespace CatalogService.API.Controllers;
 
 [ApiController]
@@ -43,6 +43,7 @@ public class CoQuanBanHanhController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedCoQuanBanHanh)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<CoQuanBanHanhDto>>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.CoQuanBanHanhs.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<CoQuanBanHanhDto>>>> GetPagedLinhVucXuPhat([FromBody] CoQuanBanHanhParameter request)
     {
         var query = new GetPagedCoQuanBanHanhQuery(request);

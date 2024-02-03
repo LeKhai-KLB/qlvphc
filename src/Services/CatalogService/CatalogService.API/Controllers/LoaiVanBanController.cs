@@ -43,6 +43,7 @@ public class LoaiVanBanController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedLoaiVanBan)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<LoaiVanBanDto>>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.LoaiVanBans.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<LoaiVanBanDto>>>> GetPagedLoaiVanBan([FromBody] LoaiVanBanParameter request)
     {
         var query = new GetPagedLoaiVanBanQuery(request);

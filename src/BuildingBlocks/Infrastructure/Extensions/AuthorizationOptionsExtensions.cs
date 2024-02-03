@@ -1,5 +1,5 @@
-﻿using Infrastructure.Permission;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
+using Shared.Common.Constants;
 
 namespace Infrastructure.Extensions;
 
@@ -13,7 +13,7 @@ public static class AuthorizationOptionsExtensions
         {
             options.AddPolicy(permission, builder =>
             {
-                builder.AddRequirements(new PermissionRequirement(permission));
+                builder.RequireClaim(Permissions.CustomClaimTypes.Permission, permission);
             });
         }
     }
