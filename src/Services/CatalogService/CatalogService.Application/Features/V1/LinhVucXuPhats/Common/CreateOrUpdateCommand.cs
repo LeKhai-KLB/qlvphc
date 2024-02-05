@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using CatalogService.Application.Common.Mappings;
+using CatalogService.Application.Features.V1.LinhVucXuPhats.Queries.GetPagedLinhVucXuPhatAsync;
+using CatalogService.Application.Parameters.LinhVucXuPhats;
 using CatalogService.Domain.Entities;
 
 namespace CatalogService.Application.Features.V1.LinhVucXuPhats.Common;
@@ -23,5 +25,6 @@ public class CreateOrUpdateCommand : IMapFrom<LinhVucXuPhat>
     public void Mapping(Profile profile)
     {
         profile.CreateMap<CreateOrUpdateCommand, LinhVucXuPhat>();
+        profile.CreateMap<GetPagedLinhVucXuPhatQuery, LinhVucXuPhatParameter>();
     }
 }

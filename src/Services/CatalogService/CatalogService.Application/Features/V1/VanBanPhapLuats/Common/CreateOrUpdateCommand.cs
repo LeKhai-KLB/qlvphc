@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using CatalogService.Application.Common.Mappings;
+using CatalogService.Application.Features.V1.VanBanPhapLuats.Queries.GetPagedVanBanPhapLuatAsync;
+using CatalogService.Application.Parameters.VanBanPhapLuats;
 using CatalogService.Domain.Constants;
 using CatalogService.Domain.Entities;
 
@@ -26,5 +28,6 @@ public class CreateOrUpdateCommand : IMapFrom<VanBanPhapLuat>
     public void Mapping(Profile profile)
     {
         profile.CreateMap<CreateOrUpdateCommand, VanBanPhapLuat>();
+        profile.CreateMap<GetPagedVanBanPhapLuatQuery, VanBanPhapLuatParameter>();
     }
 }
