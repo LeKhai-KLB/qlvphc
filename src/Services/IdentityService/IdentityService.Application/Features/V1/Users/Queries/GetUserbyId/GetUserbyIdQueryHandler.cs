@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IdentityService.Application.Common.Models.UserModels;
 using IdentityService.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -7,7 +8,7 @@ using Shared.SeedWord;
 
 namespace IdentityService.Application.Features.V1.Users.Queries.GetUserbyId;
 
-public class GetUserbyIdQueryHandler : IRequestHandler<GetUserbyIdQuery, ApiResult<User>>
+public class GetUserbyIdQueryHandler : IRequestHandler<GetUserbyIdQuery, ApiResult<UserDto>>
 {
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
@@ -21,7 +22,7 @@ public class GetUserbyIdQueryHandler : IRequestHandler<GetUserbyIdQuery, ApiResu
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public async Task<ApiResult<User>> Handle(GetUserbyIdQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<UserDto>> Handle(GetUserbyIdQuery request, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: {MethodName}");
 
@@ -32,9 +33,14 @@ public class GetUserbyIdQueryHandler : IRequestHandler<GetUserbyIdQuery, ApiResu
         if (user == null)
         {
             _logger.Error("User not found.");
-            return new ApiErrorResult<User>("User not found..");
+            return new ApiErrorResult<UserDto>("Cán bộ này không tồn tại.");
         }
 
-        return new ApiSuccessResult<User>(user);
+        var roles = await _userManager.GetRolesAsync(user);
+        var userDto = _mapper.Map<UserDto>(user);
+
+        if (roles.Any()) userDto.Role = roles.OrderByDescending(x => x).First();
+
+        return new ApiSuccessResult<UserDto>(userDto);
     }
 }

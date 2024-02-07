@@ -8,17 +8,17 @@ using Microsoft.AspNetCore.Identity;
 using Serilog;
 using Shared.SeedWord;
 
-namespace IdentityService.Application.Features.V1.Users.Queries.GetUsers;
+namespace IdentityService.Application.Features.V1.Users.Queries.GetUsersByTerm;
 
-public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, PagedResponse<IEnumerable<UserDto>>>
+public class GetUsersByTermQueryHandler : IRequestHandler<GetUsersByTermQuery, ApiResult<List<UserDto>>>
 {
     private readonly IMapper _mapper;
-    private readonly ILogger _logger;
     private readonly UserManager<User> _userManager;
     private readonly IEntityRepository<User, UserParameter> _userRepository;
-    private const string MethodName = "GetUsersQueryHandler";
+    private readonly ILogger _logger;
+    private const string MethodName = "GetUsersByTermQueryHandler";
 
-    public GetUsersQueryHandler(IMapper mapper, UserManager<User> userManager, IEntityRepository<User, UserParameter> userRepository, ILogger logger)
+    public GetUsersByTermQueryHandler(IMapper mapper, UserManager<User> userManager, IEntityRepository<User, UserParameter> userRepository, ILogger logger)
     {
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
@@ -26,17 +26,15 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, PagedResponse
         _logger = logger;
     }
 
-    public async Task<PagedResponse<IEnumerable<UserDto>>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<List<UserDto>>> Handle(GetUsersByTermQuery request, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: {MethodName}");
 
-        var validFilter = _mapper.Map<UserParameter>(request);
-        var users = await _userRepository.GetPagedAsync(validFilter);
-        var metaData = users.GetMetaData();
+        var users = await _userRepository.GetByTerm(request.Term);
 
         var userDtos = new List<UserDto>();
 
-        foreach(var item in users)
+        foreach (var item in users)
         {
             var roles = await _userManager.GetRolesAsync(item);
             var userDto = _mapper.Map<UserDto>(item);
@@ -47,7 +45,6 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, PagedResponse
         }
 
         _logger.Information($"END: {MethodName}");
-
-        return new PagedResponse<IEnumerable<UserDto>>(userDtos, metaData.CurrentPage, metaData.TotalPages, metaData.PageSize, metaData.TotalItems);
+        return new ApiSuccessResult<List<UserDto>>(userDtos);
     }
 }

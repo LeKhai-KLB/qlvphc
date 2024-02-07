@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using AutoMapper;
+using IdentityService.Application.Common.Models.UserModels;
 using IdentityService.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +9,7 @@ using Shared.SeedWord;
 
 namespace IdentityService.Application.Features.V1.Users.Commands.CreateUser;
 
-public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, ApiResult<User>>
+public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, ApiResult<UserDto>>
 {
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
@@ -24,20 +25,20 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, ApiRe
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public async Task<ApiResult<User>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult<UserDto>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: {MethodName}");
 
         if (request == null)
         {
-            _logger.Error("Data provided is NULL.");
-            return new ApiErrorResult<User>("Data provided is NULL.");
+            _logger.Error("Lỗi xảy ra. Bạn cần nhập đầy đủ những thông tin yêu cầu.");
+            return new ApiErrorResult<UserDto>("Lỗi xảy ra. Bạn cần nhập đầy đủ những thông tin yêu cầu.");
         }
 
         if (request.Password != request.ConfirmPassword)
         {
-            _logger.Error("Confirm password doesn't match the password.");
-            return new ApiErrorResult<User>("Confirm password doesn't match the password.");
+            _logger.Error("Mật khẩu và mật khẩu xác nhận không trùng khớp.");
+            return new ApiErrorResult<UserDto>("Mật khẩu và mật khẩu xác nhận không trùng khớp.");
         }
 
         //Is User Exist
@@ -46,64 +47,61 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, ApiRe
         //-Not Exists
         if (userFound == null)
         {
-            var identityUser = new User
-            {
-                Email = request.Email,
-                UserName = request.Username,
-                NormalizedUserName = request.Username.Normalize(),
-                NormalizedEmail = request.Email.Normalize(),
-                PhoneNumber = request.PhoneNumber,
-                HoTen = request.HoTen,
-                NgaySinh = request.NgaySinh,
-                CCCD = request.CCCD,
-                GioiTinh = request.GioiTinh,
-                DiaChi = request.DiaChi,
-                GhiChu = request.GhiChu
-            };
+            var identityUser = _mapper.Map<User>(request);
 
             try
             {
-                var result = await _userManager.CreateAsync(identityUser, request.Password);
-
-                if (result.Succeeded)
+                if (request.Role != null)
                 {
-                    //Setting Roles
-                    if (request.Role != null)
+                    var roleCheck = await _roleManager.RoleExistsAsync(request.Role);
+                    if (roleCheck)
                     {
-                        var roleCheck = await _roleManager.RoleExistsAsync(request.Role);
-                        if (roleCheck != true)
+                        var result = await _userManager.CreateAsync(identityUser, request.Password);
+                        if (result.Succeeded)
                         {
-                            await _userManager.AddToRoleAsync(identityUser, Convert.ToString("Guest"));
+                            try
+                            {
+                                await _userManager.AddToRoleAsync(identityUser, request.Role);
+
+                                var userDto = _mapper.Map<UserDto>(identityUser);
+                                userDto.Role = request.Role;
+
+                                return new ApiSuccessResult<UserDto>(userDto, "Tạo cán bộ thành công!");
+                            }
+                            catch (Exception addToRoleException)
+                            {
+                                await _userManager.DeleteAsync(identityUser);
+
+                                _logger.Error($"Có lỗi xảy ra trong quá trình thêm chức vụ cho cán bộ: {addToRoleException.Message}");
+                                return new ApiErrorResult<UserDto>($"Có lỗi xảy ra trong quá trình thêm chức vụ cho cán bộ: {addToRoleException.Message}. Vui lòng thử lại hoặc liên hệ với quản trị viên");
+                            }
                         }
                         else
                         {
-                            await _userManager.AddToRoleAsync(identityUser, Convert.ToString(request.Role));
+                            _logger.Error("Có lỗi xảy ra trong quá trình tạo cán bộ.");
+                            return new ApiErrorResult<UserDto>($"Có lỗi xảy ra trong quá trình tạo cán bộ: { string.Join(" | ", result.Errors.Select(x => x.Description)) }. Vui lòng thử lại hoặc liên hệ với quản trị viên");
                         }
                     }
                     else
                     {
-                        await _userManager.AddToRoleAsync(identityUser, Convert.ToString("Guest"));
+                        _logger.Error("Chức vụ này không tồn tại. Vui lòng thử lại hoặc liên hệ với quản trị viên");
+                        return new ApiErrorResult<UserDto>("Chức vụ này không tồn tại. Vui lòng thử lại hoặc liên hệ với quản trị viên");
                     }
-
-                    return new ApiSuccessResult<User>(identityUser);
-                }
-                else
-                {
-                    _logger.Error("Error when creating user.");
-                    return new ApiErrorResult<User>($"Error when creating user: { string.Join(" | ", result.Errors.Select(x => x.Description)) }");
                 }
             }
             catch (DBConcurrencyException ex)
             {
+                await _userManager.DeleteAsync(identityUser);
+
                 _logger.Error(ex.Message);
-                return new ApiErrorResult<User>(ex.Message);
+                return new ApiErrorResult<UserDto>($"Có lỗi xảy ra trong quá trình tạo cán bộ: { ex.Message }. Vui lòng thử lại hoặc liên hệ với quản trị viên");
             }
         }
 
         _logger.Information($"END: {MethodName}");
 
         //- User Exist
-        _logger.Error("User existed.");
-        return new ApiErrorResult<User>("User existed.");
+        _logger.Error("Cán bộ đã tồn tại.");
+        return new ApiErrorResult<UserDto>("Cán bộ đã tồn tại.");
     }
 }

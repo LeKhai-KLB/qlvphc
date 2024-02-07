@@ -1,4 +1,7 @@
-﻿using IdentityService.Infrastructure.Persistence;
+﻿using IdentityService.Application.Common.Interfaces;
+using IdentityService.Domain.Entities;
+using IdentityService.Infrastructure.Persistence;
+using IdentityService.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +30,8 @@ public static class ConfigureServices
                       .EnableDetailedErrors(isDevelopment)
                       .EnableSensitiveDataLogging(isDevelopment);
         });
+
+        services.AddScoped(typeof(IEntityRepository<,>), typeof(EntityRepository<,>));
 
         return services;
     }

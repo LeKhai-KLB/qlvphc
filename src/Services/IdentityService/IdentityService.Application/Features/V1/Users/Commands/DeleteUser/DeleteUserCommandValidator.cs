@@ -2,10 +2,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Serilog;
+using Shared.SeedWord;
 
 namespace IdentityService.Application.Features.V1.Users.Commands.DeleteUser;
 
-public class DeleteUserCommandValidator : IRequestHandler<DeleteUserCommand, bool>
+public class DeleteUserCommandValidator : IRequestHandler<DeleteUserCommand, ApiResult<bool>>
 {
     private readonly ILogger _logger;
     private readonly UserManager<User> _userManager;
@@ -17,7 +18,7 @@ public class DeleteUserCommandValidator : IRequestHandler<DeleteUserCommand, boo
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public async Task<bool> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult<bool>> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: {MethodName}");
 
@@ -28,11 +29,11 @@ public class DeleteUserCommandValidator : IRequestHandler<DeleteUserCommand, boo
 
             _logger.Information($"END: {MethodName}");
 
-            return true;
+            return new ApiSuccessResult<bool>(true, "Xóa cán bộ thành công.");
         }
         catch
         {
-            return false;
+            return new ApiErrorResult<bool>("Xóa cán bộ không thành công. Vui lòng thử lại hoặc liên hệ với quản trị viên!");
         }
     }
 }

@@ -10,7 +10,7 @@ public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
            .NotEmpty().WithMessage("{Id} is required.")
            .NotNull();
 
-        RuleFor(x => x.Username)
+        RuleFor(x => x.UserName)
            .NotEmpty().WithMessage("{Username} is required.")
            .NotNull()
            .MaximumLength(50).WithMessage("{Username} must not exceed 50 characters.");
@@ -21,6 +21,11 @@ public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
 
         RuleFor(x => x.PhoneNumber)
            .MaximumLength(255).WithMessage("{PhoneNumber} must not exceed 255 characters.");
+
+        RuleFor(x => x.Role)
+           .NotEmpty().WithMessage("{Role} is required.")
+           .NotNull()
+           .MaximumLength(255).WithMessage("{Role} must not exceed 255 characters.");
 
         RuleFor(x => x.HoTen)
            .NotEmpty().WithMessage("Ho ten is required.")

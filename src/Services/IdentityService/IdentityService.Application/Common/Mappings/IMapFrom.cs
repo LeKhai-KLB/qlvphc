@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace CatalogService.Application.Common.Mappings;
+namespace IdentityService.Application.Common.Mappings;
 
 public interface IMapFrom<T>
 {

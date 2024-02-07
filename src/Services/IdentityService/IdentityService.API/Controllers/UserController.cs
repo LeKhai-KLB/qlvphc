@@ -1,14 +1,18 @@
 ﻿using AutoMapper;
-using IdentityService.Application.Common.Interfaces;
+using IdentityService.Application.Common.Models.UserModels;
 using IdentityService.Application.Features.V1.Users.Commands.CreateUser;
 using IdentityService.Application.Features.V1.Users.Commands.DeleteUser;
 using IdentityService.Application.Features.V1.Users.Commands.UpdateUser;
 using IdentityService.Application.Features.V1.Users.Queries.GetUserbyId;
 using IdentityService.Application.Features.V1.Users.Queries.GetUsers;
+using IdentityService.Application.Features.V1.Users.Queries.GetUsersByTerm;
+using IdentityService.Application.Parameters.Users;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Common.Constants;
+using Shared.SeedWord;
+using System.Net;
 
 namespace IdentityService.API.Controllers
 {
@@ -18,22 +22,30 @@ namespace IdentityService.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IAuthService _auth;
         private readonly IMediator _mediator;
 
-        public UserController(IMediator mediator, IMapper mapper, IAuthService authService)
+        public UserController(IMediator mediator, IMapper mapper)
         {
             _mapper = mapper;
-            _auth = authService;
             _mediator = mediator ?? throw new ArgumentException(nameof(mediator));
         }
 
         // GET: api/Users
-        [HttpGet]
+        [HttpPost("paging")]
+        [ProducesResponseType(typeof(PagedResponse<IEnumerable<UserDto>>), (int)HttpStatusCode.OK)]
         [Authorize(Permissions.Users.SuperAdminView)]
-        public async Task<IActionResult> GetUsers()
+        public async Task<ActionResult<PagedResponse<IEnumerable<UserDto>>>> GetUsers([FromBody] UserParameter request)
         {
-            var query = new GetUsersQuery();
+            var query = new GetUsersQuery(request);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet(Name = "GetUsersByTerm")]
+        [ProducesResponseType(typeof(IEnumerable<UserDto>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsersByTerm([FromQuery] string? term)
+        {
+            var query = new GetUsersByTermQuery(term);
             var result = await _mediator.Send(query);
             return Ok(result);
         }
@@ -53,11 +65,7 @@ namespace IdentityService.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(string id, [FromBody] UpdateUserCommand command)
         {
-            if (id != command.Id)
-            {
-                return BadRequest("Mismatch between route parameter 'id' and 'Id' in the command.");
-            }
-
+            command.SetId(new Guid(id));
             var result = await _mediator.Send(command);
             return Ok(result);
         }
