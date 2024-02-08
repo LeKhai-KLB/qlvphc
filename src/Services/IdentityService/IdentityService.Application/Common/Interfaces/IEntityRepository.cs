@@ -6,7 +6,7 @@ public interface IEntityRepository<T, TParameter> where T : class
 {
     Task<T> GetByIdAsync(object id);
 
-    Task<IEnumerable<T>> GetByTerm(string? term);
+    Task<IEnumerable<T>> GetByTerm(string? term, List<string> propertiesToCheck);
 
     Task<PageList<T>> GetPagedAsync(TParameter parameter);
 

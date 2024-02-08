@@ -30,7 +30,18 @@ public class GetUsersByTermQueryHandler : IRequestHandler<GetUsersByTermQuery, A
     {
         _logger.Information($"BEGIN: {MethodName}");
 
-        var users = await _userRepository.GetByTerm(request.Term);
+        var propertiesToCheck = new List<string>
+        {
+            nameof(User.HoTen),
+            nameof(User.UserName),
+            nameof(User.Email),
+            nameof(User.PhoneNumber),
+            nameof(User.NgaySinh),
+            nameof(User.CCCD),
+            nameof(User.DiaChi)
+        };
+
+        var users = await _userRepository.GetByTerm(request.Term, propertiesToCheck);
 
         var userDtos = new List<UserDto>();
 
@@ -39,7 +50,7 @@ public class GetUsersByTermQueryHandler : IRequestHandler<GetUsersByTermQuery, A
             var roles = await _userManager.GetRolesAsync(item);
             var userDto = _mapper.Map<UserDto>(item);
 
-            if (roles.Any()) userDto.Role = roles.OrderByDescending(x => x).First();
+            if (roles.Any()) userDto.Role = roles.First();
 
             userDtos.Add(userDto);
         }

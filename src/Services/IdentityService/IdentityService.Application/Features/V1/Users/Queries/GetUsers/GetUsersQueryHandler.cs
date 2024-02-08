@@ -41,7 +41,7 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, PagedResponse
             var roles = await _userManager.GetRolesAsync(item);
             var userDto = _mapper.Map<UserDto>(item);
 
-            if (roles.Any()) userDto.Role = roles.OrderByDescending(x => x).First();
+            if (roles.Any()) userDto.Role = roles.First();
 
             userDtos.Add(userDto);
         }

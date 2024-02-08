@@ -39,7 +39,7 @@ public class GetUserbyIdQueryHandler : IRequestHandler<GetUserbyIdQuery, ApiResu
         var roles = await _userManager.GetRolesAsync(user);
         var userDto = _mapper.Map<UserDto>(user);
 
-        if (roles.Any()) userDto.Role = roles.OrderByDescending(x => x).First();
+        if (roles.Any()) userDto.Role = roles.First();
 
         return new ApiSuccessResult<UserDto>(userDto);
     }

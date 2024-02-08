@@ -3,6 +3,7 @@ using IdentityService.Infrastructure.Persistence;
 using Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Shared.SeedWord;
+using System.Linq.Expressions;
 
 namespace IdentityService.Infrastructure.Repositories;
 
@@ -20,14 +21,32 @@ public class EntityRepository<T, TParameter> : IEntityRepository<T, TParameter> 
         return await _context.Set<T>().FindAsync(id);
     }
 
-    public async Task<IEnumerable<T>> GetByTerm(string? term)
+    public async Task<IEnumerable<T>> GetByTerm(string? term, List<string> propertiesToCheck)
     {
+        var parameter = Expression.Parameter(typeof(T), "x");
+        var termExpression = Expression.Constant(term);
+
+        var body = propertiesToCheck
+            .Select(propertyName =>
+                Expression.AndAlso(
+                    Expression.NotEqual(
+                        Expression.Call(typeof(EF), "Property", new[] { typeof(string) }, parameter, Expression.Constant(propertyName)),
+                        Expression.Constant(null)
+                    ),
+                    Expression.Call(
+                        Expression.Call(typeof(EF), "Property", new[] { typeof(string) }, parameter, Expression.Constant(propertyName)),
+                        typeof(string).GetMethod("Contains", new[] { typeof(string) }),
+                        termExpression
+                    )
+                )
+            )
+            .Aggregate(Expression.OrElse);
+
+        var whereClause = Expression.Lambda<Func<T, bool>>(body, parameter);
+
         return await _context.Set<T>()
             .AsNoTracking()
-            .Where(x => string.IsNullOrEmpty(term)
-                || EF.Property<string>(x, "HoTen") != null
-                && EF.Property<string>(x, "HoTen").Contains(term)
-            )
+            .Where(whereClause)
             .ToListAsync();
     }
 

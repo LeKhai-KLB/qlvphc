@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Serilog;
 using Shared.SeedWord;
+using static Shared.Common.Constants.Permissions;
 
 namespace IdentityService.Application.Features.V1.Users.Commands.UpdateUser;
 
@@ -47,10 +48,21 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, ApiRe
 
                             try
                             {
-                                await _userManager.AddToRoleAsync(updatedUser, request.Role);
-                                userDto.Role = request.Role;
+                                var currentRoles = await _userManager.GetRolesAsync(updatedUser);
 
-                                return new ApiSuccessResult<UserDto>(userDto, "Cập nhật thông tin cán bộ thành công!");
+                                result = await _userManager.RemoveFromRolesAsync(updatedUser, currentRoles);
+                                if (result.Succeeded)
+                                {
+                                    await _userManager.AddToRoleAsync(updatedUser, request.Role);
+                                    userDto.Role = request.Role;
+
+                                    return new ApiSuccessResult<UserDto>(userDto, "Cập nhật thông tin cán bộ thành công!");
+                                }
+                                else
+                                {
+                                    _logger.Error($"Cập nhật thông tin cán bộ không thành công: {string.Join(" | ", result.Errors.Select(x => x.Description))}. Vui lòng thử lại hoặc liên hệ với quản trị viên");
+                                    return new ApiErrorResult<UserDto>($"Cập nhật thông tin cán bộ không thành công: {string.Join(" | ", result.Errors.Select(x => x.Description))}. Vui lòng thử lại hoặc liên hệ với quản trị viên");
+                                }
                             }
                             catch (Exception addToRoleException)
                             {
