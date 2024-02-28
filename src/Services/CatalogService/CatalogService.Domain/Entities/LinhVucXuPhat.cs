@@ -15,10 +15,10 @@ public class LinhVucXuPhat : EntityAuditBase<int>
     public string NghiDinh { get; set; }
 
     [Column(TypeName = "nvarchar(512)")]
-    public string HanhVi_QuyetDinh { get; set; }
+    public string? HanhVi_QuyetDinh { get; set; }
 
     [Column(TypeName = "nvarchar(512)")]
-    public string DanChungNghiDinh { get; set; }
+    public string? DanChungNghiDinh { get; set; }
 
     public bool HienThi { get; set; }
 

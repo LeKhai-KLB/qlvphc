@@ -8,14 +8,14 @@ using Shared.SeedWord;
 
 namespace CatalogService.Application.Features.V1.DieuKhoanXuPhats.Queries.GetDieuKhoanXuPhats;
 
-public class GetDieuKhoanXuPhatsQueryHanlder : IRequestHandler<GetDieuKhoanXuPhatsQuery, PagedResponse<IEnumerable<DieuKhoanXuPhatDto>>>
+public class GetDieuKhoanXuPhatsQueryHandler : IRequestHandler<GetDieuKhoanXuPhatsQuery, PagedResponse<IEnumerable<DieuKhoanXuPhatDto>>>
 {
     private readonly IMapper _mapper;
     private readonly IDieuKhoanXuPhatRepository _repository;
     private readonly ILogger _logger;
     private const string MethodName = "GetAllDieuKhoanXuPhatQueryHanlder";
 
-    public GetDieuKhoanXuPhatsQueryHanlder(IMapper mapper, IDieuKhoanXuPhatRepository repository, ILogger logger)
+    public GetDieuKhoanXuPhatsQueryHandler(IMapper mapper, IDieuKhoanXuPhatRepository repository, ILogger logger)
     {
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));

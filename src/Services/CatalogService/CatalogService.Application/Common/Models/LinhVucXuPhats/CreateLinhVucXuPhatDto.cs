@@ -8,9 +8,9 @@ public class CreateLinhVucXuPhatDto
 
     public string NghiDinh { get; set; }
 
-    public string HanhVi_QuyetDinh { get; set; }
+    public string? HanhVi_QuyetDinh { get; set; }
 
-    public string DanChungNghiDinh { get; set; }
+    public string? DanChungNghiDinh { get; set; }
 
     public bool HienThi { get; set; }
 

@@ -5,27 +5,27 @@ using MediatR;
 using Serilog;
 using Shared.SeedWord;
 
-namespace CatalogService.Application.Features.V1.CoQuanBanHanhs.Queries.GetAllCoQuanBanHanh;
+namespace CatalogService.Application.Features.V1.CoQuanBanHanhs.Queries.GetCoQuanBanHanhsByTerm;
 
-public class GetAllCoQuanBanHanhQueryHandler : IRequestHandler<GetAllCoQuanBanHanhQuery, ApiResult<IEnumerable<CoQuanBanHanhDto>>>
+public class GetCoQuanBanHanhsByTermQueryHandler : IRequestHandler<GetCoQuanBanHanhsByTermQuery, ApiResult<IEnumerable<CoQuanBanHanhDto>>>
 {
     private readonly IMapper _mapper;
     private readonly ICoQuanBanHanhRepository _repository;
     private readonly ILogger _logger;
     private const string MethodName = "GetAllCoQuanBanHanhQueryHandler";
 
-    public GetAllCoQuanBanHanhQueryHandler(IMapper mapper, ICoQuanBanHanhRepository repository, ILogger logger)
+    public GetCoQuanBanHanhsByTermQueryHandler(IMapper mapper, ICoQuanBanHanhRepository repository, ILogger logger)
     {
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         _logger = logger;
     }
 
-    public async Task<ApiResult<IEnumerable<CoQuanBanHanhDto>>> Handle(GetAllCoQuanBanHanhQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<IEnumerable<CoQuanBanHanhDto>>> Handle(GetCoQuanBanHanhsByTermQuery request, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: {MethodName}");
 
-        var cqbhEntities = await _repository.GetAllCoQuanBanHanh();
+        var cqbhEntities = await _repository.GetCoQuanBanHanhsByTerm(request.Term);
         var cqbhDto = _mapper.Map<IEnumerable<CoQuanBanHanhDto>>(cqbhEntities);
 
         _logger.Information($"END: {MethodName}");

@@ -3,7 +3,6 @@ using CatalogService.Application.Common.Models.LoaiVanBans;
 using CatalogService.Application.Features.V1.LoaiVanBans.Commands.CreateLoaiVanBan;
 using CatalogService.Application.Features.V1.LoaiVanBans.Commands.DeleteLoaiVanBan;
 using CatalogService.Application.Features.V1.LoaiVanBans.Commands.UpdateLoaiVanBan;
-using CatalogService.Application.Features.V1.LoaiVanBans.Queries.GetAllLoaiVanBan;
 using CatalogService.Application.Features.V1.LoaiVanBans.Queries.GetLoaiVanBanById;
 using MediatR;
 using System.ComponentModel.DataAnnotations;
@@ -14,6 +13,7 @@ using Shared.Common.Constants;
 using Shared.SeedWord;
 using CatalogService.Application.Parameters.LoaiVanBans;
 using CatalogService.Application.Features.V1.LoaiVanBans.Queries.GetPagedLoaiVanBanAsync;
+using CatalogService.Application.Features.V1.LoaiVanBans.Queries.GetLoaiVanBansByTerm;
 
 namespace CatalogService.API.Controllers;
 
@@ -34,7 +34,7 @@ public class LoaiVanBanController : ControllerBase
     private static class RouteNames
     {
         public const string GetPagedLoaiVanBan = nameof(GetPagedLoaiVanBan);
-        public const string GetAllLoaiVanBan = nameof(GetAllLoaiVanBan);
+        public const string GetLoaiVanBansByTerm = nameof(GetLoaiVanBansByTerm);
         public const string GetLoaiVanBanById = nameof(GetLoaiVanBanById);
         public const string CreateLoaiVanBan = nameof(CreateLoaiVanBan);
         public const string UpdateLoaiVanBan = nameof(UpdateLoaiVanBan);
@@ -52,12 +52,12 @@ public class LoaiVanBanController : ControllerBase
     }
 
     [HttpGet]
-    [Route(RouteNames.GetAllLoaiVanBan)]
+    [Route(RouteNames.GetLoaiVanBansByTerm)]
     [ProducesResponseType(typeof(IEnumerable<LoaiVanBanDto>), (int)HttpStatusCode.OK)]
     [Authorize(Permissions.LoaiVanBans.View)]
-    public async Task<ActionResult<IEnumerable<LoaiVanBanDto>>> GetAllLoaiVanBan()
+    public async Task<ActionResult<IEnumerable<LoaiVanBanDto>>> GetLoaiVanBansByTerm([FromQuery] string? term)
     {
-        var query = new GetAllLoaiVanBanQuery();
+        var query = new GetLoaiVanBansByTermQuery(term);
         var result = await _mediator.Send(query);
         return Ok(result);
     }

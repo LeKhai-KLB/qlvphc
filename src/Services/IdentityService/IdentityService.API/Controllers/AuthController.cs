@@ -8,7 +8,7 @@ namespace IdentityService.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [AllowAnonymous]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _auth;
@@ -26,6 +26,7 @@ namespace IdentityService.API.Controllers
 
         // api/auth/Authenticate
         [HttpPost("Authenticate")]
+        [AllowAnonymous]
         public async Task<IActionResult> Authenticate([FromBody] AuthUser model)
         {
             if (ModelState.IsValid)

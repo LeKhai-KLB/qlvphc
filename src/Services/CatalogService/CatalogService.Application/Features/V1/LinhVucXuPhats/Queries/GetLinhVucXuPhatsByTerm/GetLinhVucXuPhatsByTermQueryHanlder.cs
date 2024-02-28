@@ -5,27 +5,27 @@ using MediatR;
 using Serilog;
 using Shared.SeedWord;
 
-namespace CatalogService.Application.Features.V1.LinhVucXuPhats.Queries.GetAllLinhVucXuPhat;
+namespace CatalogService.Application.Features.V1.LinhVucXuPhats.Queries.GetLinhVucXuPhatsByTerm;
 
-public class GetAllLinhVucXuPhatQueryHanlder : IRequestHandler<GetAllLinhVucXuPhatQuery, ApiResult<IEnumerable<LinhVucXuPhatDto>>>
+public class GetLinhVucXuPhatsByTermQueryHanlder : IRequestHandler<GetLinhVucXuPhatsByTermQuery, ApiResult<IEnumerable<LinhVucXuPhatDto>>>
 {
     private readonly IMapper _mapper;
     private readonly ILinhVucXuPhatRepository _repository;
     private readonly ILogger _logger;
     private const string MethodName = "GetAllLinhVucXuPhatQueryHanlder";
 
-    public GetAllLinhVucXuPhatQueryHanlder(IMapper mapper, ILinhVucXuPhatRepository repository, ILogger logger)
+    public GetLinhVucXuPhatsByTermQueryHanlder(IMapper mapper, ILinhVucXuPhatRepository repository, ILogger logger)
     {
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         _logger = logger;
     }
 
-    public async Task<ApiResult<IEnumerable<LinhVucXuPhatDto>>> Handle(GetAllLinhVucXuPhatQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<IEnumerable<LinhVucXuPhatDto>>> Handle(GetLinhVucXuPhatsByTermQuery request, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: {MethodName}");
 
-        var lvxpEntity = await _repository.GetAllLinhVucXuPhat();
+        var lvxpEntity = await _repository.GetLinhVucXuPhatsByTerm(request.Term);
         var lvxpDto = _mapper.Map<IEnumerable<LinhVucXuPhatDto>>(lvxpEntity);
 
         _logger.Information($"END: {MethodName}");

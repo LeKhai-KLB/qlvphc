@@ -27,7 +27,7 @@ public class UpdateCoQuanBanHanhCommandHandler : IRequestHandler<UpdateCoQuanBan
         _logger.Information($"BEGIN: {MethodName}");
 
         var cqbh = _mapper.Map<CoQuanBanHanh>(request);
-        var existCQBH = await _repository.CheckExistCoQuanBanHanh(request.TenCoQuan);
+        var existCQBH = await _repository.CheckExistCoQuanBanHanh(request.Id);
         if (!existCQBH)
         {
             return new ApiErrorResult<CoQuanBanHanhDto>("Co quan ban hanh not exists.");

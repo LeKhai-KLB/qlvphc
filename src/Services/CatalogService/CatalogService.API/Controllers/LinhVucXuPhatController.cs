@@ -11,9 +11,9 @@ using CatalogService.Application.Features.V1.LinhVucXuPhats.Commands.CreateLinhV
 using CatalogService.Application.Features.V1.LinhVucXuPhats.Queries.GetLinhVucXuPhatById;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Common.Constants;
-using CatalogService.Application.Features.V1.LinhVucXuPhats.Queries.GetAllLinhVucXuPhat;
 using CatalogService.Application.Parameters.LinhVucXuPhats;
 using CatalogService.Application.Features.V1.LinhVucXuPhats.Queries.GetPagedLinhVucXuPhatAsync;
+using CatalogService.Application.Features.V1.LinhVucXuPhats.Queries.GetLinhVucXuPhatsByTerm;
 
 namespace CatalogService.API.Controllers;
 
@@ -55,9 +55,9 @@ public class LinhVucXuPhatController : ControllerBase
     [Route(RouteNames.GetAllLinhVucXuPhat)]
     [ProducesResponseType(typeof(IEnumerable<LinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
     [Authorize(Permissions.LinhVucXuPhats.View)]
-    public async Task<ActionResult<IEnumerable<LinhVucXuPhatDto>>> GetAllLinhVucXuPhat()
+    public async Task<ActionResult<IEnumerable<LinhVucXuPhatDto>>> GetLinhVucXuPhatsByTerm([FromQuery] string? term)
     {
-        var query = new GetAllLinhVucXuPhatQuery();
+        var query = new GetLinhVucXuPhatsByTermQuery(term);
         var result = await _mediator.Send(query);
         return Ok(result);
     }

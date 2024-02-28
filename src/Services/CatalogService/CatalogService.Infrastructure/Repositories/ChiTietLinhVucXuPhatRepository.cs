@@ -19,9 +19,21 @@ public class ChiTietLinhVucXuPhatRepository : RepositoryBase<ChiTietLinhVucXuPha
         _chiTietLinhVucXuPhat = context.Set<ChiTietLinhVucXuPhat>();
     }
 
+    public async Task<IEnumerable<ChiTietLinhVucXuPhat>> GetChiTietLinhVucXuPhatsByTerm(int linhVucXuPhatId, string? term)
+    {
+        return await FindByCondition(x => x.LinhVucXuPhatId == linhVucXuPhatId
+                && (string.IsNullOrEmpty(term)
+                || x.Dieu.Contains(term)
+                || x.Khoan.Contains(term)
+                || x.Diem.Contains(term)))
+            .OrderBy(x => x.Dieu)
+            .ThenBy(x => x.Khoan)
+            .ToListAsync();
+    }
+
     public async Task<PageList<ChiTietLinhVucXuPhat>> GetPagedByLinhVucXuPhatId(ChiTietLinhVucXuPhatParameter parameter)
     {
-        var result = _chiTietLinhVucXuPhat.Filter(parameter).OrderBy(x => x.DieuKhoan);
+        var result = _chiTietLinhVucXuPhat.Filter(parameter).OrderBy(x => x.Dieu).ThenBy(x => x.Khoan);
 
         return await PageList<ChiTietLinhVucXuPhat>.ToPageList(result, parameter.PageNumber, parameter.PageSize);
     }

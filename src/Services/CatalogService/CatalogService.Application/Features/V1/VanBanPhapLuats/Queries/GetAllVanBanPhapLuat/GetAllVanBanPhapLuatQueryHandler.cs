@@ -25,7 +25,7 @@ public class GetAllVanBanPhapLuatQueryHandler : IRequestHandler<GetAllVanBanPhap
     {
         _logger.Information($"BEGIN: {MethodName}");
 
-        var vbplEntities = await _repository.GetAllVanBanPhapLuat();
+        var vbplEntities = await _repository.GetAllVanBanPhapLuat(request.IsFilterTrichYeu);
         var vbplDto = _mapper.Map<IEnumerable<VanBanPhapLuatDto>>(vbplEntities);
 
         _logger.Information($"END: {MethodName}");

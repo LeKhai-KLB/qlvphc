@@ -21,6 +21,7 @@ public class DieuKhoanXuPhatRepository : RepositoryBase<DieuKhoanXuPhat, int, Ca
     public async Task<PageList<DieuKhoanXuPhat>> GetPagedDieuKhoanXuPhatAsync(DieuKhoanXuPhatParameter parameter)
     {
         var result = _dieuKhoanXuPhat.Filter(parameter)
+            .Include(x => x.LinhVucXuPhat)
             .OrderBy(x => x.Id);
 
         return await PageList<DieuKhoanXuPhat>.ToPageList(result, parameter.PageNumber, parameter.PageSize);
@@ -28,7 +29,13 @@ public class DieuKhoanXuPhatRepository : RepositoryBase<DieuKhoanXuPhat, int, Ca
 
     public async Task<IEnumerable<DieuKhoanXuPhat>> GetDieuKhoanXuPhatsByTerm(string? term)
     {
-        return await FindByCondition(x => x.IsDeleted == false && string.IsNullOrEmpty(term) || x.Dieu.Contains(term) || x.Khoan.Contains(term) || x.Diem.Contains(term)).ToListAsync();
+        return await FindByCondition(x => x.IsDeleted == false
+                && string.IsNullOrEmpty(term)
+                || x.Dieu.Contains(term)
+                || x.Khoan.Contains(term)
+                || x.Diem.Contains(term))
+            .Include(x => x.LinhVucXuPhat)
+            .ToListAsync();
     }
 
     public async Task<DieuKhoanXuPhat> GetDieuKhoanXuPhatById(int id)

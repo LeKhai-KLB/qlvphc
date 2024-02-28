@@ -7,7 +7,7 @@ namespace CatalogService.Application.Common.Interfaces;
 
 public interface ILoaiVanBanRepository : IRepositoryBaseAsync<LoaiVanBan, int>
 {
-    Task<IEnumerable<LoaiVanBan>> GetAllLoaiVanBan();
+    Task<IEnumerable<LoaiVanBan>> GetLoaiVanBansByTerm(string? term);
     Task<PageList<LoaiVanBan>> GetPagedLoaiVanBanAsync(LoaiVanBanParameter parameter);
     Task<LoaiVanBan> GetLoaiVanBanById(int id);
     Task CreateLoaiVanBan(LoaiVanBan request);

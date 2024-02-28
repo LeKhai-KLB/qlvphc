@@ -19,14 +19,14 @@ public class LinhVucXuPhatRepository : RepositoryBase<LinhVucXuPhat, int, Catalo
         _linhVucXuPhat = context.Set<LinhVucXuPhat>();
     }
 
-    public async Task<IEnumerable<LinhVucXuPhat>> GetAllLinhVucXuPhat()
+    public async Task<IEnumerable<LinhVucXuPhat>> GetLinhVucXuPhatsByTerm(string? term)
     {
-        return await FindAll().ToListAsync();
+        return await FindByCondition(x => string.IsNullOrEmpty(term) || x.TenLinhVuc.Contains(term) || x.NhomLinhVuc.Contains(term)).ToListAsync();
     }
 
     public async Task<PageList<LinhVucXuPhat>> GetPagedLinhVucXuPhatAsync(LinhVucXuPhatParameter parameter)
     {
-        var result = _linhVucXuPhat.Filter(parameter).OrderBy(x => x.Id);
+        var result = _linhVucXuPhat.Filter(parameter).OrderBy(x => x.TenLinhVuc);
 
         return await PageList<LinhVucXuPhat>.ToPageList(result, parameter.PageNumber, parameter.PageSize);
     }

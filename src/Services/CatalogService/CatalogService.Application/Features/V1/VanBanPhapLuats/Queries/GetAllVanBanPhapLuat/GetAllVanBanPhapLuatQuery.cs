@@ -6,7 +6,10 @@ namespace CatalogService.Application.Features.V1.VanBanPhapLuats.Queries.GetAllV
 
 public class GetAllVanBanPhapLuatQuery : IRequest<ApiResult<IEnumerable<VanBanPhapLuatDto>>>
 {
-    public GetAllVanBanPhapLuatQuery()
+    public bool? IsFilterTrichYeu {  get; set; }
+
+    public GetAllVanBanPhapLuatQuery(bool? isFilterTrichYeu)
     {
+        IsFilterTrichYeu = isFilterTrichYeu;
     }
 }

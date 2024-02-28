@@ -7,7 +7,7 @@ namespace CatalogService.Application.Common.Interfaces;
 
 public interface IVanBanPhapLuatRepository : IRepositoryBaseAsync<VanBanPhapLuat, int>
 {
-    Task<IEnumerable<VanBanPhapLuat>> GetAllVanBanPhapLuat();
+    Task<IEnumerable<VanBanPhapLuat>> GetAllVanBanPhapLuat(bool? isFilterTrichYeu);
     Task<PageList<VanBanPhapLuat>> GetPagedVanBanPhapLuatAsync(VanBanPhapLuatParameter parameter);
     Task<VanBanPhapLuat> GetVanBanPhapLuatById(int id);
     Task CreateVanBanPhapLuat(VanBanPhapLuat request);

@@ -55,9 +55,9 @@ public class VanBanPhapLuatController : ControllerBase
     [Route(RouteNames.GetAllVanBanPhapLuat)]
     [ProducesResponseType(typeof(IEnumerable<VanBanPhapLuatDto>), (int)HttpStatusCode.OK)]
     [Authorize(Permissions.VanBanPhapLuats.View)]
-    public async Task<ActionResult<IEnumerable<VanBanPhapLuatDto>>> GetAllVanBanPhapLuat()
+    public async Task<ActionResult<IEnumerable<VanBanPhapLuatDto>>> GetAllVanBanPhapLuat([FromQuery] bool? isFilterTrichYeu)
     {
-        var query = new GetAllVanBanPhapLuatQuery();
+        var query = new GetAllVanBanPhapLuatQuery(isFilterTrichYeu);
         var result = await _mediator.Send(query);
         return Ok(result);
     }

@@ -142,36 +142,45 @@ namespace IdentityService.API.Services
         //Reset Password
         public async Task<ResponseManager> ResetPassword(ResetPasswordModel model)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            var user = await _userManager.FindByIdAsync(model.UserId);
             if (user == null)
                 return new ResponseManager
                 {
                     IsSuccess = false,
-                    Message = "No user associated with email",
+                    Message = "Tài khoản không tồn tại hoặc có lỗi xảy ra!",
+                };
+
+            if (!await _userManager.CheckPasswordAsync(user, model.OldPassword))
+                return new ResponseManager
+                {
+                    IsSuccess = false,
+                    Message = "Mật khẩu cũ không chính xác!",
                 };
 
             if (model.NewPassword != model.ConfirmPassword)
                 return new ResponseManager
                 {
                     IsSuccess = false,
-                    Message = "Password doesn't match its confirmation",
+                    Message = "Mật khẩu xác nhận mới chưa chính xác!",
                 };
 
-            var decodedToken = WebEncoders.Base64UrlDecode(model.Token);
-            string normalToken = Encoding.UTF8.GetString(decodedToken);
+            //var decodedToken = WebEncoders.Base64UrlDecode(model.Token);
+            //string normalToken = Encoding.UTF8.GetString(decodedToken);
 
-            var result = await _userManager.ResetPasswordAsync(user, normalToken, model.NewPassword);
+            //var result = await _userManager.ResetPasswordAsync(user, normalToken, model.NewPassword);
+
+            var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
 
             if (result.Succeeded)
                 return new ResponseManager
                 {
-                    Message = "Password has been reset successfully!",
+                    Message = "Đổi mật khẩu thành công!",
                     IsSuccess = true,
                 };
 
             return new ResponseManager
             {
-                Message = "Something went wrong",
+                Message = "Có lỗi xảy ra. Vui lòng thử lại hoặc liên hệ với quản trị viên.",
                 IsSuccess = false,
                 Errors = result.Errors.Select(e => e.Description),
             };

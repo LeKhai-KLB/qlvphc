@@ -4,7 +4,9 @@ public class CreateChiTietLinhVucXuPhatDto
 {
     public int LinhVucXuPhatId { get; set; }
 
-    public string DieuKhoan { get; set; }
+    public string? Dieu { get; set; }
 
-    public string Diem { get; set; }
+    public string? Khoan { get; set; }
+
+    public string? Diem { get; set; }
 }

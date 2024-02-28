@@ -111,6 +111,7 @@ try
         options.AddPermissionPolicies<VanBanGiaiQuyets>();
         options.AddPermissionPolicies<VanBanPhapLuats>();
         options.AddPermissionPolicies<VanBanLienQuans>();
+        options.AddPermissionPolicies<ThamQuyenXuPhats>();
     });
 
     builder.Services.AddApplicationServices();

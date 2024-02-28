@@ -19,9 +19,9 @@ public class CoQuanBanHanhRepository : RepositoryBase<CoQuanBanHanh, int, Catalo
         _coQuanBanHanh = context.Set<CoQuanBanHanh>();
     }
 
-    public async Task<IEnumerable<CoQuanBanHanh>> GetAllCoQuanBanHanh()
+    public async Task<IEnumerable<CoQuanBanHanh>> GetCoQuanBanHanhsByTerm(string? term)
     {
-        return await FindAll().ToListAsync();
+        return await FindByCondition(x => string.IsNullOrEmpty(term) || x.TenCoQuan.Contains(term) || x.NhomCoQuan.Contains(term)).OrderBy(x => x.TenCoQuan).ToListAsync();
     }
 
     public async Task<PageList<CoQuanBanHanh>> GetPagedCoQuanBanHanhAsync(CoQuanBanHanhParameter parameter)
@@ -51,9 +51,9 @@ public class CoQuanBanHanhRepository : RepositoryBase<CoQuanBanHanh, int, Catalo
         await DeleteAsync(entity);
     }
 
-    public async Task<bool> CheckExistCoQuanBanHanh(string ten)
+    public async Task<bool> CheckExistCoQuanBanHanh(int id)
     {
-        var coQuanBanHanhs = await FindByCondition(x => x.TenCoQuan.Equals(ten)).ToListAsync();
+        var coQuanBanHanhs = await FindByCondition(x => x.Id.Equals(id)).ToListAsync();
         return coQuanBanHanhs != null && coQuanBanHanhs.Any();
     }
 }

@@ -7,6 +7,7 @@ using Infrastructure.Common;
 using Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Shared.SeedWord;
+using System;
 
 namespace CatalogService.Infrastructure.Repositories;
 
@@ -19,9 +20,15 @@ public class VanBanPhapLuatRepository : RepositoryBase<VanBanPhapLuat, int, Cata
         _vanBanPhapLuat = context.Set<VanBanPhapLuat>();
     }
 
-    public async Task<IEnumerable<VanBanPhapLuat>> GetAllVanBanPhapLuat()
+    public async Task<IEnumerable<VanBanPhapLuat>> GetAllVanBanPhapLuat(bool? isFilterTrichYeu)
     {
-        return await FindAll().ToListAsync();
+        if (isFilterTrichYeu == null || !isFilterTrichYeu.Value)
+            return await FindAll().ToListAsync();
+        else
+            return await FindByCondition(x => !string.IsNullOrEmpty(x.TrichYeuNoiDung))
+                .GroupBy(x => x.TrichYeuNoiDung)
+                .Select(g => g.OrderBy(x => x.TrichYeuNoiDung).First())
+                .ToListAsync();
     }
 
     public async Task<PageList<VanBanPhapLuat>> GetPagedVanBanPhapLuatAsync(VanBanPhapLuatParameter parameter)

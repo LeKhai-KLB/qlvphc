@@ -19,9 +19,9 @@ public class LoaiVanBanRepository : RepositoryBase<LoaiVanBan, int, CatalogServi
         _loaiVanBan = context.Set<LoaiVanBan>();
     }
 
-    public async Task<IEnumerable<LoaiVanBan>> GetAllLoaiVanBan()
+    public async Task<IEnumerable<LoaiVanBan>> GetLoaiVanBansByTerm(string? term)
     {
-        return await FindAll().ToListAsync();
+        return await FindByCondition(x => string.IsNullOrEmpty(term) || x.Ten.Contains(term)).OrderBy(x => x.Ten).ToListAsync();
     }
 
     public async Task<PageList<LoaiVanBan>> GetPagedLoaiVanBanAsync(LoaiVanBanParameter parameter)

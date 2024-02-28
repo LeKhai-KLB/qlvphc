@@ -7,11 +7,11 @@ namespace CatalogService.Application.Common.Interfaces;
 
 public interface ICoQuanBanHanhRepository : IRepositoryBaseAsync<CoQuanBanHanh, int>
 {
-    Task<IEnumerable<CoQuanBanHanh>> GetAllCoQuanBanHanh();
+    Task<IEnumerable<CoQuanBanHanh>> GetCoQuanBanHanhsByTerm(string? term);
     Task<PageList<CoQuanBanHanh>> GetPagedCoQuanBanHanhAsync(CoQuanBanHanhParameter parameter);
     Task<CoQuanBanHanh> GetCoQuanBanHanhById(int id);
     Task CreateCoQuanBanHanh(CoQuanBanHanh request);
     Task UpdateCoQuanBanHanh(CoQuanBanHanh request);
     Task DeleteCoQuanBanHanh(CoQuanBanHanh entity);
-    Task<bool> CheckExistCoQuanBanHanh(string ten);
+    Task<bool> CheckExistCoQuanBanHanh(int id);
 }

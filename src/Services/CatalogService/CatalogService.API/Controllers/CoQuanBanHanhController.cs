@@ -7,14 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.Common.Constants;
 using Shared.SeedWord;
 using CatalogService.Application.Common.Models.CoQuanBanHanhs;
-using CatalogService.Application.Features.V1.CoQuanBanHanhs.Queries.GetAllCoQuanBanHanh;
 using CatalogService.Application.Features.V1.CoQuanBanHanhs.Queries.GetCoQuanBanHanhById;
 using CatalogService.Application.Features.V1.CoQuanBanHanhs.Commands.CreateCoQuanBanHanh;
 using CatalogService.Application.Features.V1.CoQuanBanHanhs.Commands.UpdateCoQuanBanHanh;
 using CatalogService.Application.Features.V1.CoQuanBanHanhs.Commands.DeleteCoQuanBanHanh;
 using CatalogService.Application.Features.V1.CoQuanBanHanhs.Queries.GetPagedCoQuanBanHanhAsync;
 using CatalogService.Application.Parameters.CoQuanBanHanhs;
-using Microsoft.AspNetCore.Authentication;
+using CatalogService.Application.Features.V1.CoQuanBanHanhs.Queries.GetCoQuanBanHanhsByTerm;
 namespace CatalogService.API.Controllers;
 
 [ApiController]
@@ -34,7 +33,7 @@ public class CoQuanBanHanhController : ControllerBase
     private static class RouteNames
     {
         public const string GetPagedCoQuanBanHanh = nameof(GetPagedCoQuanBanHanh);
-        public const string GetAllCoQuanBanHanh = nameof(GetAllCoQuanBanHanh);
+        public const string GetCoQuanBanHanhsByTerm = nameof(GetCoQuanBanHanhsByTerm);
         public const string GetCoQuanBanHanhById = nameof(GetCoQuanBanHanhById);
         public const string CreateCoQuanBanHanh = nameof(CreateCoQuanBanHanh);
         public const string UpdateCoQuanBanHanh = nameof(UpdateCoQuanBanHanh);
@@ -52,12 +51,12 @@ public class CoQuanBanHanhController : ControllerBase
     }
 
     [HttpGet]
-    [Route(RouteNames.GetAllCoQuanBanHanh)]
+    [Route(RouteNames.GetCoQuanBanHanhsByTerm)]
     [ProducesResponseType(typeof(IEnumerable<CoQuanBanHanhDto>), (int)HttpStatusCode.OK)]
     [Authorize(Permissions.CoQuanBanHanhs.View)]
-    public async Task<ActionResult<IEnumerable<CoQuanBanHanhDto>>> GetAllCoQuanBanHanh()
+    public async Task<ActionResult<IEnumerable<CoQuanBanHanhDto>>> GetCoQuanBanHanhsByTerm([FromQuery] string? term)
     {
-        var query = new GetAllCoQuanBanHanhQuery();
+        var query = new GetCoQuanBanHanhsByTermQuery(term);
         var result = await _mediator.Send(query);
         return Ok(result);
     }

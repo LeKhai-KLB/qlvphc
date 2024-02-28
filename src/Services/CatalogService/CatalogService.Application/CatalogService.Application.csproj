@@ -105,9 +105,7 @@
     <None Remove="Features\V1\DanhMucDinhDanhs\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Features\V1\LinhVucXuPhats\" />
     <Folder Include="Features\V1\LinhVucXuPhats\Commands\" />
-    <Folder Include="Features\V1\LinhVucXuPhats\Queries\" />
     <Folder Include="Features\V1\LinhVucXuPhats\Queries\GetLinhVucXuPhatById\" />
     <Folder Include="Features\V1\LinhVucXuPhats\Commands\CreateLinhVucXuPhat\" />
     <Folder Include="Common\Models\LinhVucXuPhats\" />
@@ -115,29 +113,22 @@
     <Folder Include="Features\V1\LinhVucXuPhats\Commands\UpdateLinhVucXuPhat\" />
     <Folder Include="Features\V1\LinhVucXuPhats\Commands\DeleteLinhVucXuPhat\" />
     <Folder Include="Common\Models\ChiTietLinhVucXuPhats\" />
-    <Folder Include="Features\V1\ChiTietLinhVucXuPhats\" />
     <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Commands\" />
     <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Common\" />
-    <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Queries\" />
     <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Commands\CreateChiTietLinhVucXuPhat\" />
     <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Commands\UpdateChiTietLinhVucXuPhat\" />
     <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Commands\DeleteChiTietLinhVucXuPhat\" />
     <Folder Include="Features\V1\ChiTietLinhVucXuPhats\Queries\GetChiTietLinhVucXuPhatById\" />
-    <Folder Include="Features\V1\LinhVucXuPhats\Queries\GetAllLinhVucXuPhat\" />
     <Folder Include="Common\Models\LoaiVanBans\" />
     <Folder Include="Common\Models\CoQuanBanHanhs\" />
     <Folder Include="Common\Models\VanBanPhapLuats\" />
     <Folder Include="Common\Models\VanBanLienQuans\" />
-    <Folder Include="Features\V1\LoaiVanBans\" />
-    <Folder Include="Features\V1\CoQuanBanHanhs\" />
     <Folder Include="Features\V1\VanBanPhapLuats\" />
     <Folder Include="Features\V1\VanBanLienQuans\" />
     <Folder Include="Features\V1\LoaiVanBans\Commands\" />
     <Folder Include="Features\V1\LoaiVanBans\Common\" />
-    <Folder Include="Features\V1\LoaiVanBans\Queries\" />
     <Folder Include="Features\V1\CoQuanBanHanhs\Commands\" />
     <Folder Include="Features\V1\CoQuanBanHanhs\Common\" />
-    <Folder Include="Features\V1\CoQuanBanHanhs\Queries\" />
     <Folder Include="Features\V1\VanBanLienQuans\Commands\" />
     <Folder Include="Features\V1\VanBanLienQuans\Common\" />
     <Folder Include="Features\V1\VanBanLienQuans\Queries\" />
@@ -145,14 +136,12 @@
     <Folder Include="Features\V1\VanBanPhapLuats\Common\" />
     <Folder Include="Features\V1\VanBanPhapLuats\Queries\" />
     <Folder Include="Features\V1\CoQuanBanHanhs\Queries\GetCoQuanBanHanhById\" />
-    <Folder Include="Features\V1\CoQuanBanHanhs\Queries\GetAllCoQuanBanHanh\" />
     <Folder Include="Features\V1\CoQuanBanHanhs\Commands\CreateCoQuanBanHanh\" />
     <Folder Include="Features\V1\CoQuanBanHanhs\Commands\UpdateCoQuanBanHanh\" />
     <Folder Include="Features\V1\CoQuanBanHanhs\Commands\DeleteCoQuanBanHanh\" />
     <Folder Include="Features\V1\LoaiVanBans\Commands\UpdateLoaiVanBan\" />
     <Folder Include="Features\V1\LoaiVanBans\Commands\CreateLoaiVanBan\" />
     <Folder Include="Features\V1\LoaiVanBans\Commands\DeleteLoaiVanBan\" />
-    <Folder Include="Features\V1\LoaiVanBans\Queries\GetAllLoaiVanBan\" />
     <Folder Include="Features\V1\LoaiVanBans\Queries\GetLoaiVanBanById\" />
     <Folder Include="Features\V1\VanBanPhapLuats\Queries\GetAllVanBanPhapLuat\" />
     <Folder Include="Features\V1\VanBanPhapLuats\Queries\GetVanBanPhapLuatById\" />
