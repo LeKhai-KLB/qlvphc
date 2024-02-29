@@ -7,7 +7,7 @@ namespace CatalogService.Application.Features.V1.LoaiVanBans.Queries.GetPagedLoa
 
 public class GetPagedLoaiVanBanQuery : IRequest<PagedResponse<IEnumerable<LoaiVanBanDto>>>
 {
-    public string? Ten { get; set; }
+    public string? SearchTerm { get; set; }
 
     public int? PageNumber { get; set; }
 
@@ -20,6 +20,6 @@ public class GetPagedLoaiVanBanQuery : IRequest<PagedResponse<IEnumerable<LoaiVa
         PageNumber = request.PageNumber;
         PageSize = request.PageSize;
         OrderBy = request.OrderBy;
-        Ten = request.Ten;
+        SearchTerm = request.SearchTerm;
     }
 }

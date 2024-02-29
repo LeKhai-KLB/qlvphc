@@ -9,6 +9,8 @@ public class GetPagedByLinhVucXuPhatIdQuery : IRequest<ApiResult<IEnumerable<Chi
 {
     public int? LinhVucXuPhatId { get; set; }
 
+    public string? SearchTerm { get; set; }
+
     public int? PageNumber { get; set; }
 
     public int? PageSize { get; set; }
@@ -21,5 +23,6 @@ public class GetPagedByLinhVucXuPhatIdQuery : IRequest<ApiResult<IEnumerable<Chi
         PageSize = request.PageSize;
         OrderBy = request.OrderBy;
         LinhVucXuPhatId = request.LinhVucXuPhatId;
+        SearchTerm = request.SearchTerm;
     }
 }

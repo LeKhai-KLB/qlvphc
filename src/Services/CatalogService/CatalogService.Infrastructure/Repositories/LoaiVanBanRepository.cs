@@ -19,16 +19,27 @@ public class LoaiVanBanRepository : RepositoryBase<LoaiVanBan, int, CatalogServi
         _loaiVanBan = context.Set<LoaiVanBan>();
     }
 
-    public async Task<IEnumerable<LoaiVanBan>> GetLoaiVanBansByTerm(string? term)
+    public async Task<IEnumerable<LoaiVanBan>> GetAllLoaiVanBans()
     {
-        return await FindByCondition(x => string.IsNullOrEmpty(term) || x.Ten.Contains(term)).OrderBy(x => x.Ten).ToListAsync();
+        return await FindAll().ToListAsync();
     }
 
     public async Task<PageList<LoaiVanBan>> GetPagedLoaiVanBanAsync(LoaiVanBanParameter parameter)
     {
-        var result = _loaiVanBan.Filter(parameter).OrderBy(x => x.Ten);
+        var query = _loaiVanBan.Filter(parameter);
 
-        return await PageList<LoaiVanBan>.ToPageList(result, parameter.PageNumber, parameter.PageSize);
+        if (!string.IsNullOrEmpty(parameter.OrderBy))
+        {
+            query = query.OrderBy(parameter.OrderBy);
+        }
+
+        if (!string.IsNullOrEmpty(parameter.SearchTerm))
+        {
+            query = query.Where(x => string.IsNullOrEmpty(parameter.SearchTerm)
+                || x.Ten.Contains(parameter.SearchTerm));
+        }
+
+        return await PageList<LoaiVanBan>.ToPageList(query, parameter.PageNumber, parameter.PageSize);
     }
 
     public async Task<LoaiVanBan> GetLoaiVanBanById(int id)

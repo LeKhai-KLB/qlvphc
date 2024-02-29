@@ -7,7 +7,6 @@ namespace CatalogService.Application.Common.Interfaces;
 
 public interface IDieuKhoanXuPhatRepository : IRepositoryBaseAsync<DieuKhoanXuPhat, int>
 {
-    Task<IEnumerable<DieuKhoanXuPhat>> GetDieuKhoanXuPhatsByTerm(string? term);
     Task<PageList<DieuKhoanXuPhat>> GetPagedDieuKhoanXuPhatAsync(DieuKhoanXuPhatParameter parameter);
     Task<DieuKhoanXuPhat> GetDieuKhoanXuPhatById(int id);
     Task CreateDieuKhoanXuPhat(DieuKhoanXuPhat request);

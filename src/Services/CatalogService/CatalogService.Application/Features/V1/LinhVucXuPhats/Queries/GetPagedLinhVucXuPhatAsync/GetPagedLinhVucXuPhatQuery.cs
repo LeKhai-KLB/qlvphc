@@ -7,9 +7,7 @@ namespace CatalogService.Application.Features.V1.LinhVucXuPhats.Queries.GetPaged
 
 public class GetPagedLinhVucXuPhatQuery : IRequest<PagedResponse<IEnumerable<LinhVucXuPhatDto>>>
 {
-    public string? TenLinhVuc { get; set; }
-
-    public string? NhomLinhVuc { get; set; }
+    public string? SearchTerm { get; set; }
 
     public int? PageNumber { get; set; }
 
@@ -22,7 +20,6 @@ public class GetPagedLinhVucXuPhatQuery : IRequest<PagedResponse<IEnumerable<Lin
         PageNumber = request.PageNumber;
         PageSize = request.PageSize;
         OrderBy = request.OrderBy;
-        TenLinhVuc = request.TenLinhVuc;
-        NhomLinhVuc = request.NhomLinhVuc;
+        SearchTerm = request.SearchTerm;
     }
 }

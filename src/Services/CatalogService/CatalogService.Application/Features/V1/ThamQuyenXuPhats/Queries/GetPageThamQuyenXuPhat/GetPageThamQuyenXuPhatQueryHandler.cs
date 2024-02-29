@@ -6,23 +6,23 @@ using MediatR;
 using Serilog;
 using Shared.SeedWord;
 
-namespace CatalogService.Application.Features.V1.ThamQuyenXuPhats.Queries.GetThamQuyenXuPhats;
+namespace CatalogService.Application.Features.V1.ThamQuyenXuPhats.Queries.GetPageThamQuyenXuPhat;
 
-public class GetThamQuyenXuPhatsQueryHandler : IRequestHandler<GetThamQuyenXuPhatsQuery, PagedResponse<IEnumerable<ThamQuyenXuPhatDto>>>
+public class GetPageThamQuyenXuPhatQueryHandler : IRequestHandler<GetPageThamQuyenXuPhatQuery, PagedResponse<IEnumerable<ThamQuyenXuPhatDto>>>
 {
     private readonly IMapper _mapper;
     private readonly IThamQuyenXuPhatRepository _repository;
     private readonly ILogger _logger;
     private const string MethodName = "GetAllThamQuyenXuPhatQueryHandler";
 
-    public GetThamQuyenXuPhatsQueryHandler(IMapper mapper, IThamQuyenXuPhatRepository repository, ILogger logger)
+    public GetPageThamQuyenXuPhatQueryHandler(IMapper mapper, IThamQuyenXuPhatRepository repository, ILogger logger)
     {
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         _logger = logger;
     }
 
-    public async Task<PagedResponse<IEnumerable<ThamQuyenXuPhatDto>>> Handle(GetThamQuyenXuPhatsQuery request, CancellationToken cancellationToken)
+    public async Task<PagedResponse<IEnumerable<ThamQuyenXuPhatDto>>> Handle(GetPageThamQuyenXuPhatQuery request, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: {MethodName}");
 

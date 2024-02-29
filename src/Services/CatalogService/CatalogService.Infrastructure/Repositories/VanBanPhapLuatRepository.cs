@@ -7,7 +7,6 @@ using Infrastructure.Common;
 using Infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Shared.SeedWord;
-using System;
 
 namespace CatalogService.Infrastructure.Repositories;
 
@@ -33,9 +32,38 @@ public class VanBanPhapLuatRepository : RepositoryBase<VanBanPhapLuat, int, Cata
 
     public async Task<PageList<VanBanPhapLuat>> GetPagedVanBanPhapLuatAsync(VanBanPhapLuatParameter parameter)
     {
-        var result = _vanBanPhapLuat.Filter(parameter).OrderBy(x => x.Id);
+        var query = _vanBanPhapLuat.Filter(parameter);
 
-        return await PageList<VanBanPhapLuat>.ToPageList(result, parameter.PageNumber, parameter.PageSize);
+        if (parameter.NgayBanHanhTu != null)
+        {
+            query = query.Where(x => x.NgayBanHanh.Date >= parameter.NgayBanHanhTu.Value.Date);
+        }
+
+        if (parameter.NgayBanHanhDen != null)
+        {
+            query = query.Where(x => x.NgayBanHanh.Date <= parameter.NgayBanHanhDen.Value.Date);
+        }
+
+        if (!string.IsNullOrEmpty(parameter.OrderBy))
+        {
+            query = query.OrderBy(parameter.OrderBy);
+        }
+
+        if (!string.IsNullOrEmpty(parameter.SearchTerm))
+        {
+            query = query.Where(x => string.IsNullOrEmpty(parameter.SearchTerm)
+                || x.SoHieu.Contains(parameter.SearchTerm)
+                || x.NgayBanHanh.Year.ToString().Contains(parameter.SearchTerm)
+                || x.NgayBanHanh.Month.ToString().Contains(parameter.SearchTerm)
+                || x.NgayBanHanh.Day.ToString().Contains(parameter.SearchTerm)
+                || x.NgayHieuLuc.Year.ToString().Contains(parameter.SearchTerm)
+                || x.NgayHieuLuc.Month.ToString().Contains(parameter.SearchTerm)
+                || x.NgayHieuLuc.Day.ToString().Contains(parameter.SearchTerm)
+                || (x.TrichYeuNoiDung != null && x.TrichYeuNoiDung.Contains(parameter.SearchTerm))
+                || (x.DuongDanUrl != null && x.DuongDanUrl.Contains(parameter.SearchTerm)));
+        }
+
+        return await PageList<VanBanPhapLuat>.ToPageList(query, parameter.PageNumber, parameter.PageSize);
     }
 
     public async Task<VanBanPhapLuat> GetVanBanPhapLuatById(int id)

@@ -19,16 +19,23 @@ public class LinhVucXuPhatRepository : RepositoryBase<LinhVucXuPhat, int, Catalo
         _linhVucXuPhat = context.Set<LinhVucXuPhat>();
     }
 
-    public async Task<IEnumerable<LinhVucXuPhat>> GetLinhVucXuPhatsByTerm(string? term)
-    {
-        return await FindByCondition(x => string.IsNullOrEmpty(term) || x.TenLinhVuc.Contains(term) || x.NhomLinhVuc.Contains(term)).ToListAsync();
-    }
-
     public async Task<PageList<LinhVucXuPhat>> GetPagedLinhVucXuPhatAsync(LinhVucXuPhatParameter parameter)
     {
-        var result = _linhVucXuPhat.Filter(parameter).OrderBy(x => x.TenLinhVuc);
+        var query = _linhVucXuPhat.Filter(parameter);
 
-        return await PageList<LinhVucXuPhat>.ToPageList(result, parameter.PageNumber, parameter.PageSize);
+        if (!string.IsNullOrEmpty(parameter.OrderBy))
+        {
+            query = query.OrderBy(parameter.OrderBy);
+        }
+
+        if (!string.IsNullOrEmpty(parameter.SearchTerm))
+        {
+            query = query.Where(x => string.IsNullOrEmpty(parameter.SearchTerm)
+                || x.TenLinhVuc.Contains(parameter.SearchTerm)
+                || x.NhomLinhVuc.Contains(parameter.SearchTerm));
+        }
+
+        return await PageList<LinhVucXuPhat>.ToPageList(query, parameter.PageNumber, parameter.PageSize);
     }
 
     public async Task<LinhVucXuPhat> GetLinhVucXuPhatById(int id)

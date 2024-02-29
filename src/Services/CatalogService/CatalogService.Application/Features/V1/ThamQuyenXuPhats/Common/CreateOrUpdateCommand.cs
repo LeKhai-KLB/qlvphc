@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CatalogService.Application.Common.Mappings;
-using CatalogService.Application.Features.V1.ThamQuyenXuPhats.Queries.GetThamQuyenXuPhats;
+using CatalogService.Application.Features.V1.ThamQuyenXuPhats.Queries.GetPageThamQuyenXuPhat;
 using CatalogService.Application.Parameters.ThamQuyenXuPhats;
 using CatalogService.Domain.Entities;
 
@@ -15,6 +15,6 @@ public class CreateOrUpdateCommand : IMapFrom<ThamQuyenXuPhat>
     public void Mapping(Profile profile)
     {
         profile.CreateMap<CreateOrUpdateCommand, ThamQuyenXuPhat>();
-        profile.CreateMap<GetThamQuyenXuPhatsQuery, ThamQuyenXuPhatParameter>();
+        profile.CreateMap<GetPageThamQuyenXuPhatQuery, ThamQuyenXuPhatParameter>();
     }
 }

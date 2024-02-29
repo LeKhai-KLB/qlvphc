@@ -3,21 +3,22 @@ using CatalogService.Application.Parameters.ThamQuyenXuPhats;
 using MediatR;
 using Shared.SeedWord;
 
-namespace CatalogService.Application.Features.V1.ThamQuyenXuPhats.Queries.GetThamQuyenXuPhats;
+namespace CatalogService.Application.Features.V1.ThamQuyenXuPhats.Queries.GetPageThamQuyenXuPhat;
 
-public class GetThamQuyenXuPhatsQuery : IRequest<PagedResponse<IEnumerable<ThamQuyenXuPhatDto>>>
+public class GetPageThamQuyenXuPhatQuery : IRequest<PagedResponse<IEnumerable<ThamQuyenXuPhatDto>>>
 {
     public int? PageNumber { get; set; }
     public int? PageSize { get; set; }
     public string? OrderBy { get; set; }
-    public string? ThamQuyen { get; set; }
+    public string? SearchTerm { get; set; }
     public bool? IsDeleted { get; set; }
-    public GetThamQuyenXuPhatsQuery(ThamQuyenXuPhatParameter request)
+
+    public GetPageThamQuyenXuPhatQuery(ThamQuyenXuPhatParameter request)
     {
         PageNumber = request.PageNumber;
         PageSize = request.PageSize;
         OrderBy = request.OrderBy;
-        ThamQuyen = request.ThamQuyen;
+        SearchTerm = request.SearchTerm;
         IsDeleted = request.IsDeleted;
     }
 }

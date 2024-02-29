@@ -7,7 +7,6 @@ using CatalogService.Application.Features.V1.DieuKhoanXuPhats.Commands.DeleteDie
 using CatalogService.Application.Features.V1.DieuKhoanXuPhats.Commands.UpdateDieuKhoanXuPhat;
 using CatalogService.Application.Features.V1.DieuKhoanXuPhats.Queries.GetDieuKhoanXuPhatById;
 using CatalogService.Application.Features.V1.DieuKhoanXuPhats.Queries.GetDieuKhoanXuPhats;
-using CatalogService.Application.Features.V1.DieuKhoanXuPhats.Queries.GetDieuKhoanXuPhatsByTerm;
 using CatalogService.Application.Parameters.DieuKhoanXuPhats;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +30,6 @@ public class DieuKhoanXuPhatController : ControllerBase
     private static class RouteNames
     {
         public const string GetDieuKhoanXuPhats = nameof(GetDieuKhoanXuPhats);
-        public const string GetAllDieuKhoanXuPhats = nameof(GetAllDieuKhoanXuPhats);
         public const string CreateDieuKhoanXuPhat = nameof(CreateDieuKhoanXuPhat);
         public const string UpdateDieuKhoanXuPhat = nameof(UpdateDieuKhoanXuPhat);
         public const string DeleteDieuKhoanXuPhat = nameof(DeleteDieuKhoanXuPhat);
@@ -43,15 +41,6 @@ public class DieuKhoanXuPhatController : ControllerBase
     public async Task<ActionResult<PagedResponse<IEnumerable<DieuKhoanXuPhatDto>>>> GetDieuKhoanXuPhats([FromBody] DieuKhoanXuPhatParameter request)
     {
         var query = new GetDieuKhoanXuPhatsQuery(request);
-        var result = await _mediator.Send(query);
-        return Ok(result);
-    }
-
-    [HttpGet(Name = RouteNames.GetAllDieuKhoanXuPhats)]
-    [ProducesResponseType(typeof(IEnumerable<DieuKhoanXuPhatDto>), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<IEnumerable<DieuKhoanXuPhatDto>>> GetDieuKhoanXuPhatsByTerm([FromQuery] string? term)
-    {
-        var query = new GetDieuKhoanXuPhatsByTermQuery(term);
         var result = await _mediator.Send(query);
         return Ok(result);
     }

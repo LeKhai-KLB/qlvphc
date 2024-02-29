@@ -19,16 +19,28 @@ public class CoQuanBanHanhRepository : RepositoryBase<CoQuanBanHanh, int, Catalo
         _coQuanBanHanh = context.Set<CoQuanBanHanh>();
     }
 
-    public async Task<IEnumerable<CoQuanBanHanh>> GetCoQuanBanHanhsByTerm(string? term)
+    public async Task<IEnumerable<CoQuanBanHanh>> GetAllCoQuanBanHanhs()
     {
-        return await FindByCondition(x => string.IsNullOrEmpty(term) || x.TenCoQuan.Contains(term) || x.NhomCoQuan.Contains(term)).OrderBy(x => x.TenCoQuan).ToListAsync();
+        return await FindAll().ToListAsync();
     }
 
     public async Task<PageList<CoQuanBanHanh>> GetPagedCoQuanBanHanhAsync(CoQuanBanHanhParameter parameter)
     {
-        var result = _coQuanBanHanh.Filter(parameter).OrderBy(x => x.TenCoQuan);
+        var query = _coQuanBanHanh.Filter(parameter);
 
-        return await PageList<CoQuanBanHanh>.ToPageList(result, parameter.PageNumber, parameter.PageSize);
+        if (!string.IsNullOrEmpty(parameter.OrderBy))
+        {
+            query = query.OrderBy(parameter.OrderBy);
+        }
+
+        if (!string.IsNullOrEmpty(parameter.SearchTerm))
+        {
+            query = query.Where(x => string.IsNullOrEmpty(parameter.SearchTerm)
+                || x.TenCoQuan.Contains(parameter.SearchTerm)
+                || x.NhomCoQuan.Contains(parameter.SearchTerm));
+        }
+
+        return await PageList<CoQuanBanHanh>.ToPageList(query, parameter.PageNumber, parameter.PageSize);
     }
 
     public async Task<CoQuanBanHanh> GetCoQuanBanHanhById(int id)

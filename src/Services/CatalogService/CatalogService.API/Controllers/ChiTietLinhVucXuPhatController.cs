@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Authorization;
 using Shared.Common.Constants;
 using CatalogService.Application.Parameters.ChiTietLinhVucXuPhats;
 using CatalogService.Application.Features.V1.ChiTietLinhVucXuPhats.Queries.GetPagedByLinhVucXuPhatId;
-using CatalogService.Application.Features.V1.ChiTietLinhVucXuPhats.Queries.GetChiTietLinhVucXuPhatsByTerm;
 namespace CatalogService.API.Controllers;
 
 [ApiController]
@@ -33,7 +32,6 @@ public class ChiTietLinhVucXuPhatController : ControllerBase
     private static class RouteNames
     {
         public const string GetPagedByLinhVucXuPhatId = nameof(GetPagedByLinhVucXuPhatId);
-        public const string GetChiTietLinhVucXuPhatsByTerm = nameof(GetChiTietLinhVucXuPhatsByTerm);
         public const string GetChiTietLinhVucXuPhatById = nameof(GetChiTietLinhVucXuPhatById);
         public const string CreateChiTietLinhVucXuPhat = nameof(CreateChiTietLinhVucXuPhat);
         public const string UpdateChiTietLinhVucXuPhat = nameof(UpdateChiTietLinhVucXuPhat);
@@ -46,15 +44,6 @@ public class ChiTietLinhVucXuPhatController : ControllerBase
     public async Task<ActionResult<PagedResponse<IEnumerable<ChiTietLinhVucXuPhatDto>>>> GetPagedByLinhVucXuPhatId([FromBody] ChiTietLinhVucXuPhatParameter request)
     {
         var query = new GetPagedByLinhVucXuPhatIdQuery(request);
-        var result = await _mediator.Send(query);
-        return Ok(result);
-    }
-
-    [HttpGet(Name = RouteNames.GetChiTietLinhVucXuPhatsByTerm)]
-    [ProducesResponseType(typeof(IEnumerable<ChiTietLinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<IEnumerable<ChiTietLinhVucXuPhatDto>>> GetChiTietLinhVucXuPhatsByTerm([FromQuery] string? term, [FromQuery] int linhVucXuPhatId)
-    {
-        var query = new GetChiTietLinhVucXuPhatsByTermQuery(linhVucXuPhatId, term);
         var result = await _mediator.Send(query);
         return Ok(result);
     }

@@ -13,7 +13,7 @@ using CatalogService.Application.Features.V1.CoQuanBanHanhs.Commands.UpdateCoQua
 using CatalogService.Application.Features.V1.CoQuanBanHanhs.Commands.DeleteCoQuanBanHanh;
 using CatalogService.Application.Features.V1.CoQuanBanHanhs.Queries.GetPagedCoQuanBanHanhAsync;
 using CatalogService.Application.Parameters.CoQuanBanHanhs;
-using CatalogService.Application.Features.V1.CoQuanBanHanhs.Queries.GetCoQuanBanHanhsByTerm;
+using CatalogService.Application.Features.V1.CoQuanBanHanhs.Queries.GetAllCoQuanBanHanhs;
 namespace CatalogService.API.Controllers;
 
 [ApiController]
@@ -33,7 +33,7 @@ public class CoQuanBanHanhController : ControllerBase
     private static class RouteNames
     {
         public const string GetPagedCoQuanBanHanh = nameof(GetPagedCoQuanBanHanh);
-        public const string GetCoQuanBanHanhsByTerm = nameof(GetCoQuanBanHanhsByTerm);
+        public const string GetAllCoQuanBanHanhs = nameof(GetAllCoQuanBanHanhs);
         public const string GetCoQuanBanHanhById = nameof(GetCoQuanBanHanhById);
         public const string CreateCoQuanBanHanh = nameof(CreateCoQuanBanHanh);
         public const string UpdateCoQuanBanHanh = nameof(UpdateCoQuanBanHanh);
@@ -51,12 +51,12 @@ public class CoQuanBanHanhController : ControllerBase
     }
 
     [HttpGet]
-    [Route(RouteNames.GetCoQuanBanHanhsByTerm)]
+    [Route(RouteNames.GetAllCoQuanBanHanhs)]
     [ProducesResponseType(typeof(IEnumerable<CoQuanBanHanhDto>), (int)HttpStatusCode.OK)]
     [Authorize(Permissions.CoQuanBanHanhs.View)]
-    public async Task<ActionResult<IEnumerable<CoQuanBanHanhDto>>> GetCoQuanBanHanhsByTerm([FromQuery] string? term)
+    public async Task<ActionResult<IEnumerable<CoQuanBanHanhDto>>> GetAllCoQuanBanHanhs()
     {
-        var query = new GetCoQuanBanHanhsByTermQuery(term);
+        var query = new GetAllCoQuanBanHanhsQuery();
         var result = await _mediator.Send(query);
         return Ok(result);
     }

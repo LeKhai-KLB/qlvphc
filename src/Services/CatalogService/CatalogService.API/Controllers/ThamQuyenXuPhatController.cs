@@ -4,8 +4,7 @@ using CatalogService.Application.Features.V1.ThamQuyenXuPhats.Commands.CreateTha
 using CatalogService.Application.Features.V1.ThamQuyenXuPhats.Commands.DeleteThamQuyenXuPhat;
 using CatalogService.Application.Features.V1.ThamQuyenXuPhats.Commands.UpdateThamQuyenXuPhat;
 using CatalogService.Application.Features.V1.ThamQuyenXuPhats.Queries.GetThamQuyenXuPhatById;
-using CatalogService.Application.Features.V1.ThamQuyenXuPhats.Queries.GetThamQuyenXuPhats;
-using CatalogService.Application.Features.V1.ThamQuyenXuPhats.Queries.GetThamQuyenXuPhatsByTerm;
+using CatalogService.Application.Features.V1.ThamQuyenXuPhats.Queries.GetPageThamQuyenXuPhat;
 using CatalogService.Application.Parameters.ThamQuyenXuPhats;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -33,30 +32,19 @@ public class ThamQuyenXuPhatController : ControllerBase
 
     private static class RouteNames
     {
-        public const string GetThamQuyenXuPhats = nameof(GetThamQuyenXuPhats);
-        public const string GetAllThamQuyenXuPhats = nameof(GetAllThamQuyenXuPhats);
+        public const string GetPageThamQuyenXuPhat = nameof(GetPageThamQuyenXuPhat);
         public const string CreateThamQuyenXuPhat = nameof(CreateThamQuyenXuPhat);
         public const string UpdateThamQuyenXuPhat = nameof(UpdateThamQuyenXuPhat);
         public const string DeleteThamQuyenXuPhat = nameof(DeleteThamQuyenXuPhat);
         public const string GetThamQuyenXuPhatById = nameof(GetThamQuyenXuPhatById);
     }
 
-    [HttpPost("paging", Name = RouteNames.GetThamQuyenXuPhats)]
+    [HttpPost("paging", Name = RouteNames.GetPageThamQuyenXuPhat)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<ThamQuyenXuPhatDto>>), (int)HttpStatusCode.OK)]
     [Authorize(Permissions.ThamQuyenXuPhats.View)]
-    public async Task<ActionResult<PagedResponse<IEnumerable<ThamQuyenXuPhatDto>>>> GetThamQuyenXuPhats([FromBody] ThamQuyenXuPhatParameter request)
+    public async Task<ActionResult<PagedResponse<IEnumerable<ThamQuyenXuPhatDto>>>> GetPageThamQuyenXuPhat([FromBody] ThamQuyenXuPhatParameter request)
     {
-        var query = new GetThamQuyenXuPhatsQuery(request);
-        var result = await _mediator.Send(query);
-        return Ok(result);
-    }
-
-    [HttpGet(Name = RouteNames.GetAllThamQuyenXuPhats)]
-    [ProducesResponseType(typeof(IEnumerable<ThamQuyenXuPhatDto>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.ThamQuyenXuPhats.View)]
-    public async Task<ActionResult<IEnumerable<ThamQuyenXuPhatDto>>> GetThamQuyenXuPhatsByTerm([FromQuery] string? term)
-    {
-        var query = new GetThamQuyenXuPhatsByTermQuery(term);
+        var query = new GetPageThamQuyenXuPhatQuery(request);
         var result = await _mediator.Send(query);
         return Ok(result);
     }

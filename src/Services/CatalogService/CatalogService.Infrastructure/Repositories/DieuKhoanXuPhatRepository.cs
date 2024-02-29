@@ -20,22 +20,26 @@ public class DieuKhoanXuPhatRepository : RepositoryBase<DieuKhoanXuPhat, int, Ca
 
     public async Task<PageList<DieuKhoanXuPhat>> GetPagedDieuKhoanXuPhatAsync(DieuKhoanXuPhatParameter parameter)
     {
-        var result = _dieuKhoanXuPhat.Filter(parameter)
-            .Include(x => x.LinhVucXuPhat)
-            .OrderBy(x => x.Id);
+        var query = _dieuKhoanXuPhat.Filter(parameter);
 
-        return await PageList<DieuKhoanXuPhat>.ToPageList(result, parameter.PageNumber, parameter.PageSize);
-    }
+        if (!string.IsNullOrEmpty(parameter.OrderBy))
+        {
+            query = query.OrderBy(parameter.OrderBy);
+        }
 
-    public async Task<IEnumerable<DieuKhoanXuPhat>> GetDieuKhoanXuPhatsByTerm(string? term)
-    {
-        return await FindByCondition(x => x.IsDeleted == false
-                && string.IsNullOrEmpty(term)
-                || x.Dieu.Contains(term)
-                || x.Khoan.Contains(term)
-                || x.Diem.Contains(term))
-            .Include(x => x.LinhVucXuPhat)
-            .ToListAsync();
+        if (!string.IsNullOrEmpty(parameter.SearchTerm))
+        {
+            query = query
+                .Where(x => x.IsDeleted == false
+                    && (string.IsNullOrEmpty(parameter.SearchTerm)
+                    || x.Dieu.Contains(parameter.SearchTerm)
+                    || x.Khoan.Contains(parameter.SearchTerm)
+                    || x.Diem.Contains(parameter.SearchTerm)));
+        }
+
+        query = query.Include(x => x.LinhVucXuPhat);
+
+        return await PageList<DieuKhoanXuPhat>.ToPageList(query, parameter.PageNumber, parameter.PageSize);
     }
 
     public async Task<DieuKhoanXuPhat> GetDieuKhoanXuPhatById(int id)

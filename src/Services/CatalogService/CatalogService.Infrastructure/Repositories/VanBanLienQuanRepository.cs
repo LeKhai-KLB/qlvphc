@@ -21,9 +21,20 @@ public class VanBanLienQuanRepository : RepositoryBase<VanBanLienQuan, int, Cata
 
     public async Task<PageList<VanBanLienQuan>> GetPagedByVanBanPhapLuatId(VanBanLienQuanParameter parameter)
     {
-        var result = _vanBanLienQuan.Filter(parameter).OrderBy(x => x.Ten);
+        var query = _vanBanLienQuan.Filter(parameter);
 
-        return await PageList<VanBanLienQuan>.ToPageList(result, parameter.PageNumber, parameter.PageSize);
+        if (!string.IsNullOrEmpty(parameter.OrderBy))
+        {
+            query = query.OrderBy(parameter.OrderBy);
+        }
+
+        if (!string.IsNullOrEmpty(parameter.SearchTerm))
+        {
+            query = query.Where(x => string.IsNullOrEmpty(parameter.SearchTerm)
+                || x.Ten.Contains(parameter.SearchTerm));
+        }
+
+        return await PageList<VanBanLienQuan>.ToPageList(query, parameter.PageNumber, parameter.PageSize);
     }
 
     public async Task<VanBanLienQuan> GetVanBanLienQuanById(int id)

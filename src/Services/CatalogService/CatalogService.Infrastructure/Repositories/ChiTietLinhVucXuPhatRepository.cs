@@ -19,23 +19,24 @@ public class ChiTietLinhVucXuPhatRepository : RepositoryBase<ChiTietLinhVucXuPha
         _chiTietLinhVucXuPhat = context.Set<ChiTietLinhVucXuPhat>();
     }
 
-    public async Task<IEnumerable<ChiTietLinhVucXuPhat>> GetChiTietLinhVucXuPhatsByTerm(int linhVucXuPhatId, string? term)
-    {
-        return await FindByCondition(x => x.LinhVucXuPhatId == linhVucXuPhatId
-                && (string.IsNullOrEmpty(term)
-                || x.Dieu.Contains(term)
-                || x.Khoan.Contains(term)
-                || x.Diem.Contains(term)))
-            .OrderBy(x => x.Dieu)
-            .ThenBy(x => x.Khoan)
-            .ToListAsync();
-    }
-
     public async Task<PageList<ChiTietLinhVucXuPhat>> GetPagedByLinhVucXuPhatId(ChiTietLinhVucXuPhatParameter parameter)
     {
-        var result = _chiTietLinhVucXuPhat.Filter(parameter).OrderBy(x => x.Dieu).ThenBy(x => x.Khoan);
+        var query = _chiTietLinhVucXuPhat.Filter(parameter);
 
-        return await PageList<ChiTietLinhVucXuPhat>.ToPageList(result, parameter.PageNumber, parameter.PageSize);
+        if (!string.IsNullOrEmpty(parameter.OrderBy))
+        {
+            query = query.OrderBy(parameter.OrderBy);
+        }
+
+        if (!string.IsNullOrEmpty(parameter.SearchTerm))
+        {
+            query = query.Where(x => string.IsNullOrEmpty(parameter.SearchTerm)
+                || x.Dieu.Contains(parameter.SearchTerm)
+                || x.Khoan.Contains(parameter.SearchTerm)
+                || x.Diem.Contains(parameter.SearchTerm));
+        }
+        
+        return await PageList<ChiTietLinhVucXuPhat>.ToPageList(query, parameter.PageNumber, parameter.PageSize);
     }
 
     public async Task<ChiTietLinhVucXuPhat> GetChiTietLinhVucXuPhatById(int id)

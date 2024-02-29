@@ -21,18 +21,21 @@ public class ThamQuyenXuPhatRepository : RepositoryBase<ThamQuyenXuPhat, int, Ca
 
     public async Task<PageList<ThamQuyenXuPhat>> GetPagedThamQuyenXuPhatAsync(ThamQuyenXuPhatParameter parameter)
     {
-        var result = _thamQuyenXuPhat.Filter(parameter)
-            .OrderBy(x => x.Id);
+        var query = _thamQuyenXuPhat.Filter(parameter);
 
-        return await PageList<ThamQuyenXuPhat>.ToPageList(result, parameter.PageNumber, parameter.PageSize);
-    }
+        if (!string.IsNullOrEmpty(parameter.OrderBy))
+        {
+            query = query.OrderBy(parameter.OrderBy);
+        }
 
-    public async Task<IEnumerable<ThamQuyenXuPhat>> GetThamQuyenXuPhatsByTerm(string? term)
-    {
-        return await FindByCondition(x => x.IsDeleted == false
-                && string.IsNullOrEmpty(term)
-                || x.ThamQuyen.Contains(term))
-            .ToListAsync();
+        if (!string.IsNullOrEmpty(parameter.SearchTerm))
+        {
+            query = query.Where(x => x.IsDeleted == false
+                && (string.IsNullOrEmpty(parameter.SearchTerm)
+                || x.ThamQuyen.Contains(parameter.SearchTerm)));
+        }
+
+        return await PageList<ThamQuyenXuPhat>.ToPageList(query, parameter.PageNumber, parameter.PageSize);
     }
 
     public async Task<ThamQuyenXuPhat> GetThamQuyenXuPhatById(int id)

@@ -7,9 +7,7 @@ namespace CatalogService.Application.Features.V1.CoQuanBanHanhs.Queries.GetPaged
 
 public class GetPagedCoQuanBanHanhQuery : IRequest<PagedResponse<IEnumerable<CoQuanBanHanhDto>>>
 {
-    public string? NhomCoQuan { get; set; }
-
-    public string? TenCoQuan { get; set; }
+    public string? SearchTerm { get; set; }
 
     public int? PageNumber { get; set; }
 
@@ -22,7 +20,6 @@ public class GetPagedCoQuanBanHanhQuery : IRequest<PagedResponse<IEnumerable<CoQ
         PageNumber = request.PageNumber;
         PageSize = request.PageSize;
         OrderBy = request.OrderBy;
-        NhomCoQuan = request.NhomCoQuan;
-        TenCoQuan = request.TenCoQuan;
+        SearchTerm = request.SearchTerm;
     }
 }

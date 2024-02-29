@@ -7,7 +7,7 @@ namespace CatalogService.Application.Common.Interfaces;
 
 public interface ICoQuanBanHanhRepository : IRepositoryBaseAsync<CoQuanBanHanh, int>
 {
-    Task<IEnumerable<CoQuanBanHanh>> GetCoQuanBanHanhsByTerm(string? term);
+    Task<IEnumerable<CoQuanBanHanh>> GetAllCoQuanBanHanhs();
     Task<PageList<CoQuanBanHanh>> GetPagedCoQuanBanHanhAsync(CoQuanBanHanhParameter parameter);
     Task<CoQuanBanHanh> GetCoQuanBanHanhById(int id);
     Task CreateCoQuanBanHanh(CoQuanBanHanh request);

@@ -20,6 +20,8 @@ public class GetPagedVanBanPhapLuatQuery : IRequest<PagedResponse<IEnumerable<Va
 
     public TrangThaiVanBan? TrangThai { get; set; }
 
+    public string? SearchTerm { get; set; }
+
     public int? PageNumber { get; set; }
 
     public int? PageSize { get; set; }
@@ -28,6 +30,7 @@ public class GetPagedVanBanPhapLuatQuery : IRequest<PagedResponse<IEnumerable<Va
 
     public GetPagedVanBanPhapLuatQuery(VanBanPhapLuatParameter request)
     {
+        SearchTerm = request.SearchTerm;
         PageNumber = request.PageNumber;
         PageSize = request.PageSize;
         OrderBy = request.OrderBy;

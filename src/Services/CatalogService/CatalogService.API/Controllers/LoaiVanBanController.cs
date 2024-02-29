@@ -13,7 +13,7 @@ using Shared.Common.Constants;
 using Shared.SeedWord;
 using CatalogService.Application.Parameters.LoaiVanBans;
 using CatalogService.Application.Features.V1.LoaiVanBans.Queries.GetPagedLoaiVanBanAsync;
-using CatalogService.Application.Features.V1.LoaiVanBans.Queries.GetLoaiVanBansByTerm;
+using CatalogService.Application.Features.V1.LoaiVanBans.Queries.GetAllLoaiVanBans;
 
 namespace CatalogService.API.Controllers;
 
@@ -34,7 +34,7 @@ public class LoaiVanBanController : ControllerBase
     private static class RouteNames
     {
         public const string GetPagedLoaiVanBan = nameof(GetPagedLoaiVanBan);
-        public const string GetLoaiVanBansByTerm = nameof(GetLoaiVanBansByTerm);
+        public const string GetAllLoaiVanBans = nameof(GetAllLoaiVanBans);
         public const string GetLoaiVanBanById = nameof(GetLoaiVanBanById);
         public const string CreateLoaiVanBan = nameof(CreateLoaiVanBan);
         public const string UpdateLoaiVanBan = nameof(UpdateLoaiVanBan);
@@ -52,12 +52,12 @@ public class LoaiVanBanController : ControllerBase
     }
 
     [HttpGet]
-    [Route(RouteNames.GetLoaiVanBansByTerm)]
+    [Route(RouteNames.GetAllLoaiVanBans)]
     [ProducesResponseType(typeof(IEnumerable<LoaiVanBanDto>), (int)HttpStatusCode.OK)]
     [Authorize(Permissions.LoaiVanBans.View)]
-    public async Task<ActionResult<IEnumerable<LoaiVanBanDto>>> GetLoaiVanBansByTerm([FromQuery] string? term)
+    public async Task<ActionResult<IEnumerable<LoaiVanBanDto>>> GetAllLoaiVanBans()
     {
-        var query = new GetLoaiVanBansByTermQuery(term);
+        var query = new GetAllLoaiVanBansQuery();
         var result = await _mediator.Send(query);
         return Ok(result);
     }

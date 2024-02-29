@@ -9,6 +9,8 @@ public class GetPagedByVanBanPhapLuatIdQuery : IRequest<ApiResult<IEnumerable<Va
 {
     public int? VanBanPhapLuatId { get; set; }
 
+    public string? SearchTerm { get; set; }
+
     public int? PageNumber { get; set; }
 
     public int? PageSize { get; set; }
@@ -21,5 +23,6 @@ public class GetPagedByVanBanPhapLuatIdQuery : IRequest<ApiResult<IEnumerable<Va
         PageSize = request.PageSize;
         OrderBy = request.OrderBy;
         VanBanPhapLuatId = request.VanBanPhapLuatId;
+        SearchTerm = request.SearchTerm;
     }
 }
