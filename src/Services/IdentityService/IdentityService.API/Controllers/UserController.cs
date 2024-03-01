@@ -5,7 +5,6 @@ using IdentityService.Application.Features.V1.Users.Commands.DeleteUser;
 using IdentityService.Application.Features.V1.Users.Commands.UpdateUser;
 using IdentityService.Application.Features.V1.Users.Queries.GetUserbyId;
 using IdentityService.Application.Features.V1.Users.Queries.GetUsers;
-using IdentityService.Application.Features.V1.Users.Queries.GetUsersByTerm;
 using IdentityService.Application.Parameters.Users;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -37,15 +36,6 @@ namespace IdentityService.API.Controllers
         public async Task<ActionResult<PagedResponse<IEnumerable<UserDto>>>> GetUsers([FromBody] UserParameter request)
         {
             var query = new GetUsersQuery(request);
-            var result = await _mediator.Send(query);
-            return Ok(result);
-        }
-
-        [HttpGet(Name = "GetUsersByTerm")]
-        [ProducesResponseType(typeof(IEnumerable<UserDto>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsersByTerm([FromQuery] string? term)
-        {
-            var query = new GetUsersByTermQuery(term);
             var result = await _mediator.Send(query);
             return Ok(result);
         }

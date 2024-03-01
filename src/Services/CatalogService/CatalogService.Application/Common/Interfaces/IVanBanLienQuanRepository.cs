@@ -12,5 +12,5 @@ public interface IVanBanLienQuanRepository : IRepositoryBaseAsync<VanBanLienQuan
     Task CreateVanBanLienQuan(VanBanLienQuan request);
     Task UpdateVanBanLienQuan(VanBanLienQuan request);
     Task DeleteVanBanLienQuan(VanBanLienQuan entity);
-    Task<bool> CheckExistVanBanLienQuan(string ten);
+    Task<bool> CheckExistVanBanLienQuan(int id);
 }

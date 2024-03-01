@@ -51,16 +51,21 @@ public class VanBanPhapLuatRepository : RepositoryBase<VanBanPhapLuat, int, Cata
 
         if (!string.IsNullOrEmpty(parameter.SearchTerm))
         {
-            query = query.Where(x => string.IsNullOrEmpty(parameter.SearchTerm)
-                || x.SoHieu.Contains(parameter.SearchTerm)
-                || x.NgayBanHanh.Year.ToString().Contains(parameter.SearchTerm)
-                || x.NgayBanHanh.Month.ToString().Contains(parameter.SearchTerm)
-                || x.NgayBanHanh.Day.ToString().Contains(parameter.SearchTerm)
-                || x.NgayHieuLuc.Year.ToString().Contains(parameter.SearchTerm)
-                || x.NgayHieuLuc.Month.ToString().Contains(parameter.SearchTerm)
-                || x.NgayHieuLuc.Day.ToString().Contains(parameter.SearchTerm)
-                || (x.TrichYeuNoiDung != null && x.TrichYeuNoiDung.Contains(parameter.SearchTerm))
-                || (x.DuongDanUrl != null && x.DuongDanUrl.Contains(parameter.SearchTerm)));
+            query = query
+                .Include(x => x.LoaiVanBan)
+                .Include(x => x.CoQuanBanHanh)
+                .Where(x => string.IsNullOrEmpty(parameter.SearchTerm)
+                    || x.SoHieu.Contains(parameter.SearchTerm)
+                    || x.NgayBanHanh.Year.ToString().Contains(parameter.SearchTerm)
+                    || x.NgayBanHanh.Month.ToString().Contains(parameter.SearchTerm)
+                    || x.NgayBanHanh.Day.ToString().Contains(parameter.SearchTerm)
+                    || x.NgayHieuLuc.Year.ToString().Contains(parameter.SearchTerm)
+                    || x.NgayHieuLuc.Month.ToString().Contains(parameter.SearchTerm)
+                    || x.NgayHieuLuc.Day.ToString().Contains(parameter.SearchTerm)
+                    || (x.TrichYeuNoiDung != null && x.TrichYeuNoiDung.Contains(parameter.SearchTerm))
+                    || (x.DuongDanUrl != null && x.DuongDanUrl.Contains(parameter.SearchTerm))
+                    || (x.CoQuanBanHanhId != null && x.CoQuanBanHanh.TenCoQuan.Contains(parameter.SearchTerm))
+                    || (x.LoaiVanBanId != null && x.LoaiVanBan.Ten.Contains(parameter.SearchTerm)));
         }
 
         return await PageList<VanBanPhapLuat>.ToPageList(query, parameter.PageNumber, parameter.PageSize);

@@ -15,10 +15,10 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, PagedResponse
     private readonly IMapper _mapper;
     private readonly ILogger _logger;
     private readonly UserManager<User> _userManager;
-    private readonly IEntityRepository<User, UserParameter> _userRepository;
+    private readonly IUserRepository _userRepository;
     private const string MethodName = "GetUsersQueryHandler";
 
-    public GetUsersQueryHandler(IMapper mapper, UserManager<User> userManager, IEntityRepository<User, UserParameter> userRepository, ILogger logger)
+    public GetUsersQueryHandler(IMapper mapper, UserManager<User> userManager, IUserRepository userRepository, ILogger logger)
     {
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
@@ -30,8 +30,19 @@ public class GetUsersQueryHandler : IRequestHandler<GetUsersQuery, PagedResponse
     {
         _logger.Information($"BEGIN: {MethodName}");
 
+        var propertiesToCheck = new List<string>
+        {
+            nameof(User.HoTen),
+            nameof(User.UserName),
+            nameof(User.Email),
+            nameof(User.PhoneNumber),
+            nameof(User.NgaySinh),
+            nameof(User.CCCD),
+            nameof(User.DiaChi)
+        };
+
         var validFilter = _mapper.Map<UserParameter>(request);
-        var users = await _userRepository.GetPagedAsync(validFilter);
+        var users = await _userRepository.GetPagedAsync(validFilter, propertiesToCheck);
         var metaData = users.GetMetaData();
 
         var userDtos = new List<UserDto>();

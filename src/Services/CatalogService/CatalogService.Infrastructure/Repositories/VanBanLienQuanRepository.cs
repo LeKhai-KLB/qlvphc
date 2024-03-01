@@ -57,9 +57,9 @@ public class VanBanLienQuanRepository : RepositoryBase<VanBanLienQuan, int, Cata
         await DeleteAsync(entity);
     }
 
-    public async Task<bool> CheckExistVanBanLienQuan(string ten)
+    public async Task<bool> CheckExistVanBanLienQuan(int id)
     {
-        var vanBanLienQuans = await FindByCondition(x => x.Ten.Equals(ten)).ToListAsync();
+        var vanBanLienQuans = await FindByCondition(x => x.Id.Equals(id)).ToListAsync();
         return vanBanLienQuans != null && vanBanLienQuans.Any();
     }
 }

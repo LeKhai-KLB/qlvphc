@@ -1,5 +1,4 @@
 ﻿using IdentityService.Application.Common.Interfaces;
-using IdentityService.Domain.Entities;
 using IdentityService.Infrastructure.Persistence;
 using IdentityService.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Hosting;
@@ -31,7 +30,7 @@ public static class ConfigureServices
                       .EnableSensitiveDataLogging(isDevelopment);
         });
 
-        services.AddScoped(typeof(IEntityRepository<,>), typeof(EntityRepository<,>));
+        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }

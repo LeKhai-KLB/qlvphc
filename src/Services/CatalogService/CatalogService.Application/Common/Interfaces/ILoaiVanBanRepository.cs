@@ -13,5 +13,5 @@ public interface ILoaiVanBanRepository : IRepositoryBaseAsync<LoaiVanBan, int>
     Task CreateLoaiVanBan(LoaiVanBan request);
     Task UpdateLoaiVanBan(LoaiVanBan request);
     Task DeleteLoaiVanBan(LoaiVanBan entity);
-    Task<bool> CheckExistLoaiVanBan(string ten);
+    Task<bool> CheckExistLoaiVanBan(int id);
 }

@@ -27,7 +27,7 @@ public class UpdateVanBanLienQuanCommandHandler : IRequestHandler<UpdateVanBanLi
         _logger.Information($"BEGIN: {MethodName}");
 
         var vblq = _mapper.Map<VanBanLienQuan>(request);
-        var existVBLQ = await _repository.CheckExistVanBanLienQuan(request.Ten);
+        var existVBLQ = await _repository.CheckExistVanBanLienQuan(request.Id);
         if (!existVBLQ)
         {
             return new ApiErrorResult<VanBanLienQuanDto>("Van ban lien quan not exists.");

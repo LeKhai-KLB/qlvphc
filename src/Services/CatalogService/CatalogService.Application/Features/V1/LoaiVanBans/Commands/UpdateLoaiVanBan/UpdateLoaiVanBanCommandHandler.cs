@@ -27,7 +27,7 @@ public class UpdateLoaiVanBanCommandHandler : IRequestHandler<UpdateLoaiVanBanCo
         _logger.Information($"BEGIN: {MethodName}");
 
         var lvb = _mapper.Map<LoaiVanBan>(request);
-        var existLVB = await _repository.CheckExistLoaiVanBan(request.Ten);
+        var existLVB = await _repository.CheckExistLoaiVanBan(request.Id);
         if (!existLVB)
         {
             return new ApiErrorResult<LoaiVanBanDto>("Loai van ban not exists.");

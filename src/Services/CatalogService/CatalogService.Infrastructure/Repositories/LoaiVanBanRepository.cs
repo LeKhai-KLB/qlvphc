@@ -62,9 +62,9 @@ public class LoaiVanBanRepository : RepositoryBase<LoaiVanBan, int, CatalogServi
         await DeleteAsync(entity);
     }
 
-    public async Task<bool> CheckExistLoaiVanBan(string ten)
+    public async Task<bool> CheckExistLoaiVanBan(int id)
     {
-        var loaiVanBans = await FindByCondition(x => x.Ten.Equals(ten)).ToListAsync();
+        var loaiVanBans = await FindByCondition(x => x.Id.Equals(id)).ToListAsync();
         return loaiVanBans != null && loaiVanBans.Any();
     }
 }
