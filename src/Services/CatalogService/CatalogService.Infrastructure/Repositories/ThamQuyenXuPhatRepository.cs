@@ -19,6 +19,11 @@ public class ThamQuyenXuPhatRepository : RepositoryBase<ThamQuyenXuPhat, int, Ca
         _thamQuyenXuPhat = context.Set<ThamQuyenXuPhat>();
     }
 
+    public async Task<IEnumerable<ThamQuyenXuPhat>> GetAllThamQuyenXuPhats()
+    {
+        return await FindAll().ToListAsync();
+    }
+
     public async Task<PageList<ThamQuyenXuPhat>> GetPagedThamQuyenXuPhatAsync(ThamQuyenXuPhatParameter parameter)
     {
         var query = _thamQuyenXuPhat.Filter(parameter);

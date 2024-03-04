@@ -7,6 +7,7 @@ namespace CatalogService.Application.Features.V1.ThamQuyenXuPhats.Queries.GetPag
 
 public class GetPageThamQuyenXuPhatQuery : IRequest<PagedResponse<IEnumerable<ThamQuyenXuPhatDto>>>
 {
+    public int? DieuKhoanXuPhatId { get; set; }
     public int? PageNumber { get; set; }
     public int? PageSize { get; set; }
     public string? OrderBy { get; set; }
@@ -15,6 +16,7 @@ public class GetPageThamQuyenXuPhatQuery : IRequest<PagedResponse<IEnumerable<Th
 
     public GetPageThamQuyenXuPhatQuery(ThamQuyenXuPhatParameter request)
     {
+        DieuKhoanXuPhatId = request.DieuKhoanXuPhatId;
         PageNumber = request.PageNumber;
         PageSize = request.PageSize;
         OrderBy = request.OrderBy;

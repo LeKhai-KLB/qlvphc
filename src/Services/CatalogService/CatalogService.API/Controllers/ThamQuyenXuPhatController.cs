@@ -13,6 +13,7 @@ using Shared.Common.Constants;
 using Shared.SeedWord;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
+using CatalogService.Application.Features.V1.ThamQuyenXuPhats.Queries.GetAllThamQuyenXuPhats;
 
 namespace CatalogService.API.Controllers;
 
@@ -32,11 +33,23 @@ public class ThamQuyenXuPhatController : ControllerBase
 
     private static class RouteNames
     {
+        public const string GetAllThamQuyenXuPhats = nameof(GetAllThamQuyenXuPhats);
         public const string GetPageThamQuyenXuPhat = nameof(GetPageThamQuyenXuPhat);
         public const string CreateThamQuyenXuPhat = nameof(CreateThamQuyenXuPhat);
         public const string UpdateThamQuyenXuPhat = nameof(UpdateThamQuyenXuPhat);
         public const string DeleteThamQuyenXuPhat = nameof(DeleteThamQuyenXuPhat);
         public const string GetThamQuyenXuPhatById = nameof(GetThamQuyenXuPhatById);
+    }
+
+    [HttpGet]
+    [Route(RouteNames.GetAllThamQuyenXuPhats)]
+    [ProducesResponseType(typeof(IEnumerable<ThamQuyenXuPhatDto>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.ThamQuyenXuPhats.View)]
+    public async Task<ActionResult<IEnumerable<ThamQuyenXuPhatDto>>> GetAllThamQuyenXuPhats()
+    {
+        var query = new GetAllThamQuyenXuPhatsQuery();
+        var result = await _mediator.Send(query);
+        return Ok(result);
     }
 
     [HttpPost("paging", Name = RouteNames.GetPageThamQuyenXuPhat)]

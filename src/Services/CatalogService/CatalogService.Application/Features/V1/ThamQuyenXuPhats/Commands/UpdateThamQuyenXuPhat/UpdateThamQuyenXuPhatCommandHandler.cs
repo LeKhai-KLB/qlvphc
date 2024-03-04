@@ -33,7 +33,7 @@ public class UpdateThamQuyenXuPhatCommandHandler : IRequestHandler<UpdateThamQuy
             return new ApiErrorResult<ThamQuyenXuPhatDto>("Tham quyen xu phat not exists.");
         }
 
-        await _repository.UpdateThamQuyenXuPhat(tqxpDb);
+        await _repository.UpdateThamQuyenXuPhat(tqxp);
 
         _logger.Information($"END: {MethodName}");
 
