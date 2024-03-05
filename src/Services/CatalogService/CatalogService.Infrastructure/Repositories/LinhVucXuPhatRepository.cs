@@ -19,6 +19,11 @@ public class LinhVucXuPhatRepository : RepositoryBase<LinhVucXuPhat, int, Catalo
         _linhVucXuPhat = context.Set<LinhVucXuPhat>();
     }
 
+    public async Task<IEnumerable<LinhVucXuPhat>> GetAllLinhVucXuPhats()
+    {
+        return await FindAll().ToListAsync();
+    }
+
     public async Task<PageList<LinhVucXuPhat>> GetPagedLinhVucXuPhatAsync(LinhVucXuPhatParameter parameter)
     {
         var query = _linhVucXuPhat.Filter(parameter);
