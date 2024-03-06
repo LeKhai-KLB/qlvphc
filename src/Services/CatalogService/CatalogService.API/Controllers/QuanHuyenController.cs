@@ -39,7 +39,7 @@ namespace CatalogService.API.Controllers
 
         [HttpPost("paging", Name = RouteNames.GetQuanHuyens)]
         [ProducesResponseType(typeof(PagedResponse<IEnumerable<QuanHuyenDto>>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<PagedResponse<IEnumerable<QuanHuyenDto>>>> GetTinhThanhPhos([FromBody] QuanHuyenParameter request)
+        public async Task<ActionResult<PagedResponse<IEnumerable<QuanHuyenDto>>>> GetQuanHuyens([FromBody] QuanHuyenParameter request)
         {
             var query = new GetQuanHuyensQuery(request);
             var result = await _mediator.Send(query);

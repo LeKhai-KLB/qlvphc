@@ -7,7 +7,6 @@ namespace CatalogService.Application.Common.Interfaces
 {
     public interface IQuanHuyenRepository : IRepositoryBaseAsync<QuanHuyen, int>
     {
-
         Task<PageList<QuanHuyen>> GetPagedQuanHuyenAsync(QuanHuyenParameter parameter);
         Task<IEnumerable<QuanHuyen>> GetQuanHuyenByTinhThanhPhoId(int id);
         Task CreateQuanHuyen(QuanHuyen request);
