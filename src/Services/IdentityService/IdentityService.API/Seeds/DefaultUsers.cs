@@ -64,6 +64,9 @@ public static class DefaultUsers
         await roleManager.AddPermissionClaim(role, nameof(Permissions.VanBanLienQuans));
         await roleManager.AddPermissionClaim(role, nameof(Permissions.VanBanGiaiQuyets));
         await roleManager.AddPermissionClaim(role, nameof(Permissions.ThamQuyenXuPhats));
+        await roleManager.AddPermissionClaim(role, nameof(Permissions.CoQuans));
+        await roleManager.AddPermissionClaim(role, nameof(Permissions.CongDans));
+        await roleManager.AddPermissionClaim(role, nameof(Permissions.DieuKhoanBoSungKhacPhucs));
     }
 
     public static async Task AddPermissionClaim(this RoleManager<IdentityRole> roleManager, IdentityRole role, string module)

@@ -21,6 +21,7 @@ public class QuyetDinhXuPhat : EntityAuditBase<int>
 
     public int LoaiDoiTuongViPham { get; set; }
 
+    [ForeignKey("DoiTuongViPham")]
     public int DoiTuongViPhamId { get; set; }
 
     [Column(TypeName = "nvarchar(255)")]
@@ -93,4 +94,6 @@ public class QuyetDinhXuPhat : EntityAuditBase<int>
     public virtual CoQuanBanHanh CoQuanBanHanh { get; set; }
 
     public virtual HoSoXuLyViPham HoSoXuLyViPham { get; set; }
+
+    public virtual CongDan DoiTuongViPham { get; set; }
 }

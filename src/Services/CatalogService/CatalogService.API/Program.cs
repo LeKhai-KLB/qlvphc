@@ -112,6 +112,9 @@ try
         options.AddPermissionPolicies<VanBanPhapLuats>();
         options.AddPermissionPolicies<VanBanLienQuans>();
         options.AddPermissionPolicies<ThamQuyenXuPhats>();
+        options.AddPermissionPolicies<CoQuans>();
+        options.AddPermissionPolicies<CongDans>();
+        options.AddPermissionPolicies<DieuKhoanBoSungKhacPhucs>();
     });
 
     builder.Services.AddApplicationServices();
@@ -134,6 +137,7 @@ try
     {
         var qlvphcContextSeed = scope.ServiceProvider.GetRequiredService<CatalogServiceContextSeed>();
         await qlvphcContextSeed.InitializeAsync();
+        await qlvphcContextSeed.TrySeedCongDanAsync();
     }
     app.UseRouting();
     //app.UseHttpsRedirection();

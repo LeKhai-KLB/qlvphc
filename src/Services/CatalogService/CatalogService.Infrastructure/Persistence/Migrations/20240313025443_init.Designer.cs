@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CatalogService.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(CatalogServiceContext))]
-    [Migration("20240311153541_Init")]
-    partial class Init
+    [Migration("20240313025443_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -122,6 +122,58 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.ToTable("ChiTietQuyetDinhXuPhat", (string)null);
                 });
 
+            modelBuilder.Entity("CatalogService.Domain.Entities.CoQuan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CapCoQuan")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DiaChi")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DienThoai")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("NgayCapNhatCuoi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("NguoiCapNhatCuoi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NguoiTao")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SoFax")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenCoQuan")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Website")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CoQuan", (string)null);
+                });
+
             modelBuilder.Entity("CatalogService.Domain.Entities.CoQuanBanHanh", b =>
                 {
                     b.Property<int>("Id")
@@ -153,6 +205,84 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CoQuanBanHanh", (string)null);
+                });
+
+            modelBuilder.Entity("CatalogService.Domain.Entities.CongDan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("DanToc")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DiaChi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DienThoai")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GioiTinh")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HoTen")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HocVan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LoaiGiayToDinhDanh")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("NgayCap")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("NgayCapNhatCuoi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgaySinh")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NgheNghiep")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("NguoiCapNhatCuoi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NguoiTao")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NoiCap")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NoiLamViec")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QueQuan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QuocTich")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SoLoaiGiayTo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenGoiKhac")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CongDan", (string)null);
                 });
 
             modelBuilder.Entity("CatalogService.Domain.Entities.DanhMucDinhDanh", b =>
@@ -209,6 +339,54 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DanhMucDinhDanh", (string)null);
+                });
+
+            modelBuilder.Entity("CatalogService.Domain.Entities.DieuKhoanBoSungKhacPhuc", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Diem")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(512)");
+
+                    b.Property<string>("Dieu")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(512)");
+
+                    b.Property<int>("DieuKhoanXuPhatId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Khoan")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(512)");
+
+                    b.Property<int>("LoaiDieuKhoan")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("NgayCapNhatCuoi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("NguoiCapNhatCuoi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NguoiTao")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DieuKhoanXuPhatId");
+
+                    b.ToTable("DieuKhoanBoSungKhacPhuc", (string)null);
                 });
 
             modelBuilder.Entity("CatalogService.Domain.Entities.DieuKhoanXuPhat", b =>
@@ -681,6 +859,8 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("CoQuanBanHanhId");
 
+                    b.HasIndex("DoiTuongViPhamId");
+
                     b.HasIndex("HoSoXuLyViPhamId");
 
                     b.ToTable("QuyetDinhXuPhat", (string)null);
@@ -1018,6 +1198,17 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.Navigation("QuyetDinhXuPhat");
                 });
 
+            modelBuilder.Entity("CatalogService.Domain.Entities.DieuKhoanBoSungKhacPhuc", b =>
+                {
+                    b.HasOne("CatalogService.Domain.Entities.DieuKhoanXuPhat", "DieuKhoanXuPhat")
+                        .WithMany("DieuKhoanBoSungKhacPhucs")
+                        .HasForeignKey("DieuKhoanXuPhatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DieuKhoanXuPhat");
+                });
+
             modelBuilder.Entity("CatalogService.Domain.Entities.DieuKhoanXuPhat", b =>
                 {
                     b.HasOne("CatalogService.Domain.Entities.LinhVucXuPhat", "LinhVucXuPhat")
@@ -1070,6 +1261,12 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CatalogService.Domain.Entities.CongDan", "DoiTuongViPham")
+                        .WithMany("QuyetDinhXuPhats")
+                        .HasForeignKey("DoiTuongViPhamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("CatalogService.Domain.Entities.HoSoXuLyViPham", "HoSoXuLyViPham")
                         .WithMany()
                         .HasForeignKey("HoSoXuLyViPhamId")
@@ -1077,6 +1274,8 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("CoQuanBanHanh");
+
+                    b.Navigation("DoiTuongViPham");
 
                     b.Navigation("HoSoXuLyViPham");
                 });
@@ -1145,6 +1344,11 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.Navigation("VanBanPhapLuat");
                 });
 
+            modelBuilder.Entity("CatalogService.Domain.Entities.CongDan", b =>
+                {
+                    b.Navigation("QuyetDinhXuPhats");
+                });
+
             modelBuilder.Entity("CatalogService.Domain.Entities.DanhMucDinhDanh", b =>
                 {
                     b.Navigation("QuanHuyen");
@@ -1152,6 +1356,8 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("CatalogService.Domain.Entities.DieuKhoanXuPhat", b =>
                 {
+                    b.Navigation("DieuKhoanBoSungKhacPhucs");
+
                     b.Navigation("ThamQuyenXuPhats");
                 });
 

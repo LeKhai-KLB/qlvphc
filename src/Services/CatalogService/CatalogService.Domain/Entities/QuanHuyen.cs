@@ -1,18 +1,17 @@
 using Contracts.Domains;
 
-namespace CatalogService.Domain.Entities
+namespace CatalogService.Domain.Entities;
+
+public class QuanHuyen : EntityAuditBase<int>
 {
-    public class QuanHuyen : EntityAuditBase<int>
-    {
-        public string Ten { get; set; }
+    public string Ten { get; set; }
 
-        public string MaDinhDanh { get; set; }
+    public string MaDinhDanh { get; set; }
 
-        public bool IsDeleted { get; set; }
+    public bool IsDeleted { get; set; }
 
-        public int TinhThanhPhoId { get; set; }
-        public TinhThanhPho TinhThanhPho { get; set; }
+    public int TinhThanhPhoId { get; set; }
+    public TinhThanhPho TinhThanhPho { get; set; }
 
-        public List<XaPhuong> XaPhuong { get; set; }
-    }
+    public List<XaPhuong> XaPhuong { get; set; }
 }

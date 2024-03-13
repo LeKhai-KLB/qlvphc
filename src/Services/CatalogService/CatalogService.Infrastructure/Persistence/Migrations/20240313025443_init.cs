@@ -6,11 +6,67 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CatalogService.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "CongDan",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HoTen = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NgaySinh = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    GioiTinh = table.Column<int>(type: "int", nullable: false),
+                    DanToc = table.Column<int>(type: "int", nullable: true),
+                    QuocTich = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NgheNghiep = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    QueQuan = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DiaChi = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LoaiGiayToDinhDanh = table.Column<int>(type: "int", nullable: false),
+                    SoLoaiGiayTo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NoiCap = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NgayCap = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    HocVan = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DienThoai = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TenGoiKhac = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NoiLamViec = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NguoiTao = table.Column<int>(type: "int", nullable: false),
+                    NgayTao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NguoiCapNhatCuoi = table.Column<int>(type: "int", nullable: true),
+                    NgayCapNhatCuoi = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CongDan", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CoQuan",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TenCoQuan = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DiaChi = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DienThoai = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Website = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SoFax = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CapCoQuan = table.Column<int>(type: "int", nullable: false),
+                    NguoiTao = table.Column<int>(type: "int", nullable: false),
+                    NgayTao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NguoiCapNhatCuoi = table.Column<int>(type: "int", nullable: true),
+                    NgayCapNhatCuoi = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CoQuan", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "CoQuanBanHanh",
                 columns: table => new
@@ -276,6 +332,12 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_QuyetDinhXuPhat_CongDan_DoiTuongViPhamId",
+                        column: x => x.DoiTuongViPhamId,
+                        principalTable: "CongDan",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_QuyetDinhXuPhat_HoSoXuLyViPham_HoSoXuLyViPhamId",
                         column: x => x.HoSoXuLyViPhamId,
                         principalTable: "HoSoXuLyViPham",
@@ -515,6 +577,34 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DieuKhoanBoSungKhacPhuc",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DieuKhoanXuPhatId = table.Column<int>(type: "int", nullable: false),
+                    Dieu = table.Column<string>(type: "nvarchar(512)", nullable: false),
+                    Khoan = table.Column<string>(type: "nvarchar(512)", nullable: false),
+                    Diem = table.Column<string>(type: "nvarchar(512)", nullable: false),
+                    LoaiDieuKhoan = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    NguoiTao = table.Column<int>(type: "int", nullable: false),
+                    NgayTao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NguoiCapNhatCuoi = table.Column<int>(type: "int", nullable: true),
+                    NgayCapNhatCuoi = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DieuKhoanBoSungKhacPhuc", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DieuKhoanBoSungKhacPhuc_DieuKhoanXuPhat_DieuKhoanXuPhatId",
+                        column: x => x.DieuKhoanXuPhatId,
+                        principalTable: "DieuKhoanXuPhat",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ThamQuyenXuPhat",
                 columns: table => new
                 {
@@ -550,6 +640,11 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                 column: "QuyetDinhXuPhatId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DieuKhoanBoSungKhacPhuc_DieuKhoanXuPhatId",
+                table: "DieuKhoanBoSungKhacPhuc",
+                column: "DieuKhoanXuPhatId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DieuKhoanXuPhat_LinhVucXuPhatId",
                 table: "DieuKhoanXuPhat",
                 column: "LinhVucXuPhatId");
@@ -578,6 +673,11 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                 name: "IX_QuyetDinhXuPhat_CoQuanBanHanhId",
                 table: "QuyetDinhXuPhat",
                 column: "CoQuanBanHanhId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QuyetDinhXuPhat_DoiTuongViPhamId",
+                table: "QuyetDinhXuPhat",
+                column: "DoiTuongViPhamId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QuyetDinhXuPhat_HoSoXuLyViPhamId",
@@ -625,6 +725,12 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                 name: "ChiTietQuyetDinhXuPhat");
 
             migrationBuilder.DropTable(
+                name: "CoQuan");
+
+            migrationBuilder.DropTable(
+                name: "DieuKhoanBoSungKhacPhuc");
+
+            migrationBuilder.DropTable(
                 name: "GiayPhepTamGiu");
 
             migrationBuilder.DropTable(
@@ -659,6 +765,9 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "QuanHuyen");
+
+            migrationBuilder.DropTable(
+                name: "CongDan");
 
             migrationBuilder.DropTable(
                 name: "LinhVucXuPhat");

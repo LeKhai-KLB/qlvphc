@@ -79,6 +79,10 @@ try
         options.AddPermissionPolicies<VanBanGiaiQuyets>();
         options.AddPermissionPolicies<VanBanPhapLuats>();
         options.AddPermissionPolicies<VanBanLienQuans>();
+        options.AddPermissionPolicies<ThamQuyenXuPhats>();
+        options.AddPermissionPolicies<CoQuans>();
+        options.AddPermissionPolicies<CongDans>();
+        options.AddPermissionPolicies<DieuKhoanBoSungKhacPhucs>();
     });
 
     //Swagger

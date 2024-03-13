@@ -6,6 +6,7 @@ namespace CatalogService.Domain.Entities;
 public class ChiTietQuyetDinhXuPhat : EntityAuditBase<int>
 {
     public int QuyetDinhXuPhatId { get; set; }
+
     public int LinhVucXuPhatId { get; set; }
 
     public int DieuThiHanhId { get; set; }

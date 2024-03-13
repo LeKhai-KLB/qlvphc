@@ -21,4 +21,6 @@ public class DieuKhoanXuPhat : EntityAuditBase<int>
     public virtual LinhVucXuPhat LinhVucXuPhat { get; set; }
 
     public List<ThamQuyenXuPhat> ThamQuyenXuPhats { get; set; }
+
+    public List<DieuKhoanBoSungKhacPhuc> DieuKhoanBoSungKhacPhucs { get; set; }
 }

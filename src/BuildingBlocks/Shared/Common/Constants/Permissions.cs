@@ -151,6 +151,54 @@ public static class Permissions
         public const string ViewById = $"{CustomClaimTypes.Permission}s.ThamQuyenXuPhats.ViewById";
     }
 
+    public class CoQuans
+    {
+        //Only For SuperAdmins
+        public const string SuperAdminView = $"{CustomClaimTypes.Permission}s.CoQuans.SuperAdminView";
+        public const string SuperAdminCreate = $"{CustomClaimTypes.Permission}s.CoQuans.SuperAdminCreate";
+
+        //All
+        public const string View = $"{CustomClaimTypes.Permission}s.CoQuans.View";
+        public const string Create = $"{CustomClaimTypes.Permission}s.CoQuans.Create";
+        public const string Edit = $"{CustomClaimTypes.Permission}s.CoQuans.Edit";
+        public const string Delete = $"{CustomClaimTypes.Permission}s.CoQuans.Delete";
+
+        //Guest or Basic
+        public const string ViewById = $"{CustomClaimTypes.Permission}s.CoQuans.ViewById";
+    }
+
+    public class CongDans
+    {
+        //Only For SuperAdmins
+        public const string SuperAdminView = $"{CustomClaimTypes.Permission}s.CongDans.SuperAdminView";
+        public const string SuperAdminCreate = $"{CustomClaimTypes.Permission}s.CongDans.SuperAdminCreate";
+
+        //All
+        public const string View = $"{CustomClaimTypes.Permission}s.CongDans.View";
+        public const string Create = $"{CustomClaimTypes.Permission}s.CongDans.Create";
+        public const string Edit = $"{CustomClaimTypes.Permission}s.CongDans.Edit";
+        public const string Delete = $"{CustomClaimTypes.Permission}s.CongDans.Delete";
+
+        //Guest or Basic
+        public const string ViewById = $"{CustomClaimTypes.Permission}s.CongDans.ViewById";
+    }
+
+    public class DieuKhoanBoSungKhacPhucs
+    {
+        //Only For SuperAdmins
+        public const string SuperAdminView = $"{CustomClaimTypes.Permission}s.DieuKhoanBoSungKhacPhucs.SuperAdminView";
+        public const string SuperAdminCreate = $"{CustomClaimTypes.Permission}s.DieuKhoanBoSungKhacPhucs.SuperAdminCreate";
+
+        //All
+        public const string View = $"{CustomClaimTypes.Permission}s.DieuKhoanBoSungKhacPhucs.View";
+        public const string Create = $"{CustomClaimTypes.Permission}s.DieuKhoanBoSungKhacPhucs.Create";
+        public const string Edit = $"{CustomClaimTypes.Permission}s.DieuKhoanBoSungKhacPhucs.Edit";
+        public const string Delete = $"{CustomClaimTypes.Permission}s.DieuKhoanBoSungKhacPhucs.Delete";
+
+        //Guest or Basic
+        public const string ViewById = $"{CustomClaimTypes.Permission}s.DieuKhoanBoSungKhacPhucs.ViewById";
+    }
+
     public static List<string> GeneratePermissionsForModule(string roleName, string module)
     {
         switch (roleName)
