@@ -52,7 +52,6 @@ try
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "QLVPHC", Version = "v1" });
 
         // Define the security scheme`
-        // TODO
         c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
         {
             Type = SecuritySchemeType.Http,
@@ -115,6 +114,8 @@ try
         options.AddPermissionPolicies<CoQuans>();
         options.AddPermissionPolicies<CongDans>();
         options.AddPermissionPolicies<DieuKhoanBoSungKhacPhucs>();
+        options.AddPermissionPolicies<HoSoXuLyViPhams>();
+        options.AddPermissionPolicies<HSVPVanBanGiaiQuyets>();
     });
 
     builder.Services.AddApplicationServices();

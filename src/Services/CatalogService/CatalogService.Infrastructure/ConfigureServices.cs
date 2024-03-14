@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using CatalogService.Infrastructure.HttpClients;
 
 namespace CatalogService.Infrastructure;
 
@@ -24,13 +25,18 @@ public static class ConfigureServices
         var isDevelopment = env.IsDevelopment();
 
         services.AddDbContext<CatalogServiceContext>(options =>
-            {
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnectionString"),
-                    builder => builder.MigrationsAssembly(typeof(CatalogServiceContext).Assembly.FullName))
-                    .LogTo(s => System.Diagnostics.Debug.WriteLine(s))
-                          .EnableDetailedErrors(isDevelopment)
-                          .EnableSensitiveDataLogging(isDevelopment);
-            });
+        {
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnectionString"),
+                builder => builder.MigrationsAssembly(typeof(CatalogServiceContext).Assembly.FullName))
+                .LogTo(s => System.Diagnostics.Debug.WriteLine(s))
+                        .EnableDetailedErrors(isDevelopment)
+                        .EnableSensitiveDataLogging(isDevelopment);
+        });
+
+        services.AddHttpClient<IUserServiceClient, UserServiceHttpClient>(client =>
+        {
+            client.BaseAddress = new Uri(configuration["UserService:Url"]);
+        });
 
         services.AddScoped<CatalogServiceContextSeed>();
         services.AddScoped<ITinhThanhPhoRepository, TinhThanhPhoRepository>();
@@ -54,6 +60,8 @@ public static class ConfigureServices
         services.AddScoped<ICoQuanRepository, CoQuanRepository>();
         services.AddScoped<ICongDanRepository, CongDanRepository>();
         services.AddScoped<IDieuKhoanBoSungKhacPhucRepository, DieuKhoanBoSungKhacPhucRepository>();
+        services.AddScoped<IHoSoXuLyViPhamRepository, HoSoXuLyViPhamRepository>();
+        services.AddScoped<IHSVPVanBanGiaiQuyetRepository, HSVPVanBanGiaiQuyetRepository>();
         services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
         return services;
     }

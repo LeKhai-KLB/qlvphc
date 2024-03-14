@@ -13,7 +13,7 @@ public class CreateQuyetDinhXuPhatDto
 
     public int CoQuanBanHanhId { get; set; }
 
-    public int NguoiRaQuyetDinhId { get; set; }
+    public Guid NguoiRaQuyetDinhId { get; set; }
 
     public int LoaiDoiTuongViPham { get; set; }
 

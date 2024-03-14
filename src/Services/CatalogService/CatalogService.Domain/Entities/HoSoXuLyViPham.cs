@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using CatalogService.Domain.Constants;
 using Contracts.Domains;
 
 namespace CatalogService.Domain.Entities;
@@ -6,20 +7,29 @@ namespace CatalogService.Domain.Entities;
 public class HoSoXuLyViPham : EntityAuditBase<int>
 {
     [Column(TypeName = "nvarchar(255)")]
-    public string MaHoSo { get; set; }
+    public string SoHoSo { get; set; }
 
     public DateTime NgayHoSo { get; set; }
 
     [Column(TypeName = "nvarchar(512)")]
     public string TenHoSo { get; set; }
 
-    public int TrangThai { get; set; }
+    [ForeignKey("CaNhanViPham")]
+    public int CaNhanViPhamId { get; set; }
 
-    [Column(TypeName = "nvarchar(512)")]
-    public string HanhViViPham { get; set; }
+    public bool IsCaNhanViPhamKhac {  get; set; }
 
-    public virtual List<LinhVucXuPhat> LinhVucXuPhats { get; set; }
-    public virtual List<TangVatPhuongTienTamGiu> TangVatPhuongTienTamGius { get; set; }
-    // TODO GiayPhepTamGiu
-    //public virtual List<LinhVucXuPhat> LinhVucXuPhats { get; set; }
+    public string ThongTinKhac { get; set; }
+
+    public TrangThaiHoSoViPham TrangThaiHoSoViPham { get; set; }
+
+    public TinhTietViPham TinhTietViPham { get; set; }
+
+    public LoaiVuViecViPham LoaiVuViecViPham { get; set; }
+
+    public CongDan CaNhanViPham { get; set; }
+
+    public List<HSXLVP_VanBanGiaiQuyet> HSXLVP_VanBanGiaiQuyets { get; set; }
+
+    public List<TangVatPhuongTienTamGiu> TangVatPhuongTienTamGius { get; set; }
 }

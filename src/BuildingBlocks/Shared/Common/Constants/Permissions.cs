@@ -199,6 +199,38 @@ public static class Permissions
         public const string ViewById = $"{CustomClaimTypes.Permission}s.DieuKhoanBoSungKhacPhucs.ViewById";
     }
 
+    public class HoSoXuLyViPhams
+    {
+        //Only For SuperAdmins
+        public const string SuperAdminView = $"{CustomClaimTypes.Permission}s.HoSoXuLyViPhams.SuperAdminView";
+        public const string SuperAdminCreate = $"{CustomClaimTypes.Permission}s.HoSoXuLyViPhams.SuperAdminCreate";
+
+        //All
+        public const string View = $"{CustomClaimTypes.Permission}s.HoSoXuLyViPhams.View";
+        public const string Create = $"{CustomClaimTypes.Permission}s.HoSoXuLyViPhams.Create";
+        public const string Edit = $"{CustomClaimTypes.Permission}s.HoSoXuLyViPhams.Edit";
+        public const string Delete = $"{CustomClaimTypes.Permission}s.HoSoXuLyViPhams.Delete";
+
+        //Guest or Basic
+        public const string ViewById = $"{CustomClaimTypes.Permission}s.HoSoXuLyViPhams.ViewById";
+    }
+
+    public class HSVPVanBanGiaiQuyets
+    {
+        //Only For SuperAdmins
+        public const string SuperAdminView = $"{CustomClaimTypes.Permission}s.HSVPVanBanGiaiQuyets.SuperAdminView";
+        public const string SuperAdminCreate = $"{CustomClaimTypes.Permission}s.HSVPVanBanGiaiQuyets.SuperAdminCreate";
+
+        //All
+        public const string View = $"{CustomClaimTypes.Permission}s.HSVPVanBanGiaiQuyets.View";
+        public const string Create = $"{CustomClaimTypes.Permission}s.HSVPVanBanGiaiQuyets.Create";
+        public const string Edit = $"{CustomClaimTypes.Permission}s.HSVPVanBanGiaiQuyets.Edit";
+        public const string Delete = $"{CustomClaimTypes.Permission}s.HSVPVanBanGiaiQuyets.Delete";
+
+        //Guest or Basic
+        public const string ViewById = $"{CustomClaimTypes.Permission}s.HSVPVanBanGiaiQuyets.ViewById";
+    }
+
     public static List<string> GeneratePermissionsForModule(string roleName, string module)
     {
         switch (roleName)

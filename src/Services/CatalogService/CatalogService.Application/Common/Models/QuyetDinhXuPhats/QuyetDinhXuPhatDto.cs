@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CatalogService.Application.Common.Mappings;
+using CatalogService.Application.Common.Models.Users;
 using CatalogService.Domain.Entities;
-
 
 namespace CatalogService.Application.Common.Models.QuyetDinhXuPhats
 {
@@ -21,7 +21,7 @@ namespace CatalogService.Application.Common.Models.QuyetDinhXuPhats
 
         public int CoQuanBanHanhId { get; set; }
 
-        public int NguoiRaQuyetDinhId { get; set; }
+        public Guid NguoiRaQuyetDinhId { get; set; }
 
         public int LoaiDoiTuongViPham { get; set; }
 
@@ -73,6 +73,8 @@ namespace CatalogService.Application.Common.Models.QuyetDinhXuPhats
         public List<ChiTietQuyetDinhXuPhat> ChiTietQuyetDinhXuPhats { get; set; }
 
         public CoQuanBanHanh CoQuanBanHanh { get; set; }
+
+        public UserDto NguoiRaQuyetDinh { get; set; }
 
         public void Mapping(Profile profile)
         {

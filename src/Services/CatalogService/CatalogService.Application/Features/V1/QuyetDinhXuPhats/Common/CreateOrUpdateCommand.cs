@@ -19,7 +19,7 @@ namespace CatalogService.Application.Features.V1.QuyetDinhXuPhats.Common
 
         public int CoQuanBanHanhId { get; set; }
 
-        public int NguoiRaQuyetDinhId { get; set; }
+        public Guid NguoiRaQuyetDinhId { get; set; }
 
         public int LoaiDoiTuongViPham { get; set; }
 

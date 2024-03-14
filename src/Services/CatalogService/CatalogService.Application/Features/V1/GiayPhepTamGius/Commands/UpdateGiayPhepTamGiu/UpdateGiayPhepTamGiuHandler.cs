@@ -12,16 +12,16 @@ namespace CatalogService.Application.Features.V1.GiayPhepTamGius.Commands.Update
     {
         private readonly IMapper _mapper;
         private readonly IGiayPhepTamGiuRepository _repository;
-        private readonly ITinhThanhPhoRepository _hosoxulyviphamRepository;
+        private readonly IHoSoXuLyViPhamRepository _hoSoXuLyViPhamRepository;
         private readonly ILogger _logger;
         private const string MethodName = "UpdateGiayPhepTamGiuHandler";
 
-        public UpdateGiayPhepTamGiuHandler(IMapper mapper, IGiayPhepTamGiuRepository repository, ILogger logger, ITinhThanhPhoRepository tinhThanhPhoRepository)
+        public UpdateGiayPhepTamGiuHandler(IMapper mapper, IGiayPhepTamGiuRepository repository, ILogger logger, IHoSoXuLyViPhamRepository hoSoXuLyViPhamRepository)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _hosoxulyviphamRepository = tinhThanhPhoRepository;
+            _hoSoXuLyViPhamRepository = hoSoXuLyViPhamRepository;
         }
 
         public async Task<ApiResult<GiayPhepTamGiuDto>> Handle(UpdateGiayPhepTamGiuCommand request, CancellationToken cancellationToken)
@@ -34,12 +34,11 @@ namespace CatalogService.Application.Features.V1.GiayPhepTamGius.Commands.Update
                 throw new NotFoundException("Quan Huyen not found");
             }
 
-            // TODO Tao moi repository ho so xu ly vi pham
-            // var hsxlvp = await _hosoxulyviphamRepository.GetByIdAsync(request.HoSoXuLyViPhamId);
-            // if (hsxlvp == null)
-            // {
-            //     throw new NotFoundException("Ho So Xu Ly Vi Pham not found");
-            // }
+            var hsxlvp = await _hoSoXuLyViPhamRepository.GetByIdAsync(request.HoSoXuLyViPhamId);
+            if (hsxlvp == null)
+            {
+                throw new NotFoundException("Ho So Xu Ly Vi Pham not found");
+            }
 
             updateGiayPhepTamGiu.HoSoXuLyViPhamId = request.HoSoXuLyViPhamId;
             updateGiayPhepTamGiu.Ten = request.Ten;

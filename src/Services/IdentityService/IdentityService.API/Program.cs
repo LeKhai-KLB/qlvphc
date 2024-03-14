@@ -83,6 +83,8 @@ try
         options.AddPermissionPolicies<CoQuans>();
         options.AddPermissionPolicies<CongDans>();
         options.AddPermissionPolicies<DieuKhoanBoSungKhacPhucs>();
+        options.AddPermissionPolicies<HoSoXuLyViPhams>();
+        options.AddPermissionPolicies<HSVPVanBanGiaiQuyets>();
     });
 
     //Swagger

@@ -13,6 +13,7 @@ namespace CatalogService.Infrastructure.Repositories;
 public class QuyetDinhXuPhatRepository : RepositoryBase<QuyetDinhXuPhat, int, CatalogServiceContext>, IQuyetDinhXuPhatRepository
 {
     private readonly DbSet<QuyetDinhXuPhat> _quyetDinhXuPhat;
+
     public QuyetDinhXuPhatRepository(CatalogServiceContext context, IUnitOfWork<CatalogServiceContext> unitOfWork) : base(context, unitOfWork)
     {
         _quyetDinhXuPhat = context.Set<QuyetDinhXuPhat>();

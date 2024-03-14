@@ -13,4 +13,6 @@ public class VanBanGiaiQuyet : EntityAuditBase<int>
 
     [Column(TypeName = "nvarchar(255)")]
     public string TenGiayTo { get; set; }
+
+    public List<HSXLVP_VanBanGiaiQuyet> HSXLVP_VanBanGiaiQuyets { get; set; }
 }

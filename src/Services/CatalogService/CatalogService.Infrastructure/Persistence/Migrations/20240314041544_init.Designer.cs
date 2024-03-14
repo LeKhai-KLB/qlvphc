@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CatalogService.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(CatalogServiceContext))]
-    [Migration("20240313025443_init")]
+    [Migration("20240314041544_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -482,6 +482,30 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.ToTable("GiayPhepTamGiu", (string)null);
                 });
 
+            modelBuilder.Entity("CatalogService.Domain.Entities.HSXLVP_VanBanGiaiQuyet", b =>
+                {
+                    b.Property<int>("HoSoXuLyViPhamId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    b.Property<int>("VanBanGiaiQuyetId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.Property<DateTime>("NgayNhap")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SoQuyetDinh")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("HoSoXuLyViPhamId", "VanBanGiaiQuyetId");
+
+                    b.HasIndex("VanBanGiaiQuyetId");
+
+                    b.ToTable("HSXLVP_VanBanGiaiQuyets");
+                });
+
             modelBuilder.Entity("CatalogService.Domain.Entities.HinhThucXuPhatBoSung", b =>
                 {
                     b.Property<int>("Id")
@@ -554,13 +578,14 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("HanhViViPham")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(512)");
+                    b.Property<int>("CaNhanViPhamId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("MaHoSo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(255)");
+                    b.Property<bool>("IsCaNhanViPhamKhac")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LoaiVuViecViPham")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("NgayCapNhatCuoi")
                         .HasColumnType("datetime2");
@@ -577,14 +602,27 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.Property<int>("NguoiTao")
                         .HasColumnType("int");
 
+                    b.Property<string>("SoHoSo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<string>("TenHoSo")
                         .IsRequired()
                         .HasColumnType("nvarchar(512)");
 
-                    b.Property<int>("TrangThai")
+                    b.Property<string>("ThongTinKhac")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TinhTietViPham")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TrangThaiHoSoViPham")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CaNhanViPhamId");
 
                     b.ToTable("HoSoXuLyViPham");
                 });
@@ -613,9 +651,6 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
 
-                    b.Property<int?>("HoSoXuLyViPhamId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("NgayCapNhatCuoi")
                         .HasColumnType("datetime2");
 
@@ -641,8 +676,6 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HoSoXuLyViPhamId");
 
                     b.ToTable("LinhVucXuPhat", (string)null);
                 });
@@ -805,8 +838,8 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.Property<int?>("NguoiCapNhatCuoi")
                         .HasColumnType("int");
 
-                    b.Property<int>("NguoiRaQuyetDinhId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("NguoiRaQuyetDinhId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("NguoiTao")
                         .HasColumnType("int");
@@ -1231,11 +1264,34 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.Navigation("HoSoXuLyViPham");
                 });
 
-            modelBuilder.Entity("CatalogService.Domain.Entities.LinhVucXuPhat", b =>
+            modelBuilder.Entity("CatalogService.Domain.Entities.HSXLVP_VanBanGiaiQuyet", b =>
                 {
-                    b.HasOne("CatalogService.Domain.Entities.HoSoXuLyViPham", null)
-                        .WithMany("LinhVucXuPhats")
-                        .HasForeignKey("HoSoXuLyViPhamId");
+                    b.HasOne("CatalogService.Domain.Entities.HoSoXuLyViPham", "HoSoXuLyViPham")
+                        .WithMany("HSXLVP_VanBanGiaiQuyets")
+                        .HasForeignKey("HoSoXuLyViPhamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CatalogService.Domain.Entities.VanBanGiaiQuyet", "VanBanGiaiQuyet")
+                        .WithMany("HSXLVP_VanBanGiaiQuyets")
+                        .HasForeignKey("VanBanGiaiQuyetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("HoSoXuLyViPham");
+
+                    b.Navigation("VanBanGiaiQuyet");
+                });
+
+            modelBuilder.Entity("CatalogService.Domain.Entities.HoSoXuLyViPham", b =>
+                {
+                    b.HasOne("CatalogService.Domain.Entities.CongDan", "CaNhanViPham")
+                        .WithMany("HoSoXuLyViPhams")
+                        .HasForeignKey("CaNhanViPhamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CaNhanViPham");
                 });
 
             modelBuilder.Entity("CatalogService.Domain.Entities.QuanHuyen", b =>
@@ -1346,6 +1402,8 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("CatalogService.Domain.Entities.CongDan", b =>
                 {
+                    b.Navigation("HoSoXuLyViPhams");
+
                     b.Navigation("QuyetDinhXuPhats");
                 });
 
@@ -1363,7 +1421,7 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("CatalogService.Domain.Entities.HoSoXuLyViPham", b =>
                 {
-                    b.Navigation("LinhVucXuPhats");
+                    b.Navigation("HSXLVP_VanBanGiaiQuyets");
 
                     b.Navigation("TangVatPhuongTienTamGius");
                 });
@@ -1391,6 +1449,11 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("CatalogService.Domain.Entities.TinhThanhPho", b =>
                 {
                     b.Navigation("QuanHuyen");
+                });
+
+            modelBuilder.Entity("CatalogService.Domain.Entities.VanBanGiaiQuyet", b =>
+                {
+                    b.Navigation("HSXLVP_VanBanGiaiQuyets");
                 });
 
             modelBuilder.Entity("CatalogService.Domain.Entities.VanBanPhapLuat", b =>
