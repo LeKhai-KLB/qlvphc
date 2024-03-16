@@ -35,7 +35,11 @@ public static class ConfigureServices
 
         services.AddHttpClient<IUserServiceClient, UserServiceHttpClient>(client =>
         {
-            client.BaseAddress = new Uri(configuration["UserService:Url"]);
+            #if DEBUG
+                client.BaseAddress = new Uri(configuration["UserService:Url"]);
+            #else
+                client.BaseAddress = new Uri("http://identityservice.api:5104");
+            #endif
         });
 
         services.AddScoped<CatalogServiceContextSeed>();

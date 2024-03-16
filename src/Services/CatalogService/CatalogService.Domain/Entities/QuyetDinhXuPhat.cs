@@ -93,7 +93,5 @@ public class QuyetDinhXuPhat : EntityAuditBase<int>
 
     public virtual CoQuanBanHanh CoQuanBanHanh { get; set; }
 
-    public virtual HoSoXuLyViPham HoSoXuLyViPham { get; set; }
-
     public virtual CongDan DoiTuongViPham { get; set; }
 }

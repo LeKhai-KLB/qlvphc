@@ -81,6 +81,9 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.Property<string>("GhiChu")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("HoSoXuLyViPhamId")
+                        .HasColumnType("int");
+
                     b.Property<int>("KhoanDiemThiHanhId")
                         .HasColumnType("int");
 
@@ -106,7 +109,7 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("QuyetDinhXuPhatId")
+                    b.Property<int?>("QuyetDinhXuPhatId")
                         .HasColumnType("int");
 
                     b.Property<int>("TinhTietId")
@@ -891,8 +894,6 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("DoiTuongViPhamId");
 
-                    b.HasIndex("HoSoXuLyViPhamId");
-
                     b.ToTable("QuyetDinhXuPhat", (string)null);
                 });
 
@@ -1219,13 +1220,9 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("CatalogService.Domain.Entities.ChiTietQuyetDinhXuPhat", b =>
                 {
-                    b.HasOne("CatalogService.Domain.Entities.QuyetDinhXuPhat", "QuyetDinhXuPhat")
+                    b.HasOne("CatalogService.Domain.Entities.QuyetDinhXuPhat", null)
                         .WithMany("ChiTietQuyetDinhXuPhats")
-                        .HasForeignKey("QuyetDinhXuPhatId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("QuyetDinhXuPhat");
+                        .HasForeignKey("QuyetDinhXuPhatId");
                 });
 
             modelBuilder.Entity("CatalogService.Domain.Entities.DieuKhoanBoSungKhacPhuc", b =>
@@ -1320,17 +1317,9 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CatalogService.Domain.Entities.HoSoXuLyViPham", "HoSoXuLyViPham")
-                        .WithMany()
-                        .HasForeignKey("HoSoXuLyViPhamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("CoQuanBanHanh");
 
                     b.Navigation("DoiTuongViPham");
-
-                    b.Navigation("HoSoXuLyViPham");
                 });
 
             modelBuilder.Entity("CatalogService.Domain.Entities.TangVatPhuongTienTamGiu", b =>
