@@ -22,7 +22,7 @@ public class QuyetDinhXuPhatRepository : RepositoryBase<QuyetDinhXuPhat, int, Ca
     public async Task<IEnumerable<QuyetDinhXuPhat>> GetQuyetDinhXuPhatByHoSoXuLyViPhamId(int id)
     {
         var result = FindByCondition(x => x.HoSoXuLyViPhamId.Equals(id)).OrderBy(x => x.Id)
-                        .Include(x=>x.ChiTietQuyetDinhXuPhats);
+                        .Include(x=>x.HanhViViPhams);
 
         return result;
     }

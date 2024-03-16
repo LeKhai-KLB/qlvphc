@@ -56,7 +56,7 @@ public class CatalogServiceContext : DbContext
     public DbSet<HinhThucXuPhatChinh> HinhThucXuPhatChinhs { get; set; }
     public DbSet<HinhThucXuPhatBoSung> HinhThucXuPhatBoSungs { get; set; }
     public DbSet<QuyetDinhXuPhat> QuyetDinhXuPhats { get; set; }
-    public DbSet<ChiTietQuyetDinhXuPhat> ChiTietQuyetDinhXuPhats { get; set; }
+    public DbSet<HanhViViPham> HanhViViPhams { get; set; }
     public DbSet<TangVatPhuongTienTamGiu> TangVatPhuongTienTamGius { get; set; }
     public DbSet<GiayPhepTamGiu> GiayPhepTamGius { get; set; }
     public DbSet<CoQuan> CoQuans { get; set; }
@@ -75,6 +75,18 @@ public class CatalogServiceContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<HanhViViPham>()
+            .HasOne(a => a.DieuKhoanBoSung)
+            .WithMany(b => b.HVVPDieuKhoanBoSung)
+            .HasForeignKey(a => a.DieuKhoanBoSungId)
+            .IsRequired();
+
+        modelBuilder.Entity<HanhViViPham>()
+            .HasOne(a => a.DieuKhoanKhacPhuc)
+            .WithMany(b => b.HVVPDieuKhoanKhacPhuc)
+            .HasForeignKey(a => a.DieuKhoanKhacPhucId)
+            .IsRequired();
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

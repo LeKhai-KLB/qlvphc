@@ -22,6 +22,10 @@ public class CatalogServiceContextSeed
         {
             if (_context.Database.IsSqlServer())
             {
+                // Drop the existing database
+                //await _context.Database.EnsureDeletedAsync();
+
+                // Apply migrations to create a new database
                 await _context.Database.MigrateAsync();
             }
         }

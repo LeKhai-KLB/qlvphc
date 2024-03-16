@@ -22,4 +22,8 @@ public class DieuKhoanBoSungKhacPhuc : EntityAuditBase<int>
     public bool IsDeleted { get; set; }
 
     public virtual DieuKhoanXuPhat DieuKhoanXuPhat { get; set; }
+
+    public List<HanhViViPham> HVVPDieuKhoanBoSung {  get; set; }
+
+    public List<HanhViViPham> HVVPDieuKhoanKhacPhuc { get; set; }
 }

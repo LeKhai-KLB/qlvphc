@@ -18,6 +18,11 @@ public class DieuKhoanXuPhatRepository : RepositoryBase<DieuKhoanXuPhat, int, Ca
         _dieuKhoanXuPhat = context.Set<DieuKhoanXuPhat>();
     }
 
+    public async Task<IEnumerable<DieuKhoanXuPhat>> GetAllDieuKhoanXuPhats()
+    {
+        return await FindAll().ToListAsync();
+    }
+
     public async Task<PageList<DieuKhoanXuPhat>> GetPagedDieuKhoanXuPhatAsync(DieuKhoanXuPhatParameter parameter)
     {
         var query = _dieuKhoanXuPhat.Filter(parameter);

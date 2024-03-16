@@ -89,7 +89,7 @@ public class QuyetDinhXuPhat : EntityAuditBase<int>
 
     public bool IsDeleted { get; set; }
 
-    public List<ChiTietQuyetDinhXuPhat> ChiTietQuyetDinhXuPhats { get; set; }
+    public List<HanhViViPham> HanhViViPhams { get; set; }
 
     public virtual CoQuanBanHanh CoQuanBanHanh { get; set; }
 

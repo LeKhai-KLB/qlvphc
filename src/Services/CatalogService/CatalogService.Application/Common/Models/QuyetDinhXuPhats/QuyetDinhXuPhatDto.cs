@@ -70,7 +70,7 @@ namespace CatalogService.Application.Common.Models.QuyetDinhXuPhats
 
         public string NoiNhan { get; set; }
 
-        public List<ChiTietQuyetDinhXuPhat> ChiTietQuyetDinhXuPhats { get; set; }
+        public List<HanhViViPham> HanhViViPhams { get; set; }
 
         public CoQuanBanHanh CoQuanBanHanh { get; set; }
 

@@ -20,7 +20,6 @@ public class GetDieuKhoanXuPhatsQuery : IRequest<PagedResponse<IEnumerable<DieuK
         PageNumber = request.PageNumber;
         PageSize = request.PageSize;
         OrderBy = request.OrderBy;
-        Name = request.Name;
         IsDeleted = request.IsDeleted;
     }
 }

@@ -7,15 +7,19 @@ using CatalogService.Application.Features.V1.DieuKhoanXuPhats.Commands.DeleteDie
 using CatalogService.Application.Features.V1.DieuKhoanXuPhats.Commands.UpdateDieuKhoanXuPhat;
 using CatalogService.Application.Features.V1.DieuKhoanXuPhats.Queries.GetDieuKhoanXuPhatById;
 using CatalogService.Application.Features.V1.DieuKhoanXuPhats.Queries.GetDieuKhoanXuPhats;
+using CatalogService.Application.Features.V1.DieuKhoanXuPhats.Queries.GetAllDieuKhoanXuPhats;
 using CatalogService.Application.Parameters.DieuKhoanXuPhats;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Common.Constants;
 using Shared.SeedWord;
 
 namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class DieuKhoanXuPhatController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -29,6 +33,7 @@ public class DieuKhoanXuPhatController : ControllerBase
 
     private static class RouteNames
     {
+        public const string GetAllDieuKhoanXuPhats = nameof(GetAllDieuKhoanXuPhats);
         public const string GetDieuKhoanXuPhats = nameof(GetDieuKhoanXuPhats);
         public const string CreateDieuKhoanXuPhat = nameof(CreateDieuKhoanXuPhat);
         public const string UpdateDieuKhoanXuPhat = nameof(UpdateDieuKhoanXuPhat);
@@ -36,8 +41,20 @@ public class DieuKhoanXuPhatController : ControllerBase
         public const string GetDieuKhoanXuPhatById = nameof(GetDieuKhoanXuPhatById);
     }
 
+    [HttpGet]
+    [Route(RouteNames.GetAllDieuKhoanXuPhats)]
+    [ProducesResponseType(typeof(IEnumerable<DieuKhoanXuPhatDto>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.DieuKhoanXuPhats.View)]
+    public async Task<ActionResult<IEnumerable<DieuKhoanXuPhatDto>>> GetAllDieuKhoanXuPhats()
+    {
+        var query = new GetAllDieuKhoanXuPhatsQuery();
+        var result = await _mediator.Send(query);
+        return Ok(result);
+    }
+
     [HttpPost("paging", Name = RouteNames.GetDieuKhoanXuPhats)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<DieuKhoanXuPhatDto>>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.DieuKhoanXuPhats.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<DieuKhoanXuPhatDto>>>> GetDieuKhoanXuPhats([FromBody] DieuKhoanXuPhatParameter request)
     {
         var query = new GetDieuKhoanXuPhatsQuery(request);
@@ -47,6 +64,7 @@ public class DieuKhoanXuPhatController : ControllerBase
 
     [HttpGet("{id:int}", Name = RouteNames.GetDieuKhoanXuPhatById)]
     [ProducesResponseType(typeof(DieuKhoanXuPhatDto), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.DieuKhoanXuPhats.ViewById)]
     public async Task<ActionResult<DieuKhoanXuPhatDto>> GetDieuKhoanXuPhatById([Required] int id)
     {
         var query = new GetDieuKhoanXuPhatByIdQuery(id);
@@ -56,6 +74,7 @@ public class DieuKhoanXuPhatController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateDieuKhoanXuPhat)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.DieuKhoanXuPhats.Create)]
     public async Task<ActionResult<ApiResult<DieuKhoanXuPhatDto>>> CreateDieuKhoanXuPhat([FromBody] CreateDieuKhoanXuPhatDto model)
     {
         var command = _mapper.Map<CreateDieuKhoanXuPhatCommand>(model);
@@ -65,6 +84,7 @@ public class DieuKhoanXuPhatController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateDieuKhoanXuPhat)]
     [ProducesResponseType(typeof(ApiResult<DieuKhoanXuPhatDto>), (int)HttpStatusCode.OK)]
+    [Authorize(Permissions.DieuKhoanXuPhats.Edit)]
     public async Task<ActionResult<ApiResult<DieuKhoanXuPhatDto>>> UpdateDieuKhoanXuPhat([Required] int id, [FromBody] UpdateDieuKhoanXuPhatCommand command)
     {
         command.SetId(id);
@@ -73,6 +93,7 @@ public class DieuKhoanXuPhatController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteDieuKhoanXuPhat)]
+    [Authorize(Permissions.DieuKhoanXuPhats.Delete)]
     public async Task<ActionResult<bool>> DeleteDieuKhoanXuPhat([Required] int id)
     {
         var command = new DeleteDieuKhoanXuPhatCommand(id);

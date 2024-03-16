@@ -66,6 +66,7 @@ public static class ConfigureServices
         services.AddScoped<IDieuKhoanBoSungKhacPhucRepository, DieuKhoanBoSungKhacPhucRepository>();
         services.AddScoped<IHoSoXuLyViPhamRepository, HoSoXuLyViPhamRepository>();
         services.AddScoped<IHSVPVanBanGiaiQuyetRepository, HSVPVanBanGiaiQuyetRepository>();
+        services.AddScoped<IHanhViViPhamRepository, HanhViViPhamRepository>();
         services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
         return services;
     }

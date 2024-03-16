@@ -116,6 +116,8 @@ try
         options.AddPermissionPolicies<DieuKhoanBoSungKhacPhucs>();
         options.AddPermissionPolicies<HoSoXuLyViPhams>();
         options.AddPermissionPolicies<HSVPVanBanGiaiQuyets>();
+        options.AddPermissionPolicies<HanhViViPhams>();
+        options.AddPermissionPolicies<DieuKhoanXuPhats>();
     });
 
     builder.Services.AddApplicationServices();

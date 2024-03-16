@@ -8,5 +8,8 @@ public enum TinhTietViPham
     TangNang,
 
     [Description("Giảm nhẹ")]
-    GiamNhe
+    GiamNhe,
+
+    [Description("Không")]
+    Khong
 }
