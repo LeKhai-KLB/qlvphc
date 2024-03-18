@@ -9,6 +9,8 @@ public class HanhViViPham : EntityAuditBase<int>
 
     public int? HoSoXuLyViPhamId { get; set; }
 
+    public int? ChiTietHSXLVPVVBGQId { get; set; }
+
     public int LinhVucXuPhatId { get; set; }
 
     public int DieuKhoanXuPhatId { get; set; }
@@ -26,8 +28,4 @@ public class HanhViViPham : EntityAuditBase<int>
     public string? GhiChu { get; set; }
 
     public virtual DieuKhoanXuPhat DieuKhoanXuPhat { get; set; }
-
-    public virtual DieuKhoanBoSungKhacPhuc DieuKhoanBoSung { get; set; }
-
-    public virtual DieuKhoanBoSungKhacPhuc DieuKhoanKhacPhuc { get; set; }
 }

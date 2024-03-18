@@ -453,12 +453,13 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("ChiTietHSXLVPVVBGQId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("DieuKhoanBoSungId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("DieuKhoanKhacPhucId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("DieuKhoanXuPhatId")
@@ -498,10 +499,6 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DieuKhoanBoSungId");
-
-                    b.HasIndex("DieuKhoanKhacPhucId");
 
                     b.HasIndex("DieuKhoanXuPhatId");
 
@@ -1276,18 +1273,6 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("CatalogService.Domain.Entities.HanhViViPham", b =>
                 {
-                    b.HasOne("CatalogService.Domain.Entities.DieuKhoanBoSungKhacPhuc", "DieuKhoanBoSung")
-                        .WithMany("HVVPDieuKhoanBoSung")
-                        .HasForeignKey("DieuKhoanBoSungId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CatalogService.Domain.Entities.DieuKhoanBoSungKhacPhuc", "DieuKhoanKhacPhuc")
-                        .WithMany("HVVPDieuKhoanKhacPhuc")
-                        .HasForeignKey("DieuKhoanKhacPhucId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CatalogService.Domain.Entities.DieuKhoanXuPhat", "DieuKhoanXuPhat")
                         .WithMany()
                         .HasForeignKey("DieuKhoanXuPhatId")
@@ -1297,10 +1282,6 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.HasOne("CatalogService.Domain.Entities.QuyetDinhXuPhat", null)
                         .WithMany("HanhViViPhams")
                         .HasForeignKey("QuyetDinhXuPhatId");
-
-                    b.Navigation("DieuKhoanBoSung");
-
-                    b.Navigation("DieuKhoanKhacPhuc");
 
                     b.Navigation("DieuKhoanXuPhat");
                 });
@@ -1424,13 +1405,6 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("CatalogService.Domain.Entities.DanhMucDinhDanh", b =>
                 {
                     b.Navigation("QuanHuyen");
-                });
-
-            modelBuilder.Entity("CatalogService.Domain.Entities.DieuKhoanBoSungKhacPhuc", b =>
-                {
-                    b.Navigation("HVVPDieuKhoanBoSung");
-
-                    b.Navigation("HVVPDieuKhoanKhacPhuc");
                 });
 
             modelBuilder.Entity("CatalogService.Domain.Entities.DieuKhoanXuPhat", b =>

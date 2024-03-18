@@ -263,6 +263,22 @@ public static class Permissions
         public const string ViewById = $"{CustomClaimTypes.Permission}s.DieuKhoanXuPhats.ViewById";
     }
 
+    public class ChiTietHSXLVPVVBGQs
+    {
+        //Only For SuperAdmins
+        public const string SuperAdminView = $"{CustomClaimTypes.Permission}s.ChiTietHSXLVPVVBGQs.SuperAdminView";
+        public const string SuperAdminCreate = $"{CustomClaimTypes.Permission}s.ChiTietHSXLVPVVBGQs.SuperAdminCreate";
+
+        //All
+        public const string View = $"{CustomClaimTypes.Permission}s.ChiTietHSXLVPVVBGQs.View";
+        public const string Create = $"{CustomClaimTypes.Permission}s.ChiTietHSXLVPVVBGQs.Create";
+        public const string Edit = $"{CustomClaimTypes.Permission}s.ChiTietHSXLVPVVBGQs.Edit";
+        public const string Delete = $"{CustomClaimTypes.Permission}s.ChiTietHSXLVPVVBGQs.Delete";
+
+        //Guest or Basic
+        public const string ViewById = $"{CustomClaimTypes.Permission}s.ChiTietHSXLVPVVBGQs.ViewById";
+    }
+
     public static List<string> GeneratePermissionsForModule(string roleName, string module)
     {
         switch (roleName)

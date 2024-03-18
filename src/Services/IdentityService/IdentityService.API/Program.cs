@@ -87,6 +87,7 @@ try
         options.AddPermissionPolicies<HSVPVanBanGiaiQuyets>();
         options.AddPermissionPolicies<HanhViViPhams>();
         options.AddPermissionPolicies<DieuKhoanXuPhats>();
+        options.AddPermissionPolicies<ChiTietHSXLVPVVBGQs>();
     });
 
     //Swagger

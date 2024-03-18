@@ -546,6 +546,44 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "HanhViViPham",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    QuyetDinhXuPhatId = table.Column<int>(type: "int", nullable: true),
+                    HoSoXuLyViPhamId = table.Column<int>(type: "int", nullable: true),
+                    ChiTietHSXLVPVVBGQId = table.Column<int>(type: "int", nullable: true),
+                    LinhVucXuPhatId = table.Column<int>(type: "int", nullable: false),
+                    DieuKhoanXuPhatId = table.Column<int>(type: "int", nullable: false),
+                    DieuKhoanBoSungId = table.Column<int>(type: "int", nullable: true),
+                    DieuKhoanKhacPhucId = table.Column<int>(type: "int", nullable: true),
+                    QuyDinh = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TinhTietViPham = table.Column<int>(type: "int", nullable: false),
+                    MucPhat = table.Column<long>(type: "bigint", nullable: false),
+                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NguoiTao = table.Column<int>(type: "int", nullable: false),
+                    NgayTao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NguoiCapNhatCuoi = table.Column<int>(type: "int", nullable: true),
+                    NgayCapNhatCuoi = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HanhViViPham", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HanhViViPham_DieuKhoanXuPhat_DieuKhoanXuPhatId",
+                        column: x => x.DieuKhoanXuPhatId,
+                        principalTable: "DieuKhoanXuPhat",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HanhViViPham_QuyetDinhXuPhat_QuyetDinhXuPhatId",
+                        column: x => x.QuyetDinhXuPhatId,
+                        principalTable: "QuyetDinhXuPhat",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ThamQuyenXuPhat",
                 columns: table => new
                 {
@@ -621,55 +659,6 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "HanhViViPham",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    QuyetDinhXuPhatId = table.Column<int>(type: "int", nullable: true),
-                    HoSoXuLyViPhamId = table.Column<int>(type: "int", nullable: true),
-                    LinhVucXuPhatId = table.Column<int>(type: "int", nullable: false),
-                    DieuKhoanXuPhatId = table.Column<int>(type: "int", nullable: false),
-                    DieuKhoanBoSungId = table.Column<int>(type: "int", nullable: false),
-                    DieuKhoanKhacPhucId = table.Column<int>(type: "int", nullable: false),
-                    QuyDinh = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TinhTietViPham = table.Column<int>(type: "int", nullable: false),
-                    MucPhat = table.Column<long>(type: "bigint", nullable: false),
-                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NguoiTao = table.Column<int>(type: "int", nullable: false),
-                    NgayTao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    NguoiCapNhatCuoi = table.Column<int>(type: "int", nullable: true),
-                    NgayCapNhatCuoi = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HanhViViPham", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_HanhViViPham_DieuKhoanBoSungKhacPhuc_DieuKhoanBoSungId",
-                        column: x => x.DieuKhoanBoSungId,
-                        principalTable: "DieuKhoanBoSungKhacPhuc",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_HanhViViPham_DieuKhoanBoSungKhacPhuc_DieuKhoanKhacPhucId",
-                        column: x => x.DieuKhoanKhacPhucId,
-                        principalTable: "DieuKhoanBoSungKhacPhuc",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_HanhViViPham_DieuKhoanXuPhat_DieuKhoanXuPhatId",
-                        column: x => x.DieuKhoanXuPhatId,
-                        principalTable: "DieuKhoanXuPhat",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_HanhViViPham_QuyetDinhXuPhat_QuyetDinhXuPhatId",
-                        column: x => x.QuyetDinhXuPhatId,
-                        principalTable: "QuyetDinhXuPhat",
-                        principalColumn: "Id");
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_ChiTietLinhVucXuPhat_LinhVucXuPhatId",
                 table: "ChiTietLinhVucXuPhat",
@@ -689,16 +678,6 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                 name: "IX_GiayPhepTamGiu_HoSoXuLyViPhamId",
                 table: "GiayPhepTamGiu",
                 column: "HoSoXuLyViPhamId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_HanhViViPham_DieuKhoanBoSungId",
-                table: "HanhViViPham",
-                column: "DieuKhoanBoSungId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_HanhViViPham_DieuKhoanKhacPhucId",
-                table: "HanhViViPham",
-                column: "DieuKhoanKhacPhucId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_HanhViViPham_DieuKhoanXuPhatId",
@@ -781,6 +760,9 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                 name: "CoQuan");
 
             migrationBuilder.DropTable(
+                name: "DieuKhoanBoSungKhacPhuc");
+
+            migrationBuilder.DropTable(
                 name: "GiayPhepTamGiu");
 
             migrationBuilder.DropTable(
@@ -808,9 +790,6 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                 name: "XaPhuong");
 
             migrationBuilder.DropTable(
-                name: "DieuKhoanBoSungKhacPhuc");
-
-            migrationBuilder.DropTable(
                 name: "QuyetDinhXuPhat");
 
             migrationBuilder.DropTable(
@@ -820,16 +799,19 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                 name: "HoSoXuLyViPham");
 
             migrationBuilder.DropTable(
+                name: "DieuKhoanXuPhat");
+
+            migrationBuilder.DropTable(
                 name: "VanBanPhapLuat");
 
             migrationBuilder.DropTable(
                 name: "QuanHuyen");
 
             migrationBuilder.DropTable(
-                name: "DieuKhoanXuPhat");
+                name: "CongDan");
 
             migrationBuilder.DropTable(
-                name: "CongDan");
+                name: "LinhVucXuPhat");
 
             migrationBuilder.DropTable(
                 name: "CoQuanBanHanh");
@@ -842,9 +824,6 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "TinhThanhPho");
-
-            migrationBuilder.DropTable(
-                name: "LinhVucXuPhat");
         }
     }
 }
