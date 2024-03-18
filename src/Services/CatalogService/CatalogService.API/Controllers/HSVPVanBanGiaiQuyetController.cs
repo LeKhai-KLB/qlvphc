@@ -40,7 +40,7 @@ public class HSVPVanBanGiaiQuyetController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedHSVPVanBanGiaiQuyet)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<HSVPVanBanGiaiQuyetDto>>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.HSVPVanBanGiaiQuyets.View)]
+    //[Authorize(Permissions.HSVPVanBanGiaiQuyets.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<HSVPVanBanGiaiQuyetDto>>>> GetHSVPVanBanGiaiQuyets([FromBody] HSVPVanBanGiaiQuyetParameter request)
     {
         var query = new GetPagedVanBanByHSVPIdQuery(request);
@@ -50,7 +50,7 @@ public class HSVPVanBanGiaiQuyetController : ControllerBase
 
     [HttpGet("{id:int}", Name = RouteNames.GetHSVPVanBanGiaiQuyetById)]
     [ProducesResponseType(typeof(HSVPVanBanGiaiQuyetDto), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.HSVPVanBanGiaiQuyets.ViewById)]
+    //[Authorize(Permissions.HSVPVanBanGiaiQuyets.ViewById)]
     public async Task<ActionResult<HSVPVanBanGiaiQuyetDto>> GetHSVPVanBanGiaiQuyetById([Required] int hsId, [Required] int vbId)
     {
         var query = new GetHSVPVanBanByIdQuery(hsId, vbId);
@@ -60,7 +60,7 @@ public class HSVPVanBanGiaiQuyetController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateHSVPVanBanGiaiQuyet)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.HSVPVanBanGiaiQuyets.Create)]
+    //[Authorize(Permissions.HSVPVanBanGiaiQuyets.Create)]
     public async Task<ActionResult<ApiResult<HSVPVanBanGiaiQuyetDto>>> CreateHSVPVanBanGiaiQuyet([FromBody] CreateHSVPVanBanGiaiQuyetDto model)
     {
         var command = _mapper.Map<CreateHSVPVanBanGiaiQuyetCommand>(model);
@@ -70,7 +70,7 @@ public class HSVPVanBanGiaiQuyetController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateHSVPVanBanGiaiQuyet)]
     [ProducesResponseType(typeof(ApiResult<HSVPVanBanGiaiQuyetDto>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.HSVPVanBanGiaiQuyets.Edit)]
+    //[Authorize(Permissions.HSVPVanBanGiaiQuyets.Edit)]
     public async Task<ActionResult<ApiResult<HSVPVanBanGiaiQuyetDto>>> UpdateHSVPVanBanGiaiQuyet([Required] int hsId, [Required] int vbId, [FromBody] UpdateHSVPVanBanGiaiQuyetCommand command)
     {
         command.SetId(hsId, vbId);
@@ -79,7 +79,7 @@ public class HSVPVanBanGiaiQuyetController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteHSVPVanBanGiaiQuyet)]
-    [Authorize(Permissions.HSVPVanBanGiaiQuyets.Delete)]
+    //[Authorize(Permissions.HSVPVanBanGiaiQuyets.Delete)]
     public async Task<ActionResult<bool>> DeleteHSVPVanBanGiaiQuyet([Required] int hsId, [Required] int vbId)
     {
         var command = new DeleteHSVPVanBanGiaiQuyetCommand(hsId, vbId);

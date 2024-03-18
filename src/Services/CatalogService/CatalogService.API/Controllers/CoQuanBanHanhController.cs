@@ -18,7 +18,7 @@ namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(AuthenticationSchemes = "Bearer")]
+//[Authorize(AuthenticationSchemes = "Bearer")]
 public class CoQuanBanHanhController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -42,7 +42,7 @@ public class CoQuanBanHanhController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedCoQuanBanHanh)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<CoQuanBanHanhDto>>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.CoQuanBanHanhs.View)]
+    //[Authorize(Permissions.CoQuanBanHanhs.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<CoQuanBanHanhDto>>>> GetPagedLinhVucXuPhat([FromBody] CoQuanBanHanhParameter request)
     {
         var query = new GetPagedCoQuanBanHanhQuery(request);
@@ -53,7 +53,7 @@ public class CoQuanBanHanhController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetAllCoQuanBanHanhs)]
     [ProducesResponseType(typeof(IEnumerable<CoQuanBanHanhDto>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.CoQuanBanHanhs.View)]
+    //[Authorize(Permissions.CoQuanBanHanhs.View)]
     public async Task<ActionResult<IEnumerable<CoQuanBanHanhDto>>> GetAllCoQuanBanHanhs()
     {
         var query = new GetAllCoQuanBanHanhsQuery();
@@ -64,7 +64,7 @@ public class CoQuanBanHanhController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetCoQuanBanHanhById)]
     [ProducesResponseType(typeof(CoQuanBanHanhDto), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.CoQuanBanHanhs.ViewById)]
+    //[Authorize(Permissions.CoQuanBanHanhs.ViewById)]
     public async Task<ActionResult<CoQuanBanHanhDto>> GetCoQuanBanHanhById([FromQuery] int id)
     {
         var query = new GetCoQuanBanHanhByIdQuery(id);
@@ -84,7 +84,7 @@ public class CoQuanBanHanhController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateCoQuanBanHanh)]
     [ProducesResponseType(typeof(ApiResult<CoQuanBanHanhDto>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.CoQuanBanHanhs.Edit)]
+    //[Authorize(Permissions.CoQuanBanHanhs.Edit)]
     public async Task<ActionResult<ApiResult<CoQuanBanHanhDto>>> UpdateCoQuanBanHanh([Required] int id, [FromBody] UpdateCoQuanBanHanhCommand command)
     {
         command.SetId(id);
@@ -93,7 +93,7 @@ public class CoQuanBanHanhController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteCoQuanBanHanh)]
-    [Authorize(Permissions.CoQuanBanHanhs.Delete)]
+    //[Authorize(Permissions.CoQuanBanHanhs.Delete)]
     public async Task<ActionResult<bool>> DeleteCoQuanBanHanh([Required] int id)
     {
         var command = new DeleteCoQuanBanHanhCommand(id);

@@ -19,7 +19,7 @@ namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(AuthenticationSchemes = "Bearer")]
+//[Authorize(AuthenticationSchemes = "Bearer")]
 public class ThamQuyenXuPhatController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -44,7 +44,7 @@ public class ThamQuyenXuPhatController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetAllThamQuyenXuPhats)]
     [ProducesResponseType(typeof(IEnumerable<ThamQuyenXuPhatDto>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.ThamQuyenXuPhats.View)]
+    //[Authorize(Permissions.ThamQuyenXuPhats.View)]
     public async Task<ActionResult<IEnumerable<ThamQuyenXuPhatDto>>> GetAllThamQuyenXuPhats()
     {
         var query = new GetAllThamQuyenXuPhatsQuery();
@@ -54,7 +54,7 @@ public class ThamQuyenXuPhatController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPageThamQuyenXuPhat)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<ThamQuyenXuPhatDto>>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.ThamQuyenXuPhats.View)]
+    //[Authorize(Permissions.ThamQuyenXuPhats.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<ThamQuyenXuPhatDto>>>> GetPageThamQuyenXuPhat([FromBody] ThamQuyenXuPhatParameter request)
     {
         var query = new GetPageThamQuyenXuPhatQuery(request);
@@ -64,7 +64,7 @@ public class ThamQuyenXuPhatController : ControllerBase
 
     [HttpGet("{id:int}", Name = RouteNames.GetThamQuyenXuPhatById)]
     [ProducesResponseType(typeof(ThamQuyenXuPhatDto), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.ThamQuyenXuPhats.ViewById)]
+    //[Authorize(Permissions.ThamQuyenXuPhats.ViewById)]
     public async Task<ActionResult<ThamQuyenXuPhatDto>> GetThamQuyenXuPhatById([Required] int id)
     {
         var query = new GetThamQuyenXuPhatByIdQuery(id);
@@ -74,7 +74,7 @@ public class ThamQuyenXuPhatController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateThamQuyenXuPhat)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.ThamQuyenXuPhats.Create)]
+    //[Authorize(Permissions.ThamQuyenXuPhats.Create)]
     public async Task<ActionResult<ApiResult<ThamQuyenXuPhatDto>>> CreateThamQuyenXuPhat([FromBody] CreateThamQuyenXuPhatDto model)
     {
         var command = _mapper.Map<CreateThamQuyenXuPhatCommand>(model);
@@ -84,7 +84,7 @@ public class ThamQuyenXuPhatController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateThamQuyenXuPhat)]
     [ProducesResponseType(typeof(ApiResult<ThamQuyenXuPhatDto>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.ThamQuyenXuPhats.Edit)]
+    //[Authorize(Permissions.ThamQuyenXuPhats.Edit)]
     public async Task<ActionResult<ApiResult<ThamQuyenXuPhatDto>>> UpdateThamQuyenXuPhat([Required] int id, [FromBody] UpdateThamQuyenXuPhatCommand command)
     {
         command.SetId(id);
@@ -93,7 +93,7 @@ public class ThamQuyenXuPhatController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteThamQuyenXuPhat)]
-    [Authorize(Permissions.ThamQuyenXuPhats.Delete)]
+    //[Authorize(Permissions.ThamQuyenXuPhats.Delete)]
     public async Task<ActionResult<bool>> DeleteThamQuyenXuPhat([Required] int id)
     {
         var command = new DeleteThamQuyenXuPhatCommand(id);

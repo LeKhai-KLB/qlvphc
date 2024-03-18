@@ -18,7 +18,7 @@ namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(AuthenticationSchemes = "Bearer")]
+//[Authorize(AuthenticationSchemes = "Bearer")]
 public class HanhViViPhamController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -41,7 +41,7 @@ public class HanhViViPhamController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedHanhViViPham)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<HanhViViPhamDto>>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.HanhViViPhams.View)]
+    //[Authorize(Permissions.HanhViViPhams.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<HanhViViPhamDto>>>> GetPagedHanhViViPham([FromBody] HanhViViPhamParameter request)
     {
         var query = new GetPagedHanhViViPhamQuery(request);
@@ -51,7 +51,7 @@ public class HanhViViPhamController : ControllerBase
 
     [HttpGet("{id:int}", Name = RouteNames.GetHanhViViPhamById)]
     [ProducesResponseType(typeof(HanhViViPhamDto), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.HanhViViPhams.ViewById)]
+    //[Authorize(Permissions.HanhViViPhams.ViewById)]
     public async Task<ActionResult<HanhViViPhamDto>> GetHanhViViPhamById([Required] int id)
     {
         var query = new GetHanhViViPhamByIdQuery(id);
@@ -61,7 +61,7 @@ public class HanhViViPhamController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateHanhViViPham)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.HanhViViPhams.Create)]
+    //[Authorize(Permissions.HanhViViPhams.Create)]
     public async Task<ActionResult<ApiResult<HanhViViPhamDto>>> CreateHanhViViPham([FromBody] CreateHanhViViPhamDto model)
     {
         var command = _mapper.Map<CreateHanhViViPhamCommand>(model);
@@ -71,7 +71,7 @@ public class HanhViViPhamController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateHanhViViPham)]
     [ProducesResponseType(typeof(ApiResult<HanhViViPhamDto>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.HanhViViPhams.Edit)]
+    //[Authorize(Permissions.HanhViViPhams.Edit)]
     public async Task<ActionResult<ApiResult<HanhViViPhamDto>>> UpdateHanhViViPham([Required] int id, [FromBody] UpdateHanhViViPhamCommand command)
     {
         command.SetId(id);
@@ -80,7 +80,7 @@ public class HanhViViPhamController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteHanhViViPham)]
-    [Authorize(Permissions.HanhViViPhams.Delete)]
+    //[Authorize(Permissions.HanhViViPhams.Delete)]
     public async Task<ActionResult<bool>> DeleteHanhViViPham([Required] int id)
     {
         var command = new DeleteHanhViViPhamCommand(id);

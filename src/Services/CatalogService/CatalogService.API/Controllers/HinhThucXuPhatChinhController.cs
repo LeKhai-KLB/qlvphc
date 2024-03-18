@@ -16,7 +16,7 @@ namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(AuthenticationSchemes = "Bearer")]
+//[Authorize(AuthenticationSchemes = "Bearer")]
 public class HinhThucXuPhatChinhController : ControllerBase
 {
     private readonly IMediator _mediator;

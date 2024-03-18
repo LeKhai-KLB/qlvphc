@@ -40,7 +40,7 @@ public class HoSoXuLyViPhamController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedHoSoXuLyViPham)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<HoSoXuLyViPhamDto>>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.HoSoXuLyViPhams.View)]
+    //[Authorize(Permissions.HoSoXuLyViPhams.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<HoSoXuLyViPhamDto>>>> GetHoSoXuLyViPhams([FromBody] HoSoXuLyViPhamParameter request)
     {
         var query = new GetPagedHoSoXuLyViPhamQuery(request);
@@ -50,7 +50,7 @@ public class HoSoXuLyViPhamController : ControllerBase
 
     [HttpGet("{id:int}", Name = RouteNames.GetHoSoXuLyViPhamById)]
     [ProducesResponseType(typeof(HoSoXuLyViPhamDto), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.HoSoXuLyViPhams.ViewById)]
+    //[Authorize(Permissions.HoSoXuLyViPhams.ViewById)]
     public async Task<ActionResult<HoSoXuLyViPhamDto>> GetHoSoXuLyViPhamById([Required] int id)
     {
         var query = new GetHoSoXuLyViPhamByIdQuery(id);
@@ -60,7 +60,7 @@ public class HoSoXuLyViPhamController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateHoSoXuLyViPham)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.HoSoXuLyViPhams.Create)]
+    //[Authorize(Permissions.HoSoXuLyViPhams.Create)]
     public async Task<ActionResult<ApiResult<HoSoXuLyViPhamDto>>> CreateHoSoXuLyViPham([FromBody] CreateHoSoXuLyViPhamDto model)
     {
         var command = _mapper.Map<CreateHoSoXuLyViPhamCommand>(model);
@@ -70,7 +70,7 @@ public class HoSoXuLyViPhamController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateHoSoXuLyViPham)]
     [ProducesResponseType(typeof(ApiResult<HoSoXuLyViPhamDto>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.HoSoXuLyViPhams.Edit)]
+    //[Authorize(Permissions.HoSoXuLyViPhams.Edit)]
     public async Task<ActionResult<ApiResult<HoSoXuLyViPhamDto>>> UpdateHoSoXuLyViPham([Required] int id, [FromBody] UpdateHoSoXuLyViPhamCommand command)
     {
         command.SetId(id);
@@ -79,7 +79,7 @@ public class HoSoXuLyViPhamController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteHoSoXuLyViPham)]
-    [Authorize(Permissions.HoSoXuLyViPhams.Delete)]
+    //[Authorize(Permissions.HoSoXuLyViPhams.Delete)]
     public async Task<ActionResult<bool>> DeleteHoSoXuLyViPham([Required] int id)
     {
         var command = new DeleteHoSoXuLyViPhamCommand(id);
