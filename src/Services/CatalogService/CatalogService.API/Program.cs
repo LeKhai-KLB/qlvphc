@@ -142,7 +142,7 @@ try
     {
         var qlvphcContextSeed = scope.ServiceProvider.GetRequiredService<CatalogServiceContextSeed>();
         await qlvphcContextSeed.InitializeAsync();
-        //await qlvphcContextSeed.TrySeedCongDanAsync();
+        await qlvphcContextSeed.TrySeedCongDanAsync();
         await qlvphcContextSeed.TrySeedToChucAsync();
     }
     app.UseRouting();
