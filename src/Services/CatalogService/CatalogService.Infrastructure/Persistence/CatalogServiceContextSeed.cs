@@ -23,7 +23,7 @@ public class CatalogServiceContextSeed
             if (_context.Database.IsSqlServer())
             {
                 // Drop the existing database
-                //await _context.Database.EnsureDeletedAsync();
+                await _context.Database.EnsureDeletedAsync();
 
                 // Apply migrations to create a new database
                 await _context.Database.MigrateAsync();
@@ -55,8 +55,28 @@ public class CatalogServiceContextSeed
                 });
             }
 
-            // Add danhMucs to the context
             _context.CongDans.AddRange(congdans);
+
+            // Save changes to the database
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    public async Task TrySeedToChucAsync()
+    {
+        if (!_context.ToChucs.Any())
+        {
+            var toChucs = new List<ToChuc>();
+
+            for (var i = 0; i < 30; i++)
+            {
+                toChucs.Add(new ToChuc
+                {
+                    TenTC = $"Tổ chức {i}"
+                });
+            }
+
+            _context.ToChucs.AddRange(toChucs);
 
             // Save changes to the database
             await _context.SaveChangesAsync();

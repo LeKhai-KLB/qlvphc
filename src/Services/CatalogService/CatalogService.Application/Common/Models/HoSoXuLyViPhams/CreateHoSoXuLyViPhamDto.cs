@@ -10,7 +10,7 @@ public class CreateHoSoXuLyViPhamDto
 
     public string TenHoSo { get; set; }
 
-    public int CaNhanViPhamId { get; set; }
+    public int? CaNhanViPhamId { get; set; }
 
     public bool IsCaNhanViPhamKhac { get; set; }
 

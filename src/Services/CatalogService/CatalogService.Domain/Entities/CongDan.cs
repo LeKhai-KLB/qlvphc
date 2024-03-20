@@ -40,6 +40,4 @@ public class CongDan : EntityAuditBase<int>
     public string? NoiLamViec { get; set; }
 
     public List<QuyetDinhXuPhat> QuyetDinhXuPhats { get; set; }
-
-    public List<HoSoXuLyViPham> HoSoXuLyViPhams { get; set; }
 }

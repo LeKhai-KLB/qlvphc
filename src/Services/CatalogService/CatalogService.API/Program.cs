@@ -119,6 +119,7 @@ try
         options.AddPermissionPolicies<HanhViViPhams>();
         options.AddPermissionPolicies<DieuKhoanXuPhats>();
         options.AddPermissionPolicies<ChiTietHSXLVPVVBGQs>();
+        options.AddPermissionPolicies<ToChucs>();
     });
 
     builder.Services.AddApplicationServices();
@@ -142,6 +143,7 @@ try
         var qlvphcContextSeed = scope.ServiceProvider.GetRequiredService<CatalogServiceContextSeed>();
         await qlvphcContextSeed.InitializeAsync();
         await qlvphcContextSeed.TrySeedCongDanAsync();
+        await qlvphcContextSeed.TrySeedToChucAsync();
     }
     app.UseRouting();
     //app.UseHttpsRedirection();

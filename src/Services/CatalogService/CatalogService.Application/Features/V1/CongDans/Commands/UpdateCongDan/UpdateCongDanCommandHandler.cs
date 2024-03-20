@@ -30,7 +30,7 @@ public class UpdateCongDanCommandHandler : IRequestHandler<UpdateCongDanCommand,
         var existCQBH = await _repository.CheckExistCongDan(request.Id);
         if (!existCQBH)
         {
-            return new ApiErrorResult<CongDanDto>("Co quan not exists.");
+            return new ApiErrorResult<CongDanDto>("Cong dan not exists.");
         }
         await _repository.UpdateCongDan(cqbh);
 
