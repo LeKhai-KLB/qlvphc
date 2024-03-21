@@ -27,6 +27,8 @@ public class HoSoXuLyViPhamDto : IMapFrom<HoSoXuLyViPham>
 
     public LoaiVuViecViPham LoaiVuViecViPham { get; set; }
 
+    public List<string> HanhViViPhams { get; set; }
+
     public void Mapping(Profile profile)
     {
         profile.CreateMap<HoSoXuLyViPham, HoSoXuLyViPhamDto>().ReverseMap();

@@ -19,6 +19,15 @@ public class HanhViViPhamRepository : RepositoryBase<HanhViViPham, int, CatalogS
         _HanhViViPham = context.Set<HanhViViPham>();
     }
 
+    public async Task<IEnumerable<string?>> GetQDHVVPByHoSoXuLyViPhamId(int hsvpId)
+    {
+        return await _HanhViViPham
+            .Where(x => x.HoSoXuLyViPhamId != null
+                && x.HoSoXuLyViPhamId == hsvpId)
+            .Select(x => x.QuyDinh)
+            .ToListAsync();
+    }
+
     public async Task<PageList<HanhViViPham>> GetPagedHanhViViPham(HanhViViPhamParameter parameter)
     {
         var query = _HanhViViPham.Filter(parameter);
