@@ -65,9 +65,9 @@ namespace CatalogService.Application.Features.V1.QuyetDinhXuPhats.Commands.Updat
             updateQuyetDinhXuPhat.TinhTietTangNang = request.TinhTietTangNang ?? updateQuyetDinhXuPhat.TinhTietTangNang;
             updateQuyetDinhXuPhat.TinhTietGiamNhe = request.TinhTietGiamNhe ?? updateQuyetDinhXuPhat.TinhTietGiamNhe;
             updateQuyetDinhXuPhat.HinhThucXuPhatCuThe = request.HinhThucXuPhatCuThe;
-            updateQuyetDinhXuPhat.HinhThucXuPhatBoSung = request.HinhThucXuPhatBoSung ?? updateQuyetDinhXuPhat.HinhThucXuPhatBoSung;
+            updateQuyetDinhXuPhat.HinhThucXuPhatBoSungEnums = request.HinhThucXuPhatBoSungEnums ?? updateQuyetDinhXuPhat.HinhThucXuPhatBoSungEnums;
             updateQuyetDinhXuPhat.HinhThucXuPhatBoSungCuThe = request.HinhThucXuPhatBoSungCuThe ?? updateQuyetDinhXuPhat.HinhThucXuPhatBoSungCuThe;
-            updateQuyetDinhXuPhat.BienPhapKhacPhucHauQua = request.BienPhapKhacPhucHauQua;
+            updateQuyetDinhXuPhat.BienPhapKhacPhucHauQuaEnums = request.BienPhapKhacPhucHauQuaEnums ?? updateQuyetDinhXuPhat.BienPhapKhacPhucHauQuaEnums;
             updateQuyetDinhXuPhat.BienPhapKhacPhucHauQuaCuThe = request.BienPhapKhacPhucHauQuaCuThe ?? updateQuyetDinhXuPhat.BienPhapKhacPhucHauQuaCuThe;
             updateQuyetDinhXuPhat.NoiDungLienQuanKhacPhucHauQua = request.NoiDungLienQuanKhacPhucHauQua ?? updateQuyetDinhXuPhat.NoiDungLienQuanKhacPhucHauQua;
             updateQuyetDinhXuPhat.DonViPhoiHopThucHien = request.DonViPhoiHopThucHien;

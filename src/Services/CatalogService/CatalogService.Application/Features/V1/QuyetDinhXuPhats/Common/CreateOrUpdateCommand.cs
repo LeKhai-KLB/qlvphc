@@ -2,6 +2,7 @@
 using CatalogService.Application.Common.Mappings;
 using CatalogService.Application.Features.V1.QuyetDinhXuPhats.Queries.GetQuyetDinhXuPhats;
 using CatalogService.Application.Parameters.QuyetDinhXuPhats;
+using CatalogService.Domain.Constants;
 using CatalogService.Domain.Entities;
 
 namespace CatalogService.Application.Features.V1.QuyetDinhXuPhats.Common
@@ -9,6 +10,7 @@ namespace CatalogService.Application.Features.V1.QuyetDinhXuPhats.Common
     public class CreateOrUpdateCommand : IMapFrom<QuyetDinhXuPhat>
     {
         public int HoSoXuLyViPhamId { get; set; }
+        public LoaiHinhThucXuPhat LoaiHinhThucXuPhat { get; set; }
         public DateTime NgayNhapQuyetDinh { get; set; }
 
         public string SoQuyetDinh { get; set; }
@@ -54,11 +56,11 @@ namespace CatalogService.Application.Features.V1.QuyetDinhXuPhats.Common
 
         public string HinhThucXuPhatCuThe { get; set; }
 
-        public int? HinhThucXuPhatBoSung { get; set; }
+        public string? HinhThucXuPhatBoSungEnums { get; set; }
 
         public string? HinhThucXuPhatBoSungCuThe { get; set; }
 
-        public int BienPhapKhacPhucHauQua { get; set; }
+        public string? BienPhapKhacPhucHauQuaEnums { get; set; }
 
         public string? BienPhapKhacPhucHauQuaCuThe { get; set; }
 

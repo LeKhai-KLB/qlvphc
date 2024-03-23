@@ -13,6 +13,7 @@ using Shared.SeedWord;
 using CatalogService.Application.Features.V1.HanhViViPhams.Queries.GetPagedHanhViViPham;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Common.Constants;
+using CatalogService.Application.Features.V1.HanhViViPhams.Commands.ImportHVVPFromQD;
 
 namespace CatalogService.API.Controllers;
 
@@ -37,6 +38,7 @@ public class HanhViViPhamController : ControllerBase
         public const string UpdateHanhViViPham = nameof(UpdateHanhViViPham);
         public const string DeleteHanhViViPham = nameof(DeleteHanhViViPham);
         public const string GetHanhViViPhamById = nameof(GetHanhViViPhamById);
+        public const string ImportHVVPFromQD = nameof(ImportHVVPFromQD);
     }
 
     [HttpPost("paging", Name = RouteNames.GetPagedHanhViViPham)]
@@ -84,6 +86,15 @@ public class HanhViViPhamController : ControllerBase
     public async Task<ActionResult<bool>> DeleteHanhViViPham([Required] int id)
     {
         var command = new DeleteHanhViViPhamCommand(id);
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
+
+    [HttpPut("{hoSoXuLyViPhamId:int}", Name = RouteNames.ImportHVVPFromQD)]
+    //[Authorize(Permissions.HanhViViPhams.Edit)]
+    public async Task<ActionResult<bool>> ImportHVVPFromQD([Required] int hoSoXuLyViPhamId)
+    {
+        var command = new ImportHVVPFromQDCommand(hoSoXuLyViPhamId);
         var result = await _mediator.Send(command);
         return Ok(result);
     }

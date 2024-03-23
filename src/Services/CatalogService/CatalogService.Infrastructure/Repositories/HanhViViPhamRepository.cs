@@ -28,6 +28,20 @@ public class HanhViViPhamRepository : RepositoryBase<HanhViViPham, int, CatalogS
             .ToListAsync();
     }
 
+    public async Task<IEnumerable<HanhViViPham>> GeByHoSoXuLyViPhamId(int hsvpId)
+    {
+        return await _HanhViViPham
+            .Where(x => x.HoSoXuLyViPhamId != null && x.HoSoXuLyViPhamId == hsvpId)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<HanhViViPham>> GeByQuyetDinhXuPhatIds(List<int> qdxpIds)
+    {
+        return await _HanhViViPham
+            .Where(x => x.QuyetDinhXuPhatId != null && qdxpIds.Contains(x.QuyetDinhXuPhatId.Value))
+            .ToListAsync();
+    }
+
     public async Task<PageList<HanhViViPham>> GetPagedHanhViViPham(HanhViViPhamParameter parameter)
     {
         var query = _HanhViViPham.Filter(parameter);

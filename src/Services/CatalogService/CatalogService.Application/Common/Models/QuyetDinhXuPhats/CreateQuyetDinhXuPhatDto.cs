@@ -1,8 +1,11 @@
-﻿namespace CatalogService.Application.Common.Models.QuyetDinhXuPhats;
+﻿using CatalogService.Domain.Constants;
+
+namespace CatalogService.Application.Common.Models.QuyetDinhXuPhats;
 
 public class CreateQuyetDinhXuPhatDto
 {
     public int HoSoXuLyViPhamId { get; set; }
+    public LoaiHinhThucXuPhat LoaiHinhThucXuPhat { get; set; }
     public DateTime NgayNhapQuyetDinh { get; set; }
 
     public string SoQuyetDinh { get; set; }
@@ -48,11 +51,11 @@ public class CreateQuyetDinhXuPhatDto
 
     public string HinhThucXuPhatCuThe { get; set; }
 
-    public int? HinhThucXuPhatBoSung { get; set; }
+    public string? HinhThucXuPhatBoSungEnums { get; set; }
 
     public string? HinhThucXuPhatBoSungCuThe { get; set; }
 
-    public int BienPhapKhacPhucHauQua { get; set; }
+    public string? BienPhapKhacPhucHauQuaEnums { get; set; }
 
     public string? BienPhapKhacPhucHauQuaCuThe { get; set; }
 

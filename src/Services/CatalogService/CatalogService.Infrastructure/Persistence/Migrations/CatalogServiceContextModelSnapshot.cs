@@ -625,6 +625,148 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.ToTable("HoSoXuLyViPham");
                 });
 
+            modelBuilder.Entity("CatalogService.Domain.Entities.KetQuaXuPhatHanhChinh", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("HoSoXuLyViPhamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LoaiKetQuaXuPhat")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("NgayCapNhatCuoi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayNhap")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("NguoiCapNhatCuoi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NguoiTao")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NoiDung")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuyetDinhXuPhatId")
+                        .HasColumnType("int");
+
+                    b.Property<long>("SoTienBanTangVat")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SoTienChamNop")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SoTienDaThuTuBanTangVat")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SoTienKhac")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("SoTienThu")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("ThoiHanThiHanh")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ThongBaoChapHanh")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("KetQuaXuPhatHanhChinh", (string)null);
+                });
+
+            modelBuilder.Entity("CatalogService.Domain.Entities.KetQuaXuPhatTruyCuuHS", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CoQuanBanHanhId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HoSoXuLyViPhamId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("NgayCapNhatCuoi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayThiHanh")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("NguoiCapNhatCuoi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NguoiTao")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NoiDung")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ThoiHanThiHanh")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("KetQuaXuPhatTruyCuuHS", (string)null);
+                });
+
+            modelBuilder.Entity("CatalogService.Domain.Entities.KhoBac", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DiaChi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DiaDiemGiaoDich")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("NgayCapNhatCuoi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("NguoiCapNhatCuoi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NguoiTao")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TaiKhoan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenCoQuan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenKhoBac")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("KhoBac", (string)null);
+                });
+
             modelBuilder.Entity("CatalogService.Domain.Entities.LinhVucXuPhat", b =>
                 {
                     b.Property<int>("Id")
@@ -765,11 +907,11 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BienPhapKhacPhucHauQua")
-                        .HasColumnType("int");
-
                     b.Property<string>("BienPhapKhacPhucHauQuaCuThe")
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("BienPhapKhacPhucHauQuaEnums")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CanCuQuyDinh")
                         .IsRequired()
@@ -799,11 +941,11 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("HieuLucThiHanhNgay")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("HinhThucXuPhatBoSung")
-                        .HasColumnType("int");
-
                     b.Property<string>("HinhThucXuPhatBoSungCuThe")
                         .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("HinhThucXuPhatBoSungEnums")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("HinhThucXuPhatChinh")
                         .HasColumnType("int");
@@ -819,6 +961,9 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int>("LoaiDoiTuongViPham")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LoaiHinhThucXuPhat")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("NgayCapNhatCuoi")

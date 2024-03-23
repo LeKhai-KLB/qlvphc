@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using CatalogService.Domain.Constants;
 using Contracts.Domains;
 
 namespace CatalogService.Domain.Entities;
@@ -6,6 +7,7 @@ namespace CatalogService.Domain.Entities;
 public class QuyetDinhXuPhat : EntityAuditBase<int>
 {
     public int HoSoXuLyViPhamId { get; set; }
+    public LoaiHinhThucXuPhat LoaiHinhThucXuPhat { get; set; }
     public DateTime NgayNhapQuyetDinh { get; set; }
 
     [Column(TypeName = "nvarchar(255)")]
@@ -64,13 +66,13 @@ public class QuyetDinhXuPhat : EntityAuditBase<int>
     [Column(TypeName = "nvarchar(255)")]
     public string HinhThucXuPhatCuThe { get; set; }
 
-    public int? HinhThucXuPhatBoSung { get; set; }
-
+    public string? HinhThucXuPhatBoSungEnums { get; set; }
+        
     [Column(TypeName = "nvarchar(255)")]
 
     public string? HinhThucXuPhatBoSungCuThe { get; set; }
 
-    public int BienPhapKhacPhucHauQua { get; set; }
+    public string? BienPhapKhacPhucHauQuaEnums { get; set; }
 
     [Column(TypeName = "nvarchar(255)")]
 

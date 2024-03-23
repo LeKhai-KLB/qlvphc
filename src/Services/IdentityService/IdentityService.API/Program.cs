@@ -89,6 +89,9 @@ try
         options.AddPermissionPolicies<DieuKhoanXuPhats>();
         options.AddPermissionPolicies<ChiTietHSXLVPVVBGQs>();
         options.AddPermissionPolicies<ToChucs>();
+        options.AddPermissionPolicies<KhoBacs>();
+        options.AddPermissionPolicies<KetQuaXuPhatHanhChinhs>();
+        options.AddPermissionPolicies<KetQuaXuPhatTruyCuuHSs>();
     });
 
     //Swagger

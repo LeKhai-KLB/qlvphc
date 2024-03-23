@@ -120,6 +120,9 @@ try
         options.AddPermissionPolicies<DieuKhoanXuPhats>();
         options.AddPermissionPolicies<ChiTietHSXLVPVVBGQs>();
         options.AddPermissionPolicies<ToChucs>();
+        options.AddPermissionPolicies<KhoBacs>();
+        options.AddPermissionPolicies<KetQuaXuPhatHanhChinhs>();
+        options.AddPermissionPolicies<KetQuaXuPhatTruyCuuHSs>();
     });
 
     builder.Services.AddApplicationServices();
@@ -144,6 +147,7 @@ try
         await qlvphcContextSeed.InitializeAsync();
         await qlvphcContextSeed.TrySeedCongDanAsync();
         await qlvphcContextSeed.TrySeedToChucAsync();
+        await qlvphcContextSeed.TrySeedKhoBacAsync();
     }
     app.UseRouting();
     //app.UseHttpsRedirection();

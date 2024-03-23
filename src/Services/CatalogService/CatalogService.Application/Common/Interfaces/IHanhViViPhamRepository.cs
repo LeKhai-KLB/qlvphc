@@ -9,6 +9,8 @@ public interface IHanhViViPhamRepository : IRepositoryBaseAsync<HanhViViPham, in
 {
     Task<PageList<HanhViViPham>> GetPagedHanhViViPham(HanhViViPhamParameter parameter);
     Task<IEnumerable<string?>> GetQDHVVPByHoSoXuLyViPhamId(int hsvpId);
+    Task<IEnumerable<HanhViViPham?>> GeByHoSoXuLyViPhamId(int hsvpId);
+    Task<IEnumerable<HanhViViPham?>> GeByQuyetDinhXuPhatIds(List<int> qdxpIds);
     Task<HanhViViPham> GetHanhViViPhamById(int id);
     Task CreateHanhViViPham(HanhViViPham request);
     Task UpdateHanhViViPham(HanhViViPham request);

@@ -82,4 +82,25 @@ public class CatalogServiceContextSeed
             await _context.SaveChangesAsync();
         }
     }
+
+    public async Task TrySeedKhoBacAsync()
+    {
+        if (!_context.KhoBacs.Any())
+        {
+            var khoBacs = new List<KhoBac>();
+
+            for (var i = 0; i < 10; i++)
+            {
+                khoBacs.Add(new KhoBac
+                {
+                    TenKhoBac = $"Kho bạc {i}"
+                });
+            }
+
+            _context.KhoBacs.AddRange(khoBacs);
+
+            // Save changes to the database
+            await _context.SaveChangesAsync();
+        }
+    }
 }
