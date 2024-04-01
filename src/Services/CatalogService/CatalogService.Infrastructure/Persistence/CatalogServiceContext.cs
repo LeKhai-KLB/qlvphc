@@ -67,6 +67,7 @@ public class CatalogServiceContext : DbContext
     public DbSet<KhoBac> KhoBacs { get; set; }
     public DbSet<KetQuaXuPhatHanhChinh> KetQuaXuPhatHanhChinhs { get; set; }
     public DbSet<KetQuaXuPhatTruyCuuHS> KetQuaXuPhatTruyCuuHSs { get; set; }
+    public DbSet<ChiTietHSXLVPVVBGQ> ChiTietHSXLVPVVBGQs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
