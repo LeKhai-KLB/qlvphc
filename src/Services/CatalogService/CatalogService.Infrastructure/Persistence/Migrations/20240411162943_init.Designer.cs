@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CatalogService.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(CatalogServiceContext))]
-    [Migration("20240323073557_init")]
+    [Migration("20240411162943_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -24,6 +24,125 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CatalogService.Domain.Entities.ChiTietHSXLVPVVBGQ", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("BBLapThanh")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BienPhapNganChan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CNTCBiThietHai")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CanBoChungKien")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CanCuLapBB")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DiaDiemHen")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DiaDiemLapBB")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DoiTuongViPhamId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsCaNhan")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("LoaiVanBanHSXLVPVBGQ")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LyDoKhongKyBB")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LyDoLapBB")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LyDoNCKKhongKyBB")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("NgayCapNhatCuoi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayNhap")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("NgayThangHen")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("NguoiCapNhatCuoi")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NguoiChungKien1Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NguoiChungKien2Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NguoiCoThamQuyenGQId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NguoiGiamHoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NguoiLapBB")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NguoiPhienDichId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NguoiTao")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SoBB")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(512)");
+
+                    b.Property<int?>("SoToBB")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ThoiDiemKetThucBB")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ThoiDiemLapBB")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ThoiHanGiaiTrinh")
+                        .HasColumnType("int");
+
+                    b.Property<string>("YKienCNTCViPham")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("YKienDaiDienChinhQuyen")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("YKienNguoiChungKien")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("YKienNoiThietHai")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ChiTietHSXLVPVVBGQ", (string)null);
+                });
 
             modelBuilder.Entity("CatalogService.Domain.Entities.ChiTietLinhVucXuPhat", b =>
                 {
@@ -502,6 +621,8 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChiTietHSXLVPVVBGQId");
 
                     b.HasIndex("DieuKhoanXuPhatId");
 
@@ -1474,6 +1595,10 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("CatalogService.Domain.Entities.HanhViViPham", b =>
                 {
+                    b.HasOne("CatalogService.Domain.Entities.ChiTietHSXLVPVVBGQ", null)
+                        .WithMany("HanhViViPhams")
+                        .HasForeignKey("ChiTietHSXLVPVVBGQId");
+
                     b.HasOne("CatalogService.Domain.Entities.DieuKhoanXuPhat", "DieuKhoanXuPhat")
                         .WithMany()
                         .HasForeignKey("DieuKhoanXuPhatId")
@@ -1578,6 +1703,11 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("QuanHuyen");
+                });
+
+            modelBuilder.Entity("CatalogService.Domain.Entities.ChiTietHSXLVPVVBGQ", b =>
+                {
+                    b.Navigation("HanhViViPhams");
                 });
 
             modelBuilder.Entity("CatalogService.Domain.Entities.CoQuanBanHanh", b =>
