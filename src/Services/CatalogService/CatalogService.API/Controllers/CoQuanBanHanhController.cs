@@ -74,7 +74,7 @@ public class CoQuanBanHanhController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateCoQuanBanHanh)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
-    [Authorize(Permissions.CoQuanBanHanhs.Create)]
+    //[Authorize(Permissions.CoQuanBanHanhs.Create)]
     public async Task<ActionResult<ApiResult<CoQuanBanHanhDto>>> CreateCoQuanBanHanh([FromBody] CreateCoQuanBanHanhDto model)
     {
         var command = _mapper.Map<CreateCoQuanBanHanhCommand>(model);
