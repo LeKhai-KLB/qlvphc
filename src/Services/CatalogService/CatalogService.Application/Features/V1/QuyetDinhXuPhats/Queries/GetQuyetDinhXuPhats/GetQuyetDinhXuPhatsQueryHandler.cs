@@ -37,11 +37,16 @@ namespace CatalogService.Application.Features.V1.QuyetDinhXuPhats.Queries.GetQuy
             {
                 foreach (var quyetDinh in quyetDinhXuPhatDtos)
                 {
-                    var userDto = await _userServiceClient.GetUserAsync(quyetDinh.NguoiRaQuyetDinhId);
-                    if (userDto != null)
+                    try
                     {
-                        quyetDinh.NguoiRaQuyetDinh = userDto;
+                        var userDto = await _userServiceClient.GetUserAsync(quyetDinh.NguoiRaQuyetDinhId);
+                        if (userDto != null)
+                        {
+                            quyetDinh.NguoiRaQuyetDinh = userDto;
+                        }
                     }
+                    catch
+                    { }
                 }
             }
 

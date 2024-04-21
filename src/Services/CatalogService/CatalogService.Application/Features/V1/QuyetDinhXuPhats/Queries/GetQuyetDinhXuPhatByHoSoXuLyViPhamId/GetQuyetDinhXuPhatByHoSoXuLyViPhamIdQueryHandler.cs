@@ -34,11 +34,16 @@ public class GetQuyetDinhXuPhatByHoSoXuLyViPhamIdQueryHandler : IRequestHandler<
         {
             foreach(var quyetDinh in quyetDinhXuPhatDtos)
             {
-                var userDto = await _userServiceClient.GetUserAsync(quyetDinh.NguoiRaQuyetDinhId);
-                if (userDto != null)
+                try
                 {
-                    quyetDinh.NguoiRaQuyetDinh = userDto;
+                    var userDto = await _userServiceClient.GetUserAsync(quyetDinh.NguoiRaQuyetDinhId);
+                    if (userDto != null)
+                    {
+                        quyetDinh.NguoiRaQuyetDinh = userDto;
+                    }
                 }
+                catch
+                { }
             }
         }
 

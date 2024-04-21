@@ -2,6 +2,8 @@
 
 public class CreateGiayPhepTamGiuDto
 {
+    public int HoSoXuLyViPhamId { get; set; }
+
     public string Ten { get; set; }
 
     public int SoLuong { get; set; }

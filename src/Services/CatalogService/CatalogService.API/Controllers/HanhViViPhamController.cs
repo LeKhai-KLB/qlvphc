@@ -90,7 +90,7 @@ public class HanhViViPhamController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("{hoSoXuLyViPhamId:int}", Name = RouteNames.ImportHVVPFromQD)]
+    [HttpPut("import/{hoSoXuLyViPhamId:int}", Name = RouteNames.ImportHVVPFromQD)]
     //[Authorize(Permissions.HanhViViPhams.Edit)]
     public async Task<ActionResult<bool>> ImportHVVPFromQD([Required] int hoSoXuLyViPhamId)
     {

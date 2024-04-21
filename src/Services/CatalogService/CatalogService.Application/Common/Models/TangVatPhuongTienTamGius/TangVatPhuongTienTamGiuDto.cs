@@ -9,6 +9,8 @@ namespace CatalogService.Application.Common.Models.TangVatPhuongTienTamGius
     {
         public int Id { get; set; }
 
+        public int HoSoXuLyViPhamId { get; set; }
+
         public string Ten { get; set; }
 
         public string DonViTinh { get; set; }
