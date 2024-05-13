@@ -26,7 +26,7 @@ public class CreateChiTietHSXLVPVVBGQDto
 
     public string? NguoiPhienDichId { get; set; }
 
-    public int? CanBoChungKien { get; set; }
+    public string? CanBoChungKien { get; set; }
 
     public bool IsCaNhan { get; set; }
 
