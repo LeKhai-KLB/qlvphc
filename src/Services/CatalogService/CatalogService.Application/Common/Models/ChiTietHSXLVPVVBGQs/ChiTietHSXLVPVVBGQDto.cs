@@ -23,15 +23,15 @@ public class ChiTietHSXLVPVVBGQDto : IMapFrom<ChiTietHSXLVPVVBGQ>
 
     public string? LyDoLapBB { get; set; }
 
-    public int NguoiLapBB { get; set; }
+    public string NguoiLapBB { get; set; }
 
-    public int? NguoiChungKien1Id { get; set; }
+    public string? NguoiChungKien1Id { get; set; }
 
-    public int? NguoiChungKien2Id { get; set; }
+    public string? NguoiChungKien2Id { get; set; }
 
-    public int? NguoiPhienDichId { get; set; }
+    public string? NguoiPhienDichId { get; set; }
 
-    public int? CanBoChungKien { get; set; }
+    public string? CanBoChungKien { get; set; }
 
     public bool IsCaNhan { get; set; }
 
@@ -41,7 +41,7 @@ public class ChiTietHSXLVPVVBGQDto : IMapFrom<ChiTietHSXLVPVVBGQ>
 
     public int? NguoiGiamHoId { get; set; }
 
-    public int? NguoiCoThamQuyenGQId { get; set; }
+    public string? NguoiCoThamQuyenGQId { get; set; }
 
     public string? CNTCBiThietHai { get; set; }
 
