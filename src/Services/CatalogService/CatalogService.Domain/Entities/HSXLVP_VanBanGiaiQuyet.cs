@@ -12,7 +12,7 @@ public class HSXLVP_VanBanGiaiQuyet
     [Column(Order = 1)]
     public int VanBanGiaiQuyetId { get; set; }
 
-    public string SoQuyetDinh {  get; set; }
+    public string? SoQuyetDinh {  get; set; }
 
     public DateTime NgayNhap {  get; set; }
 

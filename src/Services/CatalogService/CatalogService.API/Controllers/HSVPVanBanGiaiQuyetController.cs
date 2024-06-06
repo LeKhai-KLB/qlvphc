@@ -11,8 +11,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shared.SeedWord;
 using CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Queries.GetPagedVanBanByHSVPId;
-using Microsoft.AspNetCore.Authorization;
-using Shared.Common.Constants;
 
 namespace CatalogService.API.Controllers;
 
