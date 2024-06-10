@@ -3,6 +3,7 @@ using CatalogService.Application.Common.Interfaces;
 using CatalogService.Application.Common.Models.HoSoXuLyViPhams;
 using CatalogService.Domain.Entities;
 using MediatR;
+using Newtonsoft.Json;
 using Serilog;
 using Shared.SeedWord;
 
@@ -29,7 +30,7 @@ public class CreateHoSoXuLyViPhamCommandHandler : IRequestHandler<CreateHoSoXuLy
         _logger.Information($"BEGIN: {MethodName}");
 
         var hoso = _mapper.Map<HoSoXuLyViPham>(request);
-
+        hoso.HinhAnhViPham = JsonConvert.SerializeObject(request.HinhAnhViPhams);
         var hosoId = await _repository.CreateHoSoXuLyViPham(hoso);
         if (hosoId != 0 && request.VanBanGiaiQuyetIds != null && request.VanBanGiaiQuyetIds.Any())
         {

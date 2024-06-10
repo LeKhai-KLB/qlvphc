@@ -20,6 +20,8 @@ public class HoSoXuLyViPham : EntityAuditBase<int>
 
     public string? ThongTinKhac { get; set; }
 
+    public string? HinhAnhViPham { get; set; }
+
     public TrangThaiHoSoViPham TrangThaiHoSoViPham { get; set; }
 
     public TinhTietViPham TinhTietViPham { get; set; }

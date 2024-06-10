@@ -2,6 +2,7 @@
 using CatalogService.Application.Common.Interfaces;
 using CatalogService.Application.Common.Models.HoSoXuLyViPhams;
 using MediatR;
+using Newtonsoft.Json;
 using Serilog;
 using Shared.SeedWord;
 
@@ -25,11 +26,12 @@ public class GetHoSoXuLyViPhamByIdQueryHandler : IRequestHandler<GetHoSoXuLyViPh
     {
         _logger.Information($"BEGIN: {MethodName}");
 
-        var lvxpEntity = await _repository.GetHoSoXuLyViPhamById(request.Id);
-        var lvxpDto = _mapper.Map<HoSoXuLyViPhamDto>(lvxpEntity);
+        var hsxlvpEntity = await _repository.GetHoSoXuLyViPhamById(request.Id);
+        var hsxlvpDto = _mapper.Map<HoSoXuLyViPhamDto>(hsxlvpEntity);
+        hsxlvpDto.HinhAnhViPhams = !string.IsNullOrEmpty(hsxlvpEntity.HinhAnhViPham) ? JsonConvert.DeserializeObject<List<string>>(hsxlvpEntity.HinhAnhViPham) : null;
 
         _logger.Information($"END: {MethodName}");
 
-        return new ApiSuccessResult<HoSoXuLyViPhamDto>(lvxpDto);
+        return new ApiSuccessResult<HoSoXuLyViPhamDto>(hsxlvpDto);
     }
 }
