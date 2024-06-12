@@ -19,7 +19,7 @@ namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-//[Authorize(AuthenticationSchemes = "Bearer")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class CoQuanController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -43,7 +43,7 @@ public class CoQuanController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedCoQuan)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<CoQuanDto>>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.CoQuans.View)]
+    [Authorize(Permissions.CoQuans.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<CoQuanDto>>>> GetPagedLinhVucXuPhat([FromBody] CoQuanParameter request)
     {
         var query = new GetPagedCoQuanQuery(request);
@@ -54,7 +54,7 @@ public class CoQuanController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetAllCoQuans)]
     [ProducesResponseType(typeof(IEnumerable<CoQuanDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.CoQuans.View)]
+    [Authorize(Permissions.CoQuans.View)]
     public async Task<ActionResult<IEnumerable<CoQuanDto>>> GetAllCoQuans()
     {
         var query = new GetAllCoQuansQuery();
@@ -65,7 +65,7 @@ public class CoQuanController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetCoQuanById)]
     [ProducesResponseType(typeof(CoQuanDto), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.CoQuans.ViewById)]
+    [Authorize(Permissions.CoQuans.ViewById)]
     public async Task<ActionResult<CoQuanDto>> GetCoQuanById([FromQuery] int id)
     {
         var query = new GetCoQuanByIdQuery(id);
@@ -75,7 +75,7 @@ public class CoQuanController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateCoQuan)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.CoQuans.Create)]
+    [Authorize(Permissions.CoQuans.Create)]
     public async Task<ActionResult<ApiResult<CoQuanDto>>> CreateCoQuan([FromBody] CreateCoQuanDto model)
     {
         var command = _mapper.Map<CreateCoQuanCommand>(model);
@@ -85,7 +85,7 @@ public class CoQuanController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateCoQuan)]
     [ProducesResponseType(typeof(ApiResult<CoQuanDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.CoQuans.Edit)]
+    [Authorize(Permissions.CoQuans.Edit)]
     public async Task<ActionResult<ApiResult<CoQuanDto>>> UpdateCoQuan([Required] int id, [FromBody] UpdateCoQuanCommand command)
     {
         command.SetId(id);
@@ -94,7 +94,7 @@ public class CoQuanController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteCoQuan)]
-    //[Authorize(Permissions.CoQuans.Delete)]
+    [Authorize(Permissions.CoQuans.Delete)]
     public async Task<ActionResult<bool>> DeleteCoQuan([Required] int id)
     {
         var command = new DeleteCoQuanCommand(id);

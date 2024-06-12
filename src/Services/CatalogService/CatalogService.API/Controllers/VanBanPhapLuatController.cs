@@ -19,7 +19,7 @@ namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-//[Authorize(AuthenticationSchemes = "Bearer")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class VanBanPhapLuatController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -43,7 +43,7 @@ public class VanBanPhapLuatController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedVanBanPhapLuat)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<VanBanPhapLuatDto>>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.VanBanPhapLuats.View)]
+    [Authorize(Permissions.VanBanPhapLuats.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<VanBanPhapLuatDto>>>> GetPagedVanBanPhapLuat([FromBody] VanBanPhapLuatParameter request)
     {
         var query = new GetPagedVanBanPhapLuatQuery(request);
@@ -54,7 +54,7 @@ public class VanBanPhapLuatController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetAllVanBanPhapLuat)]
     [ProducesResponseType(typeof(IEnumerable<VanBanPhapLuatDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.VanBanPhapLuats.View)]
+    [Authorize(Permissions.VanBanPhapLuats.View)]
     public async Task<ActionResult<IEnumerable<VanBanPhapLuatDto>>> GetAllVanBanPhapLuat([FromQuery] bool? isFilterTrichYeu)
     {
         var query = new GetAllVanBanPhapLuatQuery(isFilterTrichYeu);
@@ -65,7 +65,7 @@ public class VanBanPhapLuatController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetVanBanPhapLuatById)]
     [ProducesResponseType(typeof(VanBanPhapLuatDto), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.VanBanPhapLuats.ViewById)]
+    [Authorize(Permissions.VanBanPhapLuats.ViewById)]
     public async Task<ActionResult<VanBanPhapLuatDto>> GetVanBanPhapLuatById([FromQuery] int id)
     {
         var query = new GetVanBanPhapLuatByIdQuery(id);
@@ -75,7 +75,7 @@ public class VanBanPhapLuatController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateVanBanPhapLuat)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.VanBanPhapLuats.Create)]
+    [Authorize(Permissions.VanBanPhapLuats.Create)]
     public async Task<ActionResult<ApiResult<VanBanPhapLuatDto>>> CreateVanBanPhapLuat([FromBody] CreateVanBanPhapLuatDto model)
     {
         var command = _mapper.Map<CreateVanBanPhapLuatCommand>(model);
@@ -85,7 +85,7 @@ public class VanBanPhapLuatController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateVanBanPhapLuat)]
     [ProducesResponseType(typeof(ApiResult<VanBanPhapLuatDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.VanBanPhapLuats.Edit)]
+    [Authorize(Permissions.VanBanPhapLuats.Edit)]
     public async Task<ActionResult<ApiResult<VanBanPhapLuatDto>>> UpdateVanBanPhapLuat([Required] int id, [FromBody] UpdateVanBanPhapLuatCommand command)
     {
         command.SetId(id);
@@ -94,7 +94,7 @@ public class VanBanPhapLuatController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteVanBanPhapLuat)]
-    //[Authorize(Permissions.VanBanPhapLuats.Delete)]
+    [Authorize(Permissions.VanBanPhapLuats.Delete)]
     public async Task<ActionResult<bool>> DeleteVanBanPhapLuat([Required] int id)
     {
         var command = new DeleteVanBanPhapLuatCommand(id);

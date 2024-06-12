@@ -65,4 +65,6 @@ public class CreateChiTietHSXLVPVVBGQDto
     public string? LyDoNCKKhongKyBB { get; set; }
 
     public string? YKienDaiDienChinhQuyen { get; set; }
+
+    public int VanBanGiaiQuyetId { get; set; }
 }

@@ -19,7 +19,7 @@ namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-//[Authorize(AuthenticationSchemes = "Bearer")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class ToChucController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -43,7 +43,7 @@ public class ToChucController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedToChuc)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<ToChucDto>>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.ToChucs.View)]
+    [Authorize(Permissions.ToChucs.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<ToChucDto>>>> GetPagedLinhVucXuPhat([FromBody] ToChucParameter request)
     {
         var query = new GetPagedToChucQuery(request);
@@ -54,7 +54,7 @@ public class ToChucController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetAllToChucs)]
     [ProducesResponseType(typeof(IEnumerable<ToChucDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.ToChucs.View)]
+    [Authorize(Permissions.ToChucs.View)]
     public async Task<ActionResult<IEnumerable<ToChucDto>>> GetAllToChucs()
     {
         var query = new GetAllToChucsQuery();
@@ -65,7 +65,7 @@ public class ToChucController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetToChucById)]
     [ProducesResponseType(typeof(ToChucDto), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.ToChucs.ViewById)]
+    [Authorize(Permissions.ToChucs.ViewById)]
     public async Task<ActionResult<ToChucDto>> GetToChucById([FromQuery] int id)
     {
         var query = new GetToChucByIdQuery(id);
@@ -75,7 +75,7 @@ public class ToChucController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateToChuc)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.ToChucs.Create)]
+    [Authorize(Permissions.ToChucs.Create)]
     public async Task<ActionResult<ApiResult<ToChucDto>>> CreateToChuc([FromBody] CreateToChucDto model)
     {
         var command = _mapper.Map<CreateToChucCommand>(model);
@@ -85,7 +85,7 @@ public class ToChucController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateToChuc)]
     [ProducesResponseType(typeof(ApiResult<ToChucDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.ToChucs.Edit)]
+    [Authorize(Permissions.ToChucs.Edit)]
     public async Task<ActionResult<ApiResult<ToChucDto>>> UpdateToChuc([Required] int id, [FromBody] UpdateToChucCommand command)
     {
         command.SetId(id);
@@ -94,7 +94,7 @@ public class ToChucController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteToChuc)]
-    //[Authorize(Permissions.ToChucs.Delete)]
+    [Authorize(Permissions.ToChucs.Delete)]
     public async Task<ActionResult<bool>> DeleteToChuc([Required] int id)
     {
         var command = new DeleteToChucCommand(id);

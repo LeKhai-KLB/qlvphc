@@ -18,7 +18,7 @@ namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-//[Authorize(AuthenticationSchemes = "Bearer")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class LinhVucXuPhatController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -43,7 +43,7 @@ public class LinhVucXuPhatController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetAllLinhVucXuPhats)]
     [ProducesResponseType(typeof(IEnumerable<LinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.LinhVucXuPhats.View)]
+    [Authorize(Permissions.LinhVucXuPhats.View)]
     public async Task<ActionResult<IEnumerable<LinhVucXuPhatDto>>> GetAllLinhVucXuPhats()
     {
         var query = new GetAllLinhVucXuPhatsQuery();
@@ -53,7 +53,7 @@ public class LinhVucXuPhatController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedLinhVucXuPhat)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<LinhVucXuPhatDto>>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.LinhVucXuPhats.View)]
+    [Authorize(Permissions.LinhVucXuPhats.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<LinhVucXuPhatDto>>>> GetPagedLinhVucXuPhat([FromBody] LinhVucXuPhatParameter request)
     {
         var query = new GetPagedLinhVucXuPhatQuery(request);
@@ -64,7 +64,7 @@ public class LinhVucXuPhatController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetLinhVucXuPhatById)]
     [ProducesResponseType(typeof(LinhVucXuPhatDto), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.LinhVucXuPhats.ViewById)]
+    [Authorize(Permissions.LinhVucXuPhats.ViewById)]
     public async Task<ActionResult<LinhVucXuPhatDto>> GetLinhVucXuPhatById([FromQuery] int id)
     {
         var query = new GetLinhVucXuPhatByIdQuery(id);
@@ -74,7 +74,7 @@ public class LinhVucXuPhatController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateLinhVucXuPhat)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.LinhVucXuPhats.Create)]
+    [Authorize(Permissions.LinhVucXuPhats.Create)]
     public async Task<ActionResult<ApiResult<LinhVucXuPhatDto>>> CreateLinhVucXuPhat([FromBody] CreateLinhVucXuPhatDto model)
     {
         var command = _mapper.Map<CreateLinhVucXuPhatCommand>(model);
@@ -84,7 +84,7 @@ public class LinhVucXuPhatController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateLinhVucXuPhat)]
     [ProducesResponseType(typeof(ApiResult<LinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.LinhVucXuPhats.Edit)]
+    [Authorize(Permissions.LinhVucXuPhats.Edit)]
     public async Task<ActionResult<ApiResult<LinhVucXuPhatDto>>> UpdateLinhVucXuPhat([Required] int id, [FromBody] UpdateLinhVucXuPhatCommand command)
     {
         command.SetId(id);
@@ -93,7 +93,7 @@ public class LinhVucXuPhatController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteLinhVucXuPhat)]
-    //[Authorize(Permissions.LinhVucXuPhats.Delete)]
+    [Authorize(Permissions.LinhVucXuPhats.Delete)]
     public async Task<ActionResult<bool>> DeleteLinhVucXuPhat([Required] int id)
     {
         var command = new DeleteLinhVucXuPhatCommand(id);

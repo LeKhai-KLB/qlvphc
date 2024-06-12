@@ -19,7 +19,7 @@ namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-//[Authorize(AuthenticationSchemes = "Bearer")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class LoaiVanBanController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -43,7 +43,7 @@ public class LoaiVanBanController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedLoaiVanBan)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<LoaiVanBanDto>>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.LoaiVanBans.View)]
+    [Authorize(Permissions.LoaiVanBans.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<LoaiVanBanDto>>>> GetPagedLoaiVanBan([FromBody] LoaiVanBanParameter request)
     {
         var query = new GetPagedLoaiVanBanQuery(request);
@@ -54,7 +54,7 @@ public class LoaiVanBanController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetAllLoaiVanBans)]
     [ProducesResponseType(typeof(IEnumerable<LoaiVanBanDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.LoaiVanBans.View)]
+    [Authorize(Permissions.LoaiVanBans.View)]
     public async Task<ActionResult<IEnumerable<LoaiVanBanDto>>> GetAllLoaiVanBans()
     {
         var query = new GetAllLoaiVanBansQuery();
@@ -65,7 +65,7 @@ public class LoaiVanBanController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetLoaiVanBanById)]
     [ProducesResponseType(typeof(LoaiVanBanDto), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.LoaiVanBans.ViewById)]
+    [Authorize(Permissions.LoaiVanBans.ViewById)]
     public async Task<ActionResult<LoaiVanBanDto>> GetLoaiVanBanById([FromQuery] int id)
     {
         var query = new GetLoaiVanBanByIdQuery(id);
@@ -75,7 +75,7 @@ public class LoaiVanBanController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateLoaiVanBan)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.LoaiVanBans.Create)]
+    [Authorize(Permissions.LoaiVanBans.Create)]
     public async Task<ActionResult<ApiResult<LoaiVanBanDto>>> CreateLoaiVanBan([FromBody] CreateLoaiVanBanDto model)
     {
         var command = _mapper.Map<CreateLoaiVanBanCommand>(model);
@@ -85,7 +85,7 @@ public class LoaiVanBanController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateLoaiVanBan)]
     [ProducesResponseType(typeof(ApiResult<LoaiVanBanDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.LoaiVanBans.Edit)]
+    [Authorize(Permissions.LoaiVanBans.Edit)]
     public async Task<ActionResult<ApiResult<LoaiVanBanDto>>> UpdateLoaiVanBan([Required] int id, [FromBody] UpdateLoaiVanBanCommand command)
     {
         command.SetId(id);
@@ -94,7 +94,7 @@ public class LoaiVanBanController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteLoaiVanBan)]
-    //[Authorize(Permissions.LoaiVanBans.Delete)]
+    [Authorize(Permissions.LoaiVanBans.Delete)]
     public async Task<ActionResult<bool>> DeleteLoaiVanBan([Required] int id)
     {
         var command = new DeleteLoaiVanBanCommand(id);

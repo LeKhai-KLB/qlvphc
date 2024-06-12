@@ -19,7 +19,7 @@ namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-//[Authorize(AuthenticationSchemes = "Bearer")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class KetQuaXuPhatHanhChinhController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -43,7 +43,7 @@ public class KetQuaXuPhatHanhChinhController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedKetQuaXuPhatHanhChinh)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<KetQuaXuPhatHanhChinhDto>>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.KetQuaXuPhatHanhChinhs.View)]
+    [Authorize(Permissions.KetQuaXuPhatHanhChinhs.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<KetQuaXuPhatHanhChinhDto>>>> GetPagedLinhVucXuPhat([FromBody] KetQuaXuPhatHanhChinhParameter request)
     {
         var query = new GetPagedKetQuaXuPhatHanhChinhQuery(request);
@@ -54,7 +54,7 @@ public class KetQuaXuPhatHanhChinhController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetAllKetQuaXuPhatHanhChinhs)]
     [ProducesResponseType(typeof(IEnumerable<KetQuaXuPhatHanhChinhDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.KetQuaXuPhatHanhChinhs.View)]
+    [Authorize(Permissions.KetQuaXuPhatHanhChinhs.View)]
     public async Task<ActionResult<IEnumerable<KetQuaXuPhatHanhChinhDto>>> GetAllKetQuaXuPhatHanhChinhs()
     {
         var query = new GetAllKetQuaXuPhatHanhChinhsQuery();
@@ -65,7 +65,7 @@ public class KetQuaXuPhatHanhChinhController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetKetQuaXuPhatHanhChinhById)]
     [ProducesResponseType(typeof(KetQuaXuPhatHanhChinhDto), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.KetQuaXuPhatHanhChinhs.ViewById)]
+    [Authorize(Permissions.KetQuaXuPhatHanhChinhs.ViewById)]
     public async Task<ActionResult<KetQuaXuPhatHanhChinhDto>> GetKetQuaXuPhatHanhChinhById([FromQuery] int id)
     {
         var query = new GetKetQuaXuPhatHanhChinhByIdQuery(id);
@@ -75,7 +75,7 @@ public class KetQuaXuPhatHanhChinhController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateKetQuaXuPhatHanhChinh)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.KetQuaXuPhatHanhChinhs.Create)]
+    [Authorize(Permissions.KetQuaXuPhatHanhChinhs.Create)]
     public async Task<ActionResult<ApiResult<KetQuaXuPhatHanhChinhDto>>> CreateKetQuaXuPhatHanhChinh([FromBody] CreateKetQuaXuPhatHanhChinhDto model)
     {
         var command = _mapper.Map<CreateKetQuaXuPhatHanhChinhCommand>(model);
@@ -85,7 +85,7 @@ public class KetQuaXuPhatHanhChinhController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateKetQuaXuPhatHanhChinh)]
     [ProducesResponseType(typeof(ApiResult<KetQuaXuPhatHanhChinhDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.KetQuaXuPhatHanhChinhs.Edit)]
+    [Authorize(Permissions.KetQuaXuPhatHanhChinhs.Edit)]
     public async Task<ActionResult<ApiResult<KetQuaXuPhatHanhChinhDto>>> UpdateKetQuaXuPhatHanhChinh([Required] int id, [FromBody] UpdateKetQuaXuPhatHanhChinhCommand command)
     {
         command.SetId(id);
@@ -94,7 +94,7 @@ public class KetQuaXuPhatHanhChinhController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteKetQuaXuPhatHanhChinh)]
-    //[Authorize(Permissions.KetQuaXuPhatHanhChinhs.Delete)]
+    [Authorize(Permissions.KetQuaXuPhatHanhChinhs.Delete)]
     public async Task<ActionResult<bool>> DeleteKetQuaXuPhatHanhChinh([Required] int id)
     {
         var command = new DeleteKetQuaXuPhatHanhChinhCommand(id);

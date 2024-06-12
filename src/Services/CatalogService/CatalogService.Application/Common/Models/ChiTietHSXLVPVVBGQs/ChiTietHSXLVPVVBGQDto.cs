@@ -71,6 +71,8 @@ public class ChiTietHSXLVPVVBGQDto : IMapFrom<ChiTietHSXLVPVVBGQ>
 
     public string? YKienDaiDienChinhQuyen { get; set; }
 
+    public int VanBanGiaiQuyetId { get; set; }
+
     public void Mapping(Profile profile)
     {
         profile.CreateMap<ChiTietHSXLVPVVBGQ, ChiTietHSXLVPVVBGQDto>().ReverseMap();

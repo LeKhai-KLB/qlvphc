@@ -15,7 +15,7 @@ namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-//[Authorize(AuthenticationSchemes = "Bearer")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class KhoBacController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -35,7 +35,7 @@ public class KhoBacController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedKhoBac)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<KhoBacDto>>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.KhoBacs.View)]
+    [Authorize(Permissions.KhoBacs.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<KhoBacDto>>>> GetPagedLinhVucXuPhat([FromBody] KhoBacParameter request)
     {
         var query = new GetPagedKhoBacQuery(request);
@@ -46,7 +46,7 @@ public class KhoBacController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetAllKhoBacs)]
     [ProducesResponseType(typeof(IEnumerable<KhoBacDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.KhoBacs.View)]
+    [Authorize(Permissions.KhoBacs.View)]
     public async Task<ActionResult<IEnumerable<KhoBacDto>>> GetAllKhoBacs()
     {
         var query = new GetAllKhoBacsQuery();
