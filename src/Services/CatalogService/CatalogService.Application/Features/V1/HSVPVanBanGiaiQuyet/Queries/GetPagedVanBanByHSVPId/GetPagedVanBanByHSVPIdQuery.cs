@@ -15,11 +15,14 @@ public class GetPagedVanBanByHSVPIdQuery : IRequest<PagedResponse<IEnumerable<HS
 
     public string? OrderBy { get; set; }
 
+    public int HoSoXuLyViPhamId { get; set; }
+
     public GetPagedVanBanByHSVPIdQuery(HSVPVanBanGiaiQuyetParameter request)
     {
         PageNumber = request.PageNumber;
         PageSize = request.PageSize;
         OrderBy = request.OrderBy;
         SearchTerm = request.SearchTerm;
+        HoSoXuLyViPhamId = request.HoSoXuLyViPhamId;
     }
 }
