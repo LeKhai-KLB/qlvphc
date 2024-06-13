@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Contracts.Domains;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CatalogService.Domain.Entities;
 
 [PrimaryKey(nameof(HoSoXuLyViPhamId), nameof(VanBanGiaiQuyetId))]
-public class HSXLVP_VanBanGiaiQuyet
+public class HoSoXuLyViPham_VanBanGiaiQuyet : EntityAuditBase<int>
 {
     [Column(Order = 0)]
     public int HoSoXuLyViPhamId { get; set; }

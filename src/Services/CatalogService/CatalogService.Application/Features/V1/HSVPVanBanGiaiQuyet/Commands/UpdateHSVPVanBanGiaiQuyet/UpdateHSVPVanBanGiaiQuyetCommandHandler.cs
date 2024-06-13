@@ -11,11 +11,11 @@ namespace CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Commands.Up
 public class UpdateHSVPVanBanGiaiQuyetCommandHandler : IRequestHandler<UpdateHSVPVanBanGiaiQuyetCommand, ApiResult<HSVPVanBanGiaiQuyetDto>>
 {
     private readonly IMapper _mapper;
-    private readonly IHSVPVanBanGiaiQuyetRepository _repository;
+    private readonly IHoSoXuLyViPham_VanBanGiaiQuyetRepository _repository;
     private readonly ILogger _logger;
     private const string MethodName = "UpdateHSVPVanBanGiaiQuyetCommandHandler";
 
-    public UpdateHSVPVanBanGiaiQuyetCommandHandler(IMapper mapper, IHSVPVanBanGiaiQuyetRepository repository, ILogger logger)
+    public UpdateHSVPVanBanGiaiQuyetCommandHandler(IMapper mapper, IHoSoXuLyViPham_VanBanGiaiQuyetRepository repository, ILogger logger)
     {
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
@@ -26,7 +26,7 @@ public class UpdateHSVPVanBanGiaiQuyetCommandHandler : IRequestHandler<UpdateHSV
     {
         _logger.Information($"BEGIN: {MethodName}");
 
-        var dkxp = _mapper.Map<HSXLVP_VanBanGiaiQuyet>(request);
+        var dkxp = _mapper.Map<HoSoXuLyViPham_VanBanGiaiQuyet>(request);
         var dkxpDb = await _repository.GetHSVPVanBanById(request.HoSoXuLyViPhamId, request.VanBanGiaiQuyetId);
         if (dkxpDb == null)
         {

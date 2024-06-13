@@ -13,15 +13,15 @@ public class CreateHoSoXuLyViPhamCommandHandler : IRequestHandler<CreateHoSoXuLy
 {
     private readonly IMapper _mapper;
     private readonly IHoSoXuLyViPhamRepository _repository;
-    private readonly IHSVPVanBanGiaiQuyetRepository _hSVPVBGQrepository;
+    private readonly IHoSoXuLyViPham_VanBanGiaiQuyetRepository _hSXLVP_VBGQRepository;
     private readonly ILogger _logger;
     private const string MethodName = "CreateHoSoXuLyViPhamCommandHandler";
 
-    public CreateHoSoXuLyViPhamCommandHandler(IMapper mapper, IHoSoXuLyViPhamRepository repository, IHSVPVanBanGiaiQuyetRepository hSVPVBGQrepository, ILogger logger)
+    public CreateHoSoXuLyViPhamCommandHandler(IMapper mapper, IHoSoXuLyViPhamRepository repository, IHoSoXuLyViPham_VanBanGiaiQuyetRepository hSVPVBGQrepository, ILogger logger)
     {
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-        _hSVPVBGQrepository = hSVPVBGQrepository ?? throw new ArgumentNullException(nameof(hSVPVBGQrepository));
+        _hSXLVP_VBGQRepository = hSVPVBGQrepository ?? throw new ArgumentNullException(nameof(hSVPVBGQrepository));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
@@ -36,7 +36,7 @@ public class CreateHoSoXuLyViPhamCommandHandler : IRequestHandler<CreateHoSoXuLy
         {
             foreach(var vbId in request.VanBanGiaiQuyetIds)
             {
-                await _hSVPVBGQrepository.CreateHSVPVanBan(new HSXLVP_VanBanGiaiQuyet
+                await _hSXLVP_VBGQRepository.CreateHSVPVanBan(new HoSoXuLyViPham_VanBanGiaiQuyet
                 {
                     HoSoXuLyViPhamId = hosoId,
                     VanBanGiaiQuyetId = vbId,

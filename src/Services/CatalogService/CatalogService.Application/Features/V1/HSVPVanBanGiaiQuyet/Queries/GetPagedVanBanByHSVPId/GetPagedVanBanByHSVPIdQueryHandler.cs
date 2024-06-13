@@ -11,11 +11,11 @@ namespace CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Queries.Get
 public class GetPagedVanBanByHSVPIdQueryHandler : IRequestHandler<GetPagedVanBanByHSVPIdQuery, PagedResponse<IEnumerable<HSVPVanBanGiaiQuyetDto>>>
 {
     private readonly IMapper _mapper;
-    private readonly IHSVPVanBanGiaiQuyetRepository _repository;
+    private readonly IHoSoXuLyViPham_VanBanGiaiQuyetRepository _repository;
     private readonly ILogger _logger;
     private const string MethodName = "GetPagedVanBanByHSVPIdQueryHandler";
 
-    public GetPagedVanBanByHSVPIdQueryHandler(IMapper mapper, IHSVPVanBanGiaiQuyetRepository repository, ILogger logger)
+    public GetPagedVanBanByHSVPIdQueryHandler(IMapper mapper, IHoSoXuLyViPham_VanBanGiaiQuyetRepository repository, ILogger logger)
     {
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));

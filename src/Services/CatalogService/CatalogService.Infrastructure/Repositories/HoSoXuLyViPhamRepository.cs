@@ -13,12 +13,12 @@ namespace CatalogService.Infrastructure.Repositories;
 public class HoSoXuLyViPhamRepository : RepositoryBase<HoSoXuLyViPham, int, CatalogServiceContext>, IHoSoXuLyViPhamRepository
 {
     private readonly DbSet<HoSoXuLyViPham> _hoSoXuLyViPham;
-    private readonly DbSet<HSXLVP_VanBanGiaiQuyet> _hSXLVP_VanBanGiaiQuyet;
+    private readonly DbSet<HoSoXuLyViPham_VanBanGiaiQuyet> _hSXLVP_VanBanGiaiQuyet;
 
     public HoSoXuLyViPhamRepository(CatalogServiceContext context, IUnitOfWork<CatalogServiceContext> unitOfWork) : base(context, unitOfWork)
     {
         _hoSoXuLyViPham = context.Set<HoSoXuLyViPham>();
-        _hSXLVP_VanBanGiaiQuyet = context.Set<HSXLVP_VanBanGiaiQuyet>();
+        _hSXLVP_VanBanGiaiQuyet = context.Set<HoSoXuLyViPham_VanBanGiaiQuyet>();
     }
 
     public async Task<PageList<HoSoXuLyViPham>> GetPagedHoSoXuLyViPhamAsync(HoSoXuLyViPhamParameter parameter)

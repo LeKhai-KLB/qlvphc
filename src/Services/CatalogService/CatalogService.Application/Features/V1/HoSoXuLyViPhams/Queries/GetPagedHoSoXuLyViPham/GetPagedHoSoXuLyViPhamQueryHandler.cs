@@ -14,19 +14,22 @@ public class GetPagedHoSoXuLyViPhamQueryHandler : IRequestHandler<GetPagedHoSoXu
     private readonly IMapper _mapper;
     private readonly IHoSoXuLyViPhamRepository _hsxlvpRepository;
     private readonly IHanhViViPhamRepository _hvvpRepository;
+    private readonly IHoSoXuLyViPham_VanBanGiaiQuyetRepository _hSXLVP_VBGQRepository;
     private readonly ILogger _logger;
     private const string MethodName = "GetPagedHoSoXuLyViPhamQueryHandler";
 
-    public GetPagedHoSoXuLyViPhamQueryHandler(IMapper mapper, IHoSoXuLyViPhamRepository hsxlvpRepository, IHanhViViPhamRepository hvvpRepository, ILogger logger)
+    public GetPagedHoSoXuLyViPhamQueryHandler(IMapper mapper, IHoSoXuLyViPhamRepository hsxlvpRepository, IHanhViViPhamRepository hvvpRepository, ILogger logger, IHoSoXuLyViPham_VanBanGiaiQuyetRepository hSXLVP_VBGQRepository)
     {
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         _hsxlvpRepository = hsxlvpRepository ?? throw new ArgumentNullException(nameof(hsxlvpRepository));
         _hvvpRepository = hvvpRepository ?? throw new ArgumentNullException(nameof(hvvpRepository));
         _logger = logger;
+        _hSXLVP_VBGQRepository = hSXLVP_VBGQRepository;
     }
 
     public async Task<PagedResponse<IEnumerable<HoSoXuLyViPhamDto>>> Handle(GetPagedHoSoXuLyViPhamQuery request, CancellationToken cancellationToken)
     {
+        // TODO : change to use include
         _logger.Information($"BEGIN: {MethodName}");
 
         var validFilter = _mapper.Map<HoSoXuLyViPhamParameter>(request);
@@ -34,15 +37,19 @@ public class GetPagedHoSoXuLyViPhamQueryHandler : IRequestHandler<GetPagedHoSoXu
         var metaData = hsxlvp.GetMetaData();
 
         var hsxlvpDto = _mapper.Map<List<HoSoXuLyViPhamDto>>(hsxlvp);
-        
+
         if (hsxlvpDto.Any())
         {
-            foreach(var hs in hsxlvpDto)
+            foreach (var hs in hsxlvpDto)
             {
                 var hinhAnhViPham = hsxlvp?.FirstOrDefault(h => h.Id == hs.Id)?.HinhAnhViPham;
                 hs.HinhAnhViPhams = !string.IsNullOrEmpty(hinhAnhViPham) ? JsonConvert.DeserializeObject<List<string>>(hinhAnhViPham) : null;
+
                 var hvvps = await _hvvpRepository.GetQDHVVPByHoSoXuLyViPhamId(hs.Id);
                 hs.HanhViViPhams = hvvps.Where(x => !string.IsNullOrEmpty(x)).ToList();
+
+                var hsxlvp_vbgps = await _hSXLVP_VBGQRepository.GetHoSoXuLyViPham_VanBanGiaiQuyetsByHoSoXuLyViPhamId(hs.Id);
+                hs.VanBanGiaiQuyetIds = hsxlvp_vbgps.Select(x => x.VanBanGiaiQuyetId).ToList();
             }
         }
 

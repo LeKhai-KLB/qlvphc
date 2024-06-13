@@ -6,7 +6,7 @@ using CatalogService.Domain.Entities;
 
 namespace CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Common;
 
-public class CreateOrUpdateCommand : IMapFrom<HSXLVP_VanBanGiaiQuyet>
+public class CreateOrUpdateCommand : IMapFrom<HoSoXuLyViPham_VanBanGiaiQuyet>
 {
     public int HoSoXuLyViPhamId { get; set; }
 
@@ -18,7 +18,7 @@ public class CreateOrUpdateCommand : IMapFrom<HSXLVP_VanBanGiaiQuyet>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<CreateOrUpdateCommand, HSXLVP_VanBanGiaiQuyet>();
+        profile.CreateMap<CreateOrUpdateCommand, HoSoXuLyViPham_VanBanGiaiQuyet>();
         profile.CreateMap<GetPagedVanBanByHSVPIdQuery, HSVPVanBanGiaiQuyetParameter>();
     }
 }

@@ -8,11 +8,11 @@ namespace CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Commands.De
 
 public class DeleteHSVPVanBanGiaiQuyetCommandHandler : IRequestHandler<DeleteHSVPVanBanGiaiQuyetCommand, bool>
 {
-    private readonly IHSVPVanBanGiaiQuyetRepository _repository;
+    private readonly IHoSoXuLyViPham_VanBanGiaiQuyetRepository _repository;
     private readonly ILogger _logger;
     private const string MethodName = "DeleteHSVPVanBanGiaiQuyetCommandHandler";
 
-    public DeleteHSVPVanBanGiaiQuyetCommandHandler(IHSVPVanBanGiaiQuyetRepository repository, ILogger logger)
+    public DeleteHSVPVanBanGiaiQuyetCommandHandler(IHoSoXuLyViPham_VanBanGiaiQuyetRepository repository, ILogger logger)
     {
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -24,7 +24,7 @@ public class DeleteHSVPVanBanGiaiQuyetCommandHandler : IRequestHandler<DeleteHSV
 
         var dkxp = await _repository.GetHSVPVanBanById(request.HoSoXuLyViPhamId, request.VanBanGiaiQuyetId);
 
-        if (dkxp == null) throw new NotFoundException(nameof(HSXLVP_VanBanGiaiQuyet), new { request.HoSoXuLyViPhamId, request.VanBanGiaiQuyetId });
+        if (dkxp == null) throw new NotFoundException(nameof(HoSoXuLyViPham_VanBanGiaiQuyet), new { request.HoSoXuLyViPhamId, request.VanBanGiaiQuyetId });
 
         await _repository.DeleteHSVPVanBan(dkxp);
 

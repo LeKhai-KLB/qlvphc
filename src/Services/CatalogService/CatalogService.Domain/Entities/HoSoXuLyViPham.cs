@@ -28,7 +28,7 @@ public class HoSoXuLyViPham : EntityAuditBase<int>
 
     public LoaiVuViecViPham LoaiVuViecViPham { get; set; }
 
-    public List<HSXLVP_VanBanGiaiQuyet> HSXLVP_VanBanGiaiQuyets { get; set; }
+    public List<HoSoXuLyViPham_VanBanGiaiQuyet> HSXLVP_VanBanGiaiQuyets { get; set; }
 
     public List<TangVatPhuongTienTamGiu> TangVatPhuongTienTamGius { get; set; }
 }
