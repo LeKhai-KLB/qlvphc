@@ -7,7 +7,7 @@ using Shared.SeedWord;
 
 namespace CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Queries.GetHSVPVanBanById;
 
-public class GetHSVPVanBanByIdQueryHandler : IRequestHandler<GetHSVPVanBanByIdQuery, ApiResult<HSVPVanBanGiaiQuyetDto>>
+public class GetHSVPVanBanByIdQueryHandler : IRequestHandler<GetHSVPVanBanByIdQuery, ApiResult<HoSoViPham_VanBanGiaiQuyetDto>>
 {
     private readonly IMapper _mapper;
     private readonly IHoSoXuLyViPham_VanBanGiaiQuyetRepository _repository;
@@ -21,15 +21,15 @@ public class GetHSVPVanBanByIdQueryHandler : IRequestHandler<GetHSVPVanBanByIdQu
         _logger = logger;
     }
 
-    public async Task<ApiResult<HSVPVanBanGiaiQuyetDto>> Handle(GetHSVPVanBanByIdQuery request, CancellationToken cancellationToken)
+    public async Task<ApiResult<HoSoViPham_VanBanGiaiQuyetDto>> Handle(GetHSVPVanBanByIdQuery request, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: {MethodName}");
 
         var lvxpEntity = await _repository.GetHSVPVanBanById(request.HoSoXuLyViPhamId, request.VanBanGiaiQuyetId);
-        var lvxpDto = _mapper.Map<HSVPVanBanGiaiQuyetDto>(lvxpEntity);
+        var lvxpDto = _mapper.Map<HoSoViPham_VanBanGiaiQuyetDto>(lvxpEntity);
 
         _logger.Information($"END: {MethodName}");
 
-        return new ApiSuccessResult<HSVPVanBanGiaiQuyetDto>(lvxpDto);
+        return new ApiSuccessResult<HoSoViPham_VanBanGiaiQuyetDto>(lvxpDto);
     }
 }

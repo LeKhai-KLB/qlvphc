@@ -5,7 +5,7 @@ using Shared.SeedWord;
 
 namespace CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Queries.GetPagedVanBanByHSVPId;
 
-public class GetPagedVanBanByHSVPIdQuery : IRequest<PagedResponse<IEnumerable<HSVPVanBanGiaiQuyetDto>>>
+public class GetPagedVanBanByHSVPIdQuery : IRequest<PagedResponse<IEnumerable<HoSoViPham_VanBanGiaiQuyetDto>>>
 {
     public string? SearchTerm { get; set; }
 

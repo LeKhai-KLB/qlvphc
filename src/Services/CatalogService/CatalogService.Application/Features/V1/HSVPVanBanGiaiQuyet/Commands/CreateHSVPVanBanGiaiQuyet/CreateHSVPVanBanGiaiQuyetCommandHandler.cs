@@ -8,7 +8,7 @@ using Shared.SeedWord;
 
 namespace CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Commands.CreateHSVPVanBanGiaiQuyet;
 
-public class CreateHSVPVanBanGiaiQuyetCommandHandler : IRequestHandler<CreateHSVPVanBanGiaiQuyetCommand, ApiResult<HSVPVanBanGiaiQuyetDto>>
+public class CreateHSVPVanBanGiaiQuyetCommandHandler : IRequestHandler<CreateHSVPVanBanGiaiQuyetCommand, ApiResult<HoSoViPham_VanBanGiaiQuyetDto>>
 {
     private readonly IMapper _mapper;
     private readonly IHoSoXuLyViPham_VanBanGiaiQuyetRepository _repository;
@@ -22,7 +22,7 @@ public class CreateHSVPVanBanGiaiQuyetCommandHandler : IRequestHandler<CreateHSV
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public async Task<ApiResult<HSVPVanBanGiaiQuyetDto>> Handle(CreateHSVPVanBanGiaiQuyetCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult<HoSoViPham_VanBanGiaiQuyetDto>> Handle(CreateHSVPVanBanGiaiQuyetCommand request, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: {MethodName}");
 
@@ -32,6 +32,6 @@ public class CreateHSVPVanBanGiaiQuyetCommandHandler : IRequestHandler<CreateHSV
 
         _logger.Information($"END: {MethodName}");
 
-        return new ApiSuccessResult<HSVPVanBanGiaiQuyetDto>(_mapper.Map<HSVPVanBanGiaiQuyetDto>(dkxp));
+        return new ApiSuccessResult<HoSoViPham_VanBanGiaiQuyetDto>(_mapper.Map<HoSoViPham_VanBanGiaiQuyetDto>(dkxp));
     }
 }

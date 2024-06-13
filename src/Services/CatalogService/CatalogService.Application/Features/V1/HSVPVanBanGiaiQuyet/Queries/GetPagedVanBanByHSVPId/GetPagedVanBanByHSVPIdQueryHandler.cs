@@ -8,7 +8,7 @@ using Shared.SeedWord;
 
 namespace CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Queries.GetPagedVanBanByHSVPId;
 
-public class GetPagedVanBanByHSVPIdQueryHandler : IRequestHandler<GetPagedVanBanByHSVPIdQuery, PagedResponse<IEnumerable<HSVPVanBanGiaiQuyetDto>>>
+public class GetPagedVanBanByHSVPIdQueryHandler : IRequestHandler<GetPagedVanBanByHSVPIdQuery, PagedResponse<IEnumerable<HoSoViPham_VanBanGiaiQuyetDto>>>
 {
     private readonly IMapper _mapper;
     private readonly IHoSoXuLyViPham_VanBanGiaiQuyetRepository _repository;
@@ -22,7 +22,7 @@ public class GetPagedVanBanByHSVPIdQueryHandler : IRequestHandler<GetPagedVanBan
         _logger = logger;
     }
 
-    public async Task<PagedResponse<IEnumerable<HSVPVanBanGiaiQuyetDto>>> Handle(GetPagedVanBanByHSVPIdQuery request, CancellationToken cancellationToken)
+    public async Task<PagedResponse<IEnumerable<HoSoViPham_VanBanGiaiQuyetDto>>> Handle(GetPagedVanBanByHSVPIdQuery request, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: {MethodName}");
 
@@ -32,6 +32,6 @@ public class GetPagedVanBanByHSVPIdQueryHandler : IRequestHandler<GetPagedVanBan
 
         _logger.Information($"END: {MethodName}");
 
-        return new PagedResponse<IEnumerable<HSVPVanBanGiaiQuyetDto>>(_mapper.Map<List<HSVPVanBanGiaiQuyetDto>>(lvxps), metaData.CurrentPage, metaData.TotalPages, metaData.PageSize, metaData.TotalItems);
+        return new PagedResponse<IEnumerable<HoSoViPham_VanBanGiaiQuyetDto>>(_mapper.Map<List<HoSoViPham_VanBanGiaiQuyetDto>>(lvxps), metaData.CurrentPage, metaData.TotalPages, metaData.PageSize, metaData.TotalItems);
     }
 }

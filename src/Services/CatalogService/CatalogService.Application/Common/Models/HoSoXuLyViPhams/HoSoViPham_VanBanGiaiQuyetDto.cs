@@ -4,8 +4,9 @@ using CatalogService.Domain.Entities;
 
 namespace CatalogService.Application.Common.Models.HoSoXuLyViPhams;
 
-public class HSVPVanBanGiaiQuyetDto : IMapFrom<HoSoXuLyViPham_VanBanGiaiQuyet>
+public class HoSoViPham_VanBanGiaiQuyetDto : IMapFrom<HoSoXuLyViPham_VanBanGiaiQuyet>
 {
+    public int Id { get; set; }
     public int HoSoXuLyViPhamId { get; set; }
 
     public int VanBanGiaiQuyetId { get; set; }
@@ -16,6 +17,6 @@ public class HSVPVanBanGiaiQuyetDto : IMapFrom<HoSoXuLyViPham_VanBanGiaiQuyet>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<HoSoXuLyViPham_VanBanGiaiQuyet, HSVPVanBanGiaiQuyetDto>().ReverseMap();
+        profile.CreateMap<HoSoXuLyViPham_VanBanGiaiQuyet, HoSoViPham_VanBanGiaiQuyetDto>().ReverseMap();
     }
 }

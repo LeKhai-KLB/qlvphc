@@ -4,7 +4,7 @@ using Shared.SeedWord;
 
 namespace CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Queries.GetHSVPVanBanById;
 
-public class GetHSVPVanBanByIdQuery : IRequest<ApiResult<HSVPVanBanGiaiQuyetDto>>
+public class GetHSVPVanBanByIdQuery : IRequest<ApiResult<HoSoViPham_VanBanGiaiQuyetDto>>
 {
     public int HoSoXuLyViPhamId { get; set; }
 

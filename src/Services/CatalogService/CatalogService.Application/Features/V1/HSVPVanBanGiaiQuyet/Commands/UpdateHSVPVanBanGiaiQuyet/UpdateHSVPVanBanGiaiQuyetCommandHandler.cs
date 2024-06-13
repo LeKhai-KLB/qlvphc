@@ -8,7 +8,7 @@ using Shared.SeedWord;
 
 namespace CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Commands.UpdateHSVPVanBanGiaiQuyet;
 
-public class UpdateHSVPVanBanGiaiQuyetCommandHandler : IRequestHandler<UpdateHSVPVanBanGiaiQuyetCommand, ApiResult<HSVPVanBanGiaiQuyetDto>>
+public class UpdateHSVPVanBanGiaiQuyetCommandHandler : IRequestHandler<UpdateHSVPVanBanGiaiQuyetCommand, ApiResult<HoSoViPham_VanBanGiaiQuyetDto>>
 {
     private readonly IMapper _mapper;
     private readonly IHoSoXuLyViPham_VanBanGiaiQuyetRepository _repository;
@@ -22,7 +22,7 @@ public class UpdateHSVPVanBanGiaiQuyetCommandHandler : IRequestHandler<UpdateHSV
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public async Task<ApiResult<HSVPVanBanGiaiQuyetDto>> Handle(UpdateHSVPVanBanGiaiQuyetCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult<HoSoViPham_VanBanGiaiQuyetDto>> Handle(UpdateHSVPVanBanGiaiQuyetCommand request, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: {MethodName}");
 
@@ -30,13 +30,13 @@ public class UpdateHSVPVanBanGiaiQuyetCommandHandler : IRequestHandler<UpdateHSV
         var dkxpDb = await _repository.GetHSVPVanBanById(request.HoSoXuLyViPhamId, request.VanBanGiaiQuyetId);
         if (dkxpDb == null)
         {
-            return new ApiErrorResult<HSVPVanBanGiaiQuyetDto>("Ho so xu ly vi pham & van ban giai quyet not exists.");
+            return new ApiErrorResult<HoSoViPham_VanBanGiaiQuyetDto>("Ho so xu ly vi pham & van ban giai quyet not exists.");
         }
 
         await _repository.UpdateHSVPVanBan(dkxp);
 
         _logger.Information($"END: {MethodName}");
 
-        return new ApiSuccessResult<HSVPVanBanGiaiQuyetDto>(_mapper.Map<HSVPVanBanGiaiQuyetDto>(dkxp));
+        return new ApiSuccessResult<HoSoViPham_VanBanGiaiQuyetDto>(_mapper.Map<HoSoViPham_VanBanGiaiQuyetDto>(dkxp));
     }
 }

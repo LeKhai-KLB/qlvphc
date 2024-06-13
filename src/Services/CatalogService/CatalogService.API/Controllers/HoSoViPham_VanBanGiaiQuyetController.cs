@@ -18,12 +18,12 @@ namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class HSVPVanBanGiaiQuyetController : ControllerBase
+public class HoSoViPham_VanBanGiaiQuyetController : ControllerBase
 {
     private readonly IMediator _mediator;
     private readonly IMapper _mapper;
 
-    public HSVPVanBanGiaiQuyetController(IMediator mediator, IMapper mapper)
+    public HoSoViPham_VanBanGiaiQuyetController(IMediator mediator, IMapper mapper)
     {
         _mediator = mediator ?? throw new ArgumentException(nameof(mediator));
         _mapper = mapper ?? throw new ArgumentException(nameof(mapper));
@@ -39,9 +39,9 @@ public class HSVPVanBanGiaiQuyetController : ControllerBase
     }
 
     [HttpPost("paging", Name = RouteNames.GetPagedHSVPVanBanGiaiQuyet)]
-    [ProducesResponseType(typeof(PagedResponse<IEnumerable<HSVPVanBanGiaiQuyetDto>>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(PagedResponse<IEnumerable<HoSoViPham_VanBanGiaiQuyetDto>>), (int)HttpStatusCode.OK)]
     [Authorize(Permissions.HSVPVanBanGiaiQuyets.View)]
-    public async Task<ActionResult<PagedResponse<IEnumerable<HSVPVanBanGiaiQuyetDto>>>> GetHSVPVanBanGiaiQuyets([FromBody] HSVPVanBanGiaiQuyetParameter request)
+    public async Task<ActionResult<PagedResponse<IEnumerable<HoSoViPham_VanBanGiaiQuyetDto>>>> GetHSVPVanBanGiaiQuyets([FromBody] HSVPVanBanGiaiQuyetParameter request)
     {
         var query = new GetPagedVanBanByHSVPIdQuery(request);
         var result = await _mediator.Send(query);
@@ -49,9 +49,9 @@ public class HSVPVanBanGiaiQuyetController : ControllerBase
     }
 
     [HttpGet("{id:int}", Name = RouteNames.GetHSVPVanBanGiaiQuyetById)]
-    [ProducesResponseType(typeof(HSVPVanBanGiaiQuyetDto), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(HoSoViPham_VanBanGiaiQuyetDto), (int)HttpStatusCode.OK)]
     [Authorize(Permissions.HSVPVanBanGiaiQuyets.ViewById)]
-    public async Task<ActionResult<HSVPVanBanGiaiQuyetDto>> GetHSVPVanBanGiaiQuyetById([Required] int hsId, [Required] int vbId)
+    public async Task<ActionResult<HoSoViPham_VanBanGiaiQuyetDto>> GetHSVPVanBanGiaiQuyetById([Required] int hsId, [Required] int vbId)
     {
         var query = new GetHSVPVanBanByIdQuery(hsId, vbId);
         var result = await _mediator.Send(query);
@@ -61,7 +61,7 @@ public class HSVPVanBanGiaiQuyetController : ControllerBase
     [HttpPost(Name = RouteNames.CreateHSVPVanBanGiaiQuyet)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
     [Authorize(Permissions.HSVPVanBanGiaiQuyets.Create)]
-    public async Task<ActionResult<ApiResult<HSVPVanBanGiaiQuyetDto>>> CreateHSVPVanBanGiaiQuyet([FromBody] CreateHSVPVanBanGiaiQuyetDto model)
+    public async Task<ActionResult<ApiResult<HoSoViPham_VanBanGiaiQuyetDto>>> CreateHSVPVanBanGiaiQuyet([FromBody] CreateHoSoViPham_VanBanGiaiQuyetDto model)
     {
         var command = _mapper.Map<CreateHSVPVanBanGiaiQuyetCommand>(model);
         var result = await _mediator.Send(command);
@@ -69,9 +69,9 @@ public class HSVPVanBanGiaiQuyetController : ControllerBase
     }
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateHSVPVanBanGiaiQuyet)]
-    [ProducesResponseType(typeof(ApiResult<HSVPVanBanGiaiQuyetDto>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(ApiResult<HoSoViPham_VanBanGiaiQuyetDto>), (int)HttpStatusCode.OK)]
     [Authorize(Permissions.HSVPVanBanGiaiQuyets.Edit)]
-    public async Task<ActionResult<ApiResult<HSVPVanBanGiaiQuyetDto>>> UpdateHSVPVanBanGiaiQuyet([Required] int hsId, [Required] int vbId, [FromBody] UpdateHSVPVanBanGiaiQuyetCommand command)
+    public async Task<ActionResult<ApiResult<HoSoViPham_VanBanGiaiQuyetDto>>> UpdateHSVPVanBanGiaiQuyet([Required] int hsId, [Required] int vbId, [FromBody] UpdateHSVPVanBanGiaiQuyetCommand command)
     {
         command.SetId(hsId, vbId);
         var result = await _mediator.Send(command);

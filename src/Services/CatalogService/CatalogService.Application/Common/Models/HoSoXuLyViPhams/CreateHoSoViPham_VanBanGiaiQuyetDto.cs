@@ -1,6 +1,6 @@
 ﻿namespace CatalogService.Application.Common.Models.HoSoXuLyViPhams;
 
-public class CreateHSVPVanBanGiaiQuyetDto
+public class CreateHoSoViPham_VanBanGiaiQuyetDto
 {
     public int HoSoXuLyViPhamId { get; set; }
 
