@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CatalogService.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(CatalogServiceContext))]
-    [Migration("20240613151249_ReturnVanBanGiaiQuyet")]
-    partial class ReturnVanBanGiaiQuyet
+    [Migration("20240614042411_ChangeKeyTable_HSXLVP_VBGQ")]
+    partial class ChangeKeyTable_HSXLVP_VBGQ
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -734,16 +734,15 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("CatalogService.Domain.Entities.HoSoXuLyViPham_VanBanGiaiQuyet", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("HoSoXuLyViPhamId")
                         .HasColumnType("int")
                         .HasColumnOrder(0);
-
-                    b.Property<int>("VanBanGiaiQuyetId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("NgayCapNhatCuoi")
                         .HasColumnType("datetime2");
@@ -763,11 +762,18 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.Property<string>("SoQuyetDinh")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("HoSoXuLyViPhamId", "VanBanGiaiQuyetId");
+                    b.Property<int>("VanBanGiaiQuyetId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("HoSoXuLyViPhamId", "VanBanGiaiQuyetId")
+                        .HasName("AlternateKey_HoSoXuLyViPham_VanBanGiaiQuyet");
 
                     b.HasIndex("VanBanGiaiQuyetId");
 
-                    b.ToTable("HSXLVP_VanBanGiaiQuyets");
+                    b.ToTable("HoSoXuLyViPham_VanBanGiaiQuyet", (string)null);
                 });
 
             modelBuilder.Entity("CatalogService.Domain.Entities.KetQuaXuPhatHanhChinh", b =>
