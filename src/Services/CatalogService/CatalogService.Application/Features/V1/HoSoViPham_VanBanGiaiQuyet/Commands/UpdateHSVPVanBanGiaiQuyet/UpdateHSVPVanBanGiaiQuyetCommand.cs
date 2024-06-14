@@ -15,10 +15,10 @@ public class UpdateHSVPVanBanGiaiQuyetCommand : CreateOrUpdateCommand, IRequest<
 
     public int VanBanGiaiQuyetId { get; set; }
 
-    public void SetId(int hsId, int vbId)
+    public void SetId(int hoxulyviphamId, int vanbangiaiquyetId)
     {
-        HoSoXuLyViPhamId = hsId;
-        VanBanGiaiQuyetId = vbId;
+        HoSoXuLyViPhamId = hoxulyviphamId;
+        VanBanGiaiQuyetId = vanbangiaiquyetId;
     }
 
     public void Mapping(Profile profile)

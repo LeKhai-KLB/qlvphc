@@ -68,12 +68,12 @@ public class HoSoViPham_VanBanGiaiQuyetController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("{id:int}", Name = RouteNames.UpdateHSVPVanBanGiaiQuyet)]
+    [HttpPut(Name = RouteNames.UpdateHSVPVanBanGiaiQuyet)]
     [ProducesResponseType(typeof(ApiResult<HoSoViPham_VanBanGiaiQuyetDto>), (int)HttpStatusCode.OK)]
     [Authorize(Permissions.HSVPVanBanGiaiQuyets.Edit)]
-    public async Task<ActionResult<ApiResult<HoSoViPham_VanBanGiaiQuyetDto>>> UpdateHSVPVanBanGiaiQuyet([Required] int hsId, [Required] int vbId, [FromBody] UpdateHSVPVanBanGiaiQuyetCommand command)
+    public async Task<ActionResult<ApiResult<HoSoViPham_VanBanGiaiQuyetDto>>> UpdateHSVPVanBanGiaiQuyet([Required] int hosoxulyviphamId, [Required] int vanbangiaiquyetId, [FromBody] UpdateHSVPVanBanGiaiQuyetCommand command)
     {
-        command.SetId(hsId, vbId);
+        command.SetId(hosoxulyviphamId, vanbangiaiquyetId);
         var result = await _mediator.Send(command);
         return Ok(result);
     }
