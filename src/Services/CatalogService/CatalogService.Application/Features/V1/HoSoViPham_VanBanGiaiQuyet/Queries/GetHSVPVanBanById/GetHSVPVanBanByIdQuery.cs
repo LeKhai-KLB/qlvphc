@@ -4,15 +4,15 @@ using Shared.SeedWord;
 
 namespace CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Queries.GetHSVPVanBanById;
 
-public class GetHSVPVanBanByIdQuery : IRequest<ApiResult<HoSoViPham_VanBanGiaiQuyetDto>>
+public class GetHoSoXuLyViPham_VanBanGiaiQuyetByIdQuery : IRequest<ApiResult<HoSoXuLyViPham_VanBanGiaiQuyetDto>>
 {
     public int HoSoXuLyViPhamId { get; set; }
 
     public int VanBanGiaiQuyetId { get; set; }
 
-    public GetHSVPVanBanByIdQuery(int hsId, int vbId)
+    public GetHoSoXuLyViPham_VanBanGiaiQuyetByIdQuery(int hoSoXuLyViPhamId, int vanBanGiaiQuyetId)
     {
-        HoSoXuLyViPhamId = hsId;
-        VanBanGiaiQuyetId = vbId;
+        HoSoXuLyViPhamId = hoSoXuLyViPhamId;
+        VanBanGiaiQuyetId = vanBanGiaiQuyetId;
     }
 }

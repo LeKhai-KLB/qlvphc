@@ -38,7 +38,7 @@ public class HoSoXuLyViPham_VanBanGiaiQuyetRepository : RepositoryBase<HoSoXuLyV
         return await PageList<HoSoXuLyViPham_VanBanGiaiQuyet>.ToPageList(query, parameter.PageNumber, parameter.PageSize);
     }
 
-    public async Task<HoSoXuLyViPham_VanBanGiaiQuyet> GetHSVPVanBanById(int hsId, int vbId)
+    public async Task<HoSoXuLyViPham_VanBanGiaiQuyet> GetHoSoXuLyViPham_VanBanQiaiQuyetById(int hsId, int vbId)
     {
         return await _context.Set<HoSoXuLyViPham_VanBanGiaiQuyet>().FirstOrDefaultAsync(x => x.HoSoXuLyViPhamId == hsId && x.VanBanGiaiQuyetId == vbId);
     }
@@ -49,7 +49,7 @@ public class HoSoXuLyViPham_VanBanGiaiQuyetRepository : RepositoryBase<HoSoXuLyV
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateHSVPVanBan(HoSoXuLyViPham_VanBanGiaiQuyet request)
+    public async Task UpdateHoSoXuLyViPham_VanBanGiaiQuyet(HoSoXuLyViPham_VanBanGiaiQuyet request)
     {
         _context.Set<HoSoXuLyViPham_VanBanGiaiQuyet>().Update(request);
         await _context.SaveChangesAsync();

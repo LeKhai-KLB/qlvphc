@@ -9,20 +9,10 @@ using Shared.SeedWord;
 
 namespace CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Commands.UpdateHSVPVanBanGiaiQuyet;
 
-public class UpdateHSVPVanBanGiaiQuyetCommand : CreateOrUpdateCommand, IRequest<ApiResult<HoSoViPham_VanBanGiaiQuyetDto>>, IMapFrom<HoSoXuLyViPham_VanBanGiaiQuyet>
+public class UpdateHoSoXuLyViPham_VanBanGiaiQuyetCommand : CreateOrUpdateCommand, IRequest<ApiResult<HoSoXuLyViPham_VanBanGiaiQuyetDto>>, IMapFrom<HoSoXuLyViPham_VanBanGiaiQuyet>
 {
-    public int HoSoXuLyViPhamId { get; set; }
-
-    public int VanBanGiaiQuyetId { get; set; }
-
-    public void SetId(int hoxulyviphamId, int vanbangiaiquyetId)
-    {
-        HoSoXuLyViPhamId = hoxulyviphamId;
-        VanBanGiaiQuyetId = vanbangiaiquyetId;
-    }
-
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<UpdateHSVPVanBanGiaiQuyetCommand, HoSoXuLyViPham_VanBanGiaiQuyet>().IgnoreAllNonExisting();
+        profile.CreateMap<UpdateHoSoXuLyViPham_VanBanGiaiQuyetCommand, HoSoXuLyViPham_VanBanGiaiQuyet>().IgnoreAllNonExisting();
     }
 }

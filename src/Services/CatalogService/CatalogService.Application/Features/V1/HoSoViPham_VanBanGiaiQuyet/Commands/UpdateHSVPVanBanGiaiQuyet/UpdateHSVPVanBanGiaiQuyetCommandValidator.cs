@@ -2,7 +2,7 @@
 
 namespace CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Commands.UpdateHSVPVanBanGiaiQuyet;
 
-public class UpdateHSVPVanBanGiaiQuyetCommandValidator : AbstractValidator<UpdateHSVPVanBanGiaiQuyetCommand>
+public class UpdateHSVPVanBanGiaiQuyetCommandValidator : AbstractValidator<UpdateHoSoXuLyViPham_VanBanGiaiQuyetCommand>
 {
     public UpdateHSVPVanBanGiaiQuyetCommandValidator()
     {

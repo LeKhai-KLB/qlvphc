@@ -8,12 +8,12 @@ using Shared.SeedWord;
 
 namespace CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Commands.UpdateHSVPVanBanGiaiQuyet;
 
-public class UpdateHSVPVanBanGiaiQuyetCommandHandler : IRequestHandler<UpdateHSVPVanBanGiaiQuyetCommand, ApiResult<HoSoViPham_VanBanGiaiQuyetDto>>
+public class UpdateHSVPVanBanGiaiQuyetCommandHandler : IRequestHandler<UpdateHoSoXuLyViPham_VanBanGiaiQuyetCommand, ApiResult<HoSoXuLyViPham_VanBanGiaiQuyetDto>>
 {
     private readonly IMapper _mapper;
     private readonly IHoSoXuLyViPham_VanBanGiaiQuyetRepository _repository;
     private readonly ILogger _logger;
-    private const string MethodName = "UpdateHSVPVanBanGiaiQuyetCommandHandler";
+    private const string MethodName = "UpdateHoSoXuLyViPham_VanBanGiaiQuyetCommandHandler";
 
     public UpdateHSVPVanBanGiaiQuyetCommandHandler(IMapper mapper, IHoSoXuLyViPham_VanBanGiaiQuyetRepository repository, ILogger logger)
     {
@@ -22,21 +22,22 @@ public class UpdateHSVPVanBanGiaiQuyetCommandHandler : IRequestHandler<UpdateHSV
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public async Task<ApiResult<HoSoViPham_VanBanGiaiQuyetDto>> Handle(UpdateHSVPVanBanGiaiQuyetCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult<HoSoXuLyViPham_VanBanGiaiQuyetDto>> Handle(UpdateHoSoXuLyViPham_VanBanGiaiQuyetCommand request, CancellationToken cancellationToken)
     {
         _logger.Information($"BEGIN: {MethodName}");
 
-        var dkxp = _mapper.Map<HoSoXuLyViPham_VanBanGiaiQuyet>(request);
-        var dkxpDb = await _repository.GetHSVPVanBanById(request.HoSoXuLyViPhamId, request.VanBanGiaiQuyetId);
-        if (dkxpDb == null)
+        var hsxlvpDb = await _repository.GetHoSoXuLyViPham_VanBanQiaiQuyetById(request.HoSoXuLyViPhamId, request.VanBanGiaiQuyetId);
+        if (hsxlvpDb == null)
         {
-            return new ApiErrorResult<HoSoViPham_VanBanGiaiQuyetDto>("Ho so xu ly vi pham & van ban giai quyet not exists.");
+            return new ApiErrorResult<HoSoXuLyViPham_VanBanGiaiQuyetDto>("Ho so xu ly vi pham va van ban giai quyet khong ton tai.");
         }
 
-        await _repository.UpdateHSVPVanBan(dkxp);
+        hsxlvpDb.SoQuyetDinh = request.SoQuyetDinh;
+        hsxlvpDb.NgayNhap = request.NgayNhap;
+        await _repository.UpdateHoSoXuLyViPham_VanBanGiaiQuyet(hsxlvpDb);
 
         _logger.Information($"END: {MethodName}");
 
-        return new ApiSuccessResult<HoSoViPham_VanBanGiaiQuyetDto>(_mapper.Map<HoSoViPham_VanBanGiaiQuyetDto>(dkxp));
+        return new ApiSuccessResult<HoSoXuLyViPham_VanBanGiaiQuyetDto>(_mapper.Map<HoSoXuLyViPham_VanBanGiaiQuyetDto>(hsxlvpDb));
     }
 }

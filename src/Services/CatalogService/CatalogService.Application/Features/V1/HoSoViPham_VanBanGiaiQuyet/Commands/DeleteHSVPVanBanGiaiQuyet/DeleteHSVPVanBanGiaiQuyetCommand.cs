@@ -2,15 +2,15 @@
 
 namespace CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Commands.DeleteHSVPVanBanGiaiQuyet;
 
-public class DeleteHSVPVanBanGiaiQuyetCommand : IRequest<bool>
+public class DeleteHoSoXuLyViPham_VanBanGiaiQuyetCommand : IRequest<bool>
 {
     public int HoSoXuLyViPhamId { get; set; }
 
     public int VanBanGiaiQuyetId { get; set; }
 
-    public DeleteHSVPVanBanGiaiQuyetCommand(int hsId, int vbId)
+    public DeleteHoSoXuLyViPham_VanBanGiaiQuyetCommand(int hoSoXuLyViPhamId, int vanBanGiaiQuyetId)
     {
-        HoSoXuLyViPhamId = hsId;
-        VanBanGiaiQuyetId = vbId;
+        HoSoXuLyViPhamId = hoSoXuLyViPhamId;
+        VanBanGiaiQuyetId = vanBanGiaiQuyetId;
     }
 }

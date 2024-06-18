@@ -8,11 +8,11 @@ using Shared.SeedWord;
 
 namespace CatalogService.Application.Features.V1.HSVPVanBanGiaiQuyet.Commands.CreateHSVPVanBanGiaiQuyet;
 
-public class CreateHSVPVanBanGiaiQuyetCommand : CreateOrUpdateCommand, IRequest<ApiResult<HoSoViPham_VanBanGiaiQuyetDto>>, IMapFrom<HoSoXuLyViPham_VanBanGiaiQuyet>
+public class CreateHoSoXuLyViPham_VanBanGiaiQuyetCommand : CreateOrUpdateCommand, IRequest<ApiResult<HoSoXuLyViPham_VanBanGiaiQuyetDto>>, IMapFrom<HoSoXuLyViPham_VanBanGiaiQuyet>
 {
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<CreateHoSoViPham_VanBanGiaiQuyetDto, CreateHSVPVanBanGiaiQuyetCommand>();
-        profile.CreateMap<CreateHSVPVanBanGiaiQuyetCommand, HoSoXuLyViPham_VanBanGiaiQuyet>();
+        profile.CreateMap<CreateHoSoXuLyViPham_VanBanGiaiQuyetDto, CreateHoSoXuLyViPham_VanBanGiaiQuyetCommand>();
+        profile.CreateMap<CreateHoSoXuLyViPham_VanBanGiaiQuyetCommand, HoSoXuLyViPham_VanBanGiaiQuyet>();
     }
 }

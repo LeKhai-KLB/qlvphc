@@ -9,9 +9,9 @@ public interface IHoSoXuLyViPham_VanBanGiaiQuyetRepository : IRepositoryBaseAsyn
 {
     Task<PageList<HoSoXuLyViPham_VanBanGiaiQuyet>> GetPagedVanBanByHSVPId(HSVPVanBanGiaiQuyetParameter parameter);
     Task<List<HoSoXuLyViPham_VanBanGiaiQuyet>> GetHoSoXuLyViPham_VanBanGiaiQuyetsByHoSoXuLyViPhamId(int hsxlvpId);
-    Task<HoSoXuLyViPham_VanBanGiaiQuyet> GetHSVPVanBanById(int hsId, int vbId);
+    Task<HoSoXuLyViPham_VanBanGiaiQuyet> GetHoSoXuLyViPham_VanBanQiaiQuyetById(int hsId, int vbId);
     Task CreateHSVPVanBan(HoSoXuLyViPham_VanBanGiaiQuyet request);
-    Task UpdateHSVPVanBan(HoSoXuLyViPham_VanBanGiaiQuyet request);
+    Task UpdateHoSoXuLyViPham_VanBanGiaiQuyet(HoSoXuLyViPham_VanBanGiaiQuyet request);
     Task DeleteHSVPVanBan(HoSoXuLyViPham_VanBanGiaiQuyet entity);
     Task<bool> CheckExistHSVPVanBan(int hsId, int vbId);
 }
