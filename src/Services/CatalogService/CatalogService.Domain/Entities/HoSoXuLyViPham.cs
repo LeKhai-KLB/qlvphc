@@ -20,13 +20,15 @@ public class HoSoXuLyViPham : EntityAuditBase<int>
 
     public string? ThongTinKhac { get; set; }
 
+    public string? HinhAnhViPham { get; set; }
+
     public TrangThaiHoSoViPham TrangThaiHoSoViPham { get; set; }
 
     public TinhTietViPham TinhTietViPham { get; set; }
 
     public LoaiVuViecViPham LoaiVuViecViPham { get; set; }
 
-    public List<HSXLVP_VanBanGiaiQuyet> HSXLVP_VanBanGiaiQuyets { get; set; }
+    public List<HoSoXuLyViPham_VanBanGiaiQuyet> HSXLVP_VanBanGiaiQuyets { get; set; }
 
     public List<TangVatPhuongTienTamGiu> TangVatPhuongTienTamGius { get; set; }
 }

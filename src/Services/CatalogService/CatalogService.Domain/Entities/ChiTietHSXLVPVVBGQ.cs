@@ -69,5 +69,7 @@ public class ChiTietHSXLVPVVBGQ : EntityAuditBase<int>
 
     public string? YKienDaiDienChinhQuyen { get; set; }
 
+    public int VanBanGiaiQuyetId { get; set; }
+
     public List<HanhViViPham> HanhViViPhams { get; set; }
 }

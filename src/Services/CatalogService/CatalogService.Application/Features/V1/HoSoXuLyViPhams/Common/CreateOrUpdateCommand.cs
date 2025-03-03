@@ -21,6 +21,8 @@ public class CreateOrUpdateCommand : IMapFrom<HoSoXuLyViPham>
 
     public string? ThongTinKhac { get; set; }
 
+    public List<string>? HinhAnhViPhams { get; set; }
+
     public TrangThaiHoSoViPham TrangThaiHoSoViPham { get; set; }
 
     public TinhTietViPham TinhTietViPham { get; set; }

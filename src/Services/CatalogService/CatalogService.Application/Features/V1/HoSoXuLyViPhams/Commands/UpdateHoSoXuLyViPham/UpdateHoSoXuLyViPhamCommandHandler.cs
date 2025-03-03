@@ -3,6 +3,7 @@ using CatalogService.Application.Common.Interfaces;
 using CatalogService.Application.Common.Models.HoSoXuLyViPhams;
 using CatalogService.Domain.Entities;
 using MediatR;
+using Newtonsoft.Json;
 using Serilog;
 using Shared.SeedWord;
 
@@ -26,17 +27,19 @@ public class UpdateHoSoXuLyViPhamCommandHandler : IRequestHandler<UpdateHoSoXuLy
     {
         _logger.Information($"BEGIN: {MethodName}");
 
-        var dkxp = _mapper.Map<HoSoXuLyViPham>(request);
-        var dkxpDb = await _repository.GetHoSoXuLyViPhamById(request.Id);
-        if (dkxpDb == null)
+        var hsxlvp = _mapper.Map<HoSoXuLyViPham>(request);
+        var hsxlvpDb = await _repository.GetHoSoXuLyViPhamById(request.Id);
+        if (hsxlvpDb == null)
         {
-            return new ApiErrorResult<HoSoXuLyViPhamDto>("Ho so xu ly vi pham not exists.");
+            return new ApiErrorResult<HoSoXuLyViPhamDto>("Ho so xu ly vi pham khong ton tai.");
         }
 
-        await _repository.UpdateHoSoXuLyViPham(dkxp);
+        hsxlvp.HinhAnhViPham = JsonConvert.SerializeObject(request.HinhAnhViPhams);
+        
+        await _repository.UpdateHoSoXuLyViPham(hsxlvp);
 
         _logger.Information($"END: {MethodName}");
 
-        return new ApiSuccessResult<HoSoXuLyViPhamDto>(_mapper.Map<HoSoXuLyViPhamDto>(dkxp));
+        return new ApiSuccessResult<HoSoXuLyViPhamDto>(_mapper.Map<HoSoXuLyViPhamDto>(hsxlvp));
     }
 }

@@ -19,7 +19,7 @@ namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-//[Authorize(AuthenticationSchemes = "Bearer")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class CongDanController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -43,7 +43,7 @@ public class CongDanController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedCongDan)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<CongDanDto>>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.CongDans.View)]
+    [Authorize(Permissions.CongDans.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<CongDanDto>>>> GetPagedLinhVucXuPhat([FromBody] CongDanParameter request)
     {
         var query = new GetPagedCongDanQuery(request);
@@ -54,7 +54,7 @@ public class CongDanController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetAllCongDans)]
     [ProducesResponseType(typeof(IEnumerable<CongDanDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.CongDans.View)]
+    [Authorize(Permissions.CongDans.View)]
     public async Task<ActionResult<IEnumerable<CongDanDto>>> GetAllCongDans()
     {
         var query = new GetAllCongDansQuery();
@@ -65,7 +65,7 @@ public class CongDanController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetCongDanById)]
     [ProducesResponseType(typeof(CongDanDto), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.CongDans.ViewById)]
+    [Authorize(Permissions.CongDans.ViewById)]
     public async Task<ActionResult<CongDanDto>> GetCongDanById([FromQuery] int id)
     {
         var query = new GetCongDanByIdQuery(id);
@@ -75,7 +75,7 @@ public class CongDanController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateCongDan)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.CongDans.Create)]
+    [Authorize(Permissions.CongDans.Create)]
     public async Task<ActionResult<ApiResult<CongDanDto>>> CreateCongDan([FromBody] CreateCongDanDto model)
     {
         var command = _mapper.Map<CreateCongDanCommand>(model);
@@ -85,7 +85,7 @@ public class CongDanController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateCongDan)]
     [ProducesResponseType(typeof(ApiResult<CongDanDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.CongDans.Edit)]
+    [Authorize(Permissions.CongDans.Edit)]
     public async Task<ActionResult<ApiResult<CongDanDto>>> UpdateCongDan([Required] int id, [FromBody] UpdateCongDanCommand command)
     {
         command.SetId(id);
@@ -94,7 +94,7 @@ public class CongDanController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteCongDan)]
-    //[Authorize(Permissions.CongDans.Delete)]
+    [Authorize(Permissions.CongDans.Delete)]
     public async Task<ActionResult<bool>> DeleteCongDan([Required] int id)
     {
         var command = new DeleteCongDanCommand(id);

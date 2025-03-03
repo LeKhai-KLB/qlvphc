@@ -125,6 +125,9 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.Property<int?>("ThoiHanGiaiTrinh")
                         .HasColumnType("int");
 
+                    b.Property<int>("VanBanGiaiQuyetId")
+                        .HasColumnType("int");
+
                     b.Property<string>("YKienCNTCViPham")
                         .HasColumnType("nvarchar(max)");
 
@@ -541,29 +544,6 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.ToTable("GiayPhepTamGiu", (string)null);
                 });
 
-            modelBuilder.Entity("CatalogService.Domain.Entities.HSXLVP_VanBanGiaiQuyet", b =>
-                {
-                    b.Property<int>("HoSoXuLyViPhamId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(0);
-
-                    b.Property<int>("VanBanGiaiQuyetId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
-
-                    b.Property<DateTime>("NgayNhap")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SoQuyetDinh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("HoSoXuLyViPhamId", "VanBanGiaiQuyetId");
-
-                    b.HasIndex("VanBanGiaiQuyetId");
-
-                    b.ToTable("HSXLVP_VanBanGiaiQuyets");
-                });
-
             modelBuilder.Entity("CatalogService.Domain.Entities.HanhViViPham", b =>
                 {
                     b.Property<int>("Id")
@@ -703,6 +683,9 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.Property<int?>("CaNhanViPhamId")
                         .HasColumnType("int");
 
+                    b.Property<string>("HinhAnhViPham")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsCaNhanViPhamKhac")
                         .HasColumnType("bit");
 
@@ -744,6 +727,50 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("HoSoXuLyViPham");
+                });
+
+            modelBuilder.Entity("CatalogService.Domain.Entities.HoSoXuLyViPham_VanBanGiaiQuyet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("HoSoXuLyViPhamId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    b.Property<DateTime?>("NgayCapNhatCuoi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayNhap")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("NguoiCapNhatCuoi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NguoiTao")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SoQuyetDinh")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VanBanGiaiQuyetId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("HoSoXuLyViPhamId", "VanBanGiaiQuyetId")
+                        .HasName("AlternateKey_HoSoXuLyViPham_VanBanGiaiQuyet");
+
+                    b.HasIndex("VanBanGiaiQuyetId");
+
+                    b.ToTable("HoSoXuLyViPham_VanBanGiaiQuyet", (string)null);
                 });
 
             modelBuilder.Entity("CatalogService.Domain.Entities.KetQuaXuPhatHanhChinh", b =>
@@ -1571,25 +1598,6 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                     b.Navigation("HoSoXuLyViPham");
                 });
 
-            modelBuilder.Entity("CatalogService.Domain.Entities.HSXLVP_VanBanGiaiQuyet", b =>
-                {
-                    b.HasOne("CatalogService.Domain.Entities.HoSoXuLyViPham", "HoSoXuLyViPham")
-                        .WithMany("HSXLVP_VanBanGiaiQuyets")
-                        .HasForeignKey("HoSoXuLyViPhamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CatalogService.Domain.Entities.VanBanGiaiQuyet", "VanBanGiaiQuyet")
-                        .WithMany("HSXLVP_VanBanGiaiQuyets")
-                        .HasForeignKey("VanBanGiaiQuyetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("HoSoXuLyViPham");
-
-                    b.Navigation("VanBanGiaiQuyet");
-                });
-
             modelBuilder.Entity("CatalogService.Domain.Entities.HanhViViPham", b =>
                 {
                     b.HasOne("CatalogService.Domain.Entities.ChiTietHSXLVPVVBGQ", null)
@@ -1607,6 +1615,25 @@ namespace CatalogService.Infrastructure.Persistence.Migrations
                         .HasForeignKey("QuyetDinhXuPhatId");
 
                     b.Navigation("DieuKhoanXuPhat");
+                });
+
+            modelBuilder.Entity("CatalogService.Domain.Entities.HoSoXuLyViPham_VanBanGiaiQuyet", b =>
+                {
+                    b.HasOne("CatalogService.Domain.Entities.HoSoXuLyViPham", "HoSoXuLyViPham")
+                        .WithMany("HSXLVP_VanBanGiaiQuyets")
+                        .HasForeignKey("HoSoXuLyViPhamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CatalogService.Domain.Entities.VanBanGiaiQuyet", "VanBanGiaiQuyet")
+                        .WithMany("HSXLVP_VanBanGiaiQuyets")
+                        .HasForeignKey("VanBanGiaiQuyetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("HoSoXuLyViPham");
+
+                    b.Navigation("VanBanGiaiQuyet");
                 });
 
             modelBuilder.Entity("CatalogService.Domain.Entities.QuanHuyen", b =>

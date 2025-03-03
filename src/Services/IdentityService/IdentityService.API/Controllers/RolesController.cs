@@ -25,7 +25,7 @@ namespace IdentityService.API.Controllers
         // /api/Roles
         [HttpGet("Roles")]
         [Authorize(Permissions.Users.SuperAdminView)]
-        //[Authorize(AuthenticationSchemes = "Bearer",/* Policy = "SuperAdmin",*/ Roles = "SuperAdmin,Admin,")]
+        [Authorize(AuthenticationSchemes = "Bearer",/* Policy = "SuperAdmin",*/ Roles = "SuperAdmin,Admin,")]
         public async Task<IActionResult> Index()
         {
             var roles = await _roleManager.Roles.ToListAsync();

@@ -26,11 +26,11 @@ public class CreateChiTietHSXLVPVVBGQCommandHandler : IRequestHandler<CreateChiT
     {
         _logger.Information($"BEGIN: {MethodName}");
 
-        var cqbh = _mapper.Map<ChiTietHSXLVPVVBGQ>(request);
-        await _repository.CreateChiTietHSXLVPVVBGQ(cqbh);
+        var chiTietHSXLVPVVBGQ = _mapper.Map<ChiTietHSXLVPVVBGQ>(request);
+        await _repository.CreateChiTietHSXLVPVVBGQ(chiTietHSXLVPVVBGQ);
 
         _logger.Information($"END: {MethodName}");
 
-        return new ApiSuccessResult<ChiTietHSXLVPVVBGQDto>(_mapper.Map<ChiTietHSXLVPVVBGQDto>(cqbh));
+        return new ApiSuccessResult<ChiTietHSXLVPVVBGQDto>(_mapper.Map<ChiTietHSXLVPVVBGQDto>(chiTietHSXLVPVVBGQ));
     }
 }

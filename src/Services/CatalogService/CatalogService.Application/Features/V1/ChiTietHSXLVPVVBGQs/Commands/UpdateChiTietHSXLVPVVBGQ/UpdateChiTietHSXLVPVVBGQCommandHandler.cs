@@ -26,16 +26,16 @@ public class UpdateChiTietHSXLVPVVBGQCommandHandler : IRequestHandler<UpdateChiT
     {
         _logger.Information($"BEGIN: {MethodName}");
 
-        var cqbh = _mapper.Map<ChiTietHSXLVPVVBGQ>(request);
-        var existCQBH = await _repository.CheckExistChiTietHSXLVPVVBGQ(request.Id);
-        if (!existCQBH)
+        var chiTietHSXLVPVVBGQ = _mapper.Map<ChiTietHSXLVPVVBGQ>(request);
+        var existChiTietHSXLVPVVBGQ = await _repository.CheckExistChiTietHSXLVPVVBGQ(request.Id);
+        if (!existChiTietHSXLVPVVBGQ)
         {
             return new ApiErrorResult<ChiTietHSXLVPVVBGQDto>("Chi tiet HSXLVPVVBGQ not exists.");
         }
-        await _repository.UpdateChiTietHSXLVPVVBGQ(cqbh);
+        await _repository.UpdateChiTietHSXLVPVVBGQ(chiTietHSXLVPVVBGQ);
 
         _logger.Information($"END: {MethodName}");
 
-        return new ApiSuccessResult<ChiTietHSXLVPVVBGQDto>(_mapper.Map<ChiTietHSXLVPVVBGQDto>(cqbh));
+        return new ApiSuccessResult<ChiTietHSXLVPVVBGQDto>(_mapper.Map<ChiTietHSXLVPVVBGQDto>(chiTietHSXLVPVVBGQ));
     }
 }

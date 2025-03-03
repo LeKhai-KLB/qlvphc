@@ -43,7 +43,7 @@ public class DieuKhoanBoSungKhacPhucController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetAllDieuKhoanBoSungKhacPhucs)]
     [ProducesResponseType(typeof(IEnumerable<DieuKhoanBoSungKhacPhucDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.DieuKhoanBoSungKhacPhucs.View)]
+    [Authorize(Permissions.DieuKhoanBoSungKhacPhucs.View)]
     public async Task<ActionResult<IEnumerable<DieuKhoanBoSungKhacPhucDto>>> GetAllDieuKhoanBoSungKhacPhucs([FromBody] DieuKhoanBoSungKhacPhucDropDownParameter request)
     {
         var query = new GetAllDieuKhoanBoSungKhacPhucsQuery(request);

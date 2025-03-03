@@ -22,11 +22,11 @@ public class DeleteChiTietHSXLVPVVBGQCommandHandler : IRequestHandler<DeleteChiT
     {
         _logger.Information($"BEGIN: {MethodName}");
 
-        var cqbh = await _repository.GetByIdAsync(request.Id);
+        var chiTietHSXLVPVVBGQ = await _repository.GetByIdAsync(request.Id);
 
-        if (cqbh == null) throw new NotFoundException(nameof(ChiTietHSXLVPVVBGQ), request.Id);
+        if (chiTietHSXLVPVVBGQ == null) throw new NotFoundException(nameof(ChiTietHSXLVPVVBGQ), request.Id);
 
-        await _repository.DeleteChiTietHSXLVPVVBGQ(cqbh);
+        await _repository.DeleteChiTietHSXLVPVVBGQ(chiTietHSXLVPVVBGQ);
 
         _logger.Information($"END: {MethodName}");
 

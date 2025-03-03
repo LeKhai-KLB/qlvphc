@@ -2,6 +2,7 @@
 using CatalogService.Application.Common.Mappings;
 using CatalogService.Domain.Constants;
 using CatalogService.Domain.Entities;
+using Newtonsoft.Json;
 
 namespace CatalogService.Application.Common.Models.HoSoXuLyViPhams;
 
@@ -21,6 +22,8 @@ public class HoSoXuLyViPhamDto : IMapFrom<HoSoXuLyViPham>
 
     public string? ThongTinKhac { get; set; }
 
+    public List<string>? HinhAnhViPhams { get; set; }
+
     public TrangThaiHoSoViPham TrangThaiHoSoViPham { get; set; }
 
     public TinhTietViPham TinhTietViPham { get; set; }
@@ -29,8 +32,12 @@ public class HoSoXuLyViPhamDto : IMapFrom<HoSoXuLyViPham>
 
     public List<string> HanhViViPhams { get; set; }
 
+    public List<int> VanBanGiaiQuyetIds { get; set; }
+
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<HoSoXuLyViPham, HoSoXuLyViPhamDto>().ReverseMap();
+        profile.CreateMap<HoSoXuLyViPham, HoSoXuLyViPhamDto>()
+            .ForMember(dest => dest.HinhAnhViPhams, opt => opt.MapFrom(src => !string.IsNullOrEmpty(src.HinhAnhViPham)
+                                                                        ? JsonConvert.DeserializeObject<List<string>>(src.HinhAnhViPham) : null));
     }
 }

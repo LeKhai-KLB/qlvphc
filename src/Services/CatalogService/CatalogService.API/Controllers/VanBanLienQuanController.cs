@@ -18,7 +18,7 @@ namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-//[Authorize(AuthenticationSchemes = "Bearer")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class VanBanLienQuanController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -41,7 +41,7 @@ public class VanBanLienQuanController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedByVanBanPhapLuatId)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<VanBanLienQuanDto>>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.VanBanLienQuans.View)]
+    [Authorize(Permissions.VanBanLienQuans.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<VanBanLienQuanDto>>>> GetPagedByVanBanPhapLuatId([FromBody] VanBanLienQuanParameter request)
     {
         var query = new GetPagedByVanBanPhapLuatIdQuery(request);
@@ -52,7 +52,7 @@ public class VanBanLienQuanController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetVanBanLienQuanById)]
     [ProducesResponseType(typeof(VanBanLienQuanDto), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.VanBanLienQuans.ViewById)]
+    [Authorize(Permissions.VanBanLienQuans.ViewById)]
     public async Task<ActionResult<VanBanLienQuanDto>> GetVanBanLienQuanById([FromQuery] int id)
     {
         var query = new GetVanBanLienQuanByIdQuery(id);
@@ -62,7 +62,7 @@ public class VanBanLienQuanController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateVanBanLienQuan)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.VanBanLienQuans.Create)]
+    [Authorize(Permissions.VanBanLienQuans.Create)]
     public async Task<ActionResult<ApiResult<VanBanLienQuanDto>>> CreateVanBanLienQuan([FromBody] CreateVanBanLienQuanDto model)
     {
         var command = _mapper.Map<CreateVanBanLienQuanCommand>(model);
@@ -72,7 +72,7 @@ public class VanBanLienQuanController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateVanBanLienQuan)]
     [ProducesResponseType(typeof(ApiResult<VanBanLienQuanDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.VanBanLienQuans.Edit)]
+    [Authorize(Permissions.VanBanLienQuans.Edit)]
     public async Task<ActionResult<ApiResult<VanBanLienQuanDto>>> UpdateVanBanLienQuan([Required] int id, [FromBody] UpdateVanBanLienQuanCommand command)
     {
         command.SetId(id);
@@ -81,7 +81,7 @@ public class VanBanLienQuanController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteVanBanLienQuan)]
-    //[Authorize(Permissions.VanBanLienQuans.Delete)]
+    [Authorize(Permissions.VanBanLienQuans.Delete)]
     public async Task<ActionResult<bool>> DeleteVanBanLienQuan([Required] int id)
     {
         var command = new DeleteVanBanLienQuanCommand(id);

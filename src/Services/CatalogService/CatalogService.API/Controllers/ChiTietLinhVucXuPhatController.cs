@@ -17,7 +17,7 @@ namespace CatalogService.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-//[Authorize(AuthenticationSchemes = "Bearer")]
+[Authorize(AuthenticationSchemes = "Bearer")]
 public class ChiTietLinhVucXuPhatController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -40,7 +40,7 @@ public class ChiTietLinhVucXuPhatController : ControllerBase
 
     [HttpPost("paging", Name = RouteNames.GetPagedByLinhVucXuPhatId)]
     [ProducesResponseType(typeof(PagedResponse<IEnumerable<ChiTietLinhVucXuPhatDto>>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.ChiTietLinhVucXuPhats.View)]
+    [Authorize(Permissions.ChiTietLinhVucXuPhats.View)]
     public async Task<ActionResult<PagedResponse<IEnumerable<ChiTietLinhVucXuPhatDto>>>> GetPagedByLinhVucXuPhatId([FromBody] ChiTietLinhVucXuPhatParameter request)
     {
         var query = new GetPagedByLinhVucXuPhatIdQuery(request);
@@ -51,7 +51,7 @@ public class ChiTietLinhVucXuPhatController : ControllerBase
     [HttpGet]
     [Route(RouteNames.GetChiTietLinhVucXuPhatById)]
     [ProducesResponseType(typeof(ChiTietLinhVucXuPhatDto), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.ChiTietLinhVucXuPhats.ViewById)]
+    [Authorize(Permissions.ChiTietLinhVucXuPhats.ViewById)]
     public async Task<ActionResult<ChiTietLinhVucXuPhatDto>> GetChiTietLinhVucXuPhatById([FromQuery] int id)
     {
         var query = new GetChiTietLinhVucXuPhatByIdQuery(id);
@@ -61,7 +61,7 @@ public class ChiTietLinhVucXuPhatController : ControllerBase
 
     [HttpPost(Name = RouteNames.CreateChiTietLinhVucXuPhat)]
     [ProducesResponseType(typeof(ApiResult<int>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.ChiTietLinhVucXuPhats.Create)]
+    [Authorize(Permissions.ChiTietLinhVucXuPhats.Create)]
     public async Task<ActionResult<ApiResult<ChiTietLinhVucXuPhatDto>>> CreateChiTietLinhVucXuPhat([FromBody] CreateChiTietLinhVucXuPhatDto model)
     {
         var command = _mapper.Map<CreateChiTietLinhVucXuPhatCommand>(model);
@@ -71,7 +71,7 @@ public class ChiTietLinhVucXuPhatController : ControllerBase
 
     [HttpPut("{id:int}", Name = RouteNames.UpdateChiTietLinhVucXuPhat)]
     [ProducesResponseType(typeof(ApiResult<ChiTietLinhVucXuPhatDto>), (int)HttpStatusCode.OK)]
-    //[Authorize(Permissions.ChiTietLinhVucXuPhats.Edit)]
+    [Authorize(Permissions.ChiTietLinhVucXuPhats.Edit)]
     public async Task<ActionResult<ApiResult<ChiTietLinhVucXuPhatDto>>> UpdateChiTietLinhVucXuPhat([Required] int id, [FromBody] UpdateChiTietLinhVucXuPhatCommand command)
     {
         command.SetId(id);
@@ -80,7 +80,7 @@ public class ChiTietLinhVucXuPhatController : ControllerBase
     }
 
     [HttpDelete("{id:int}", Name = RouteNames.DeleteChiTietLinhVucXuPhat)]
-    //[Authorize(Permissions.ChiTietLinhVucXuPhats.Delete)]
+    [Authorize(Permissions.ChiTietLinhVucXuPhats.Delete)]
     public async Task<ActionResult<bool>> DeleteChiTietLinhVucXuPhat([Required] int id)
     {
         var command = new DeleteChiTietLinhVucXuPhatCommand(id);
